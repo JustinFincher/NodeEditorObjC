@@ -10,10 +10,11 @@
 #import "NodeData.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class NodeGraphView;
 @interface NodeView : UIView
 
 #pragma mark - Views
+@property (nonatomic,weak) NodeGraphView *nodeGraphView;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIVisualEffectView *backgroundVibrancyEffectView;
 @property (nonatomic,strong) UIVisualEffectView *backgroundBlurEffectView;

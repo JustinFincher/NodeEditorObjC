@@ -34,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadData;
 @property (nonatomic, weak) id <NodeGraphViewDataSource> dataSource;
 @property (nonatomic, weak) id <NodeGraphViewVisualDelegate> visualDelegate;
+@property (nonatomic,strong) UIDynamicAnimator *dynamicAnimator;
+@property (nonatomic,strong) UIDynamicItemBehavior *dynamicItemBehavior;
+- (void)addDynamicBehavior:(UIDynamicBehavior *)behavior;
+- (void)removeDynamicBehavior:(UIDynamicBehavior *)behavior;
 
 @end
 
