@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TXi-Rx-Dc9">
+    <device id="ipad11_0rounded" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Node Graph Editor Navigation Controller-->
+        <scene sceneID="asV-2h-8lG">
+            <objects>
+                <navigationController id="TXi-Rx-Dc9" customClass="NodeGraphEditorNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vq0-7a-C68">
+                        <rect key="frame" x="0.0" y="24" width="1194" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="bnS-Xf-xpE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sxM-mM-2Kw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-831" y="-427"/>
+        </scene>
+        <!--Node Graph Editor View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="NodeGraphEditorViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zL-ua-lr6" customClass="NodeGraphView">
+                                <rect key="frame" x="0.0" y="74" width="1194" height="760"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="8zL-ua-lr6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6XM-LB-ojK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8zL-ua-lr6" secondAttribute="trailing" id="8cQ-bJ-oTl"/>
+                            <constraint firstItem="8zL-ua-lr6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pz0-Xf-Lgu"/>
+                            <constraint firstAttribute="bottom" secondItem="8zL-ua-lr6" secondAttribute="bottom" id="vb3-We-5UD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hXH-Km-zMD"/>
+                    <connections>
+                        <outlet property="nodeGraphView" destination="8zL-ua-lr6" id="bqK-fq-I5b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-90" y="-427"/>
+        </scene>
+    </scenes>
+</document>

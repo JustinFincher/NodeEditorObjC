@@ -1,0 +1,26 @@
+//
+//  NodeView.h
+//  NodeEditorObjC
+//
+//  Created by Justin Fincher on 5/3/2019.
+//  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "NodeData.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NodeView : UIView
+
+#pragma mark - Views
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIVisualEffectView *backgroundVibrancyEffectView;
+@property (nonatomic,strong) UIVisualEffectView *backgroundBlurEffectView;
+
+#pragma mark - Data
+@property (nonatomic,weak) NodeData *nodeData;
+
+@end
+
+NS_ASSUME_NONNULL_END
