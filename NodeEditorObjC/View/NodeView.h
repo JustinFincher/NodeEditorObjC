@@ -18,7 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIVisualEffectView *backgroundVibrancyEffectView;
 @property (nonatomic,strong) UIVisualEffectView *backgroundBlurEffectView;
-
+#pragma mark - Gestures
+@property (nonatomic,strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic,strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic,strong) UIPanGestureRecognizer *panGestureRecognizer;
 #pragma mark - Data
 @property (nonatomic,weak) NodeData *nodeData;
 

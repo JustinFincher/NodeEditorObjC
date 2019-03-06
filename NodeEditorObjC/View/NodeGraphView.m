@@ -7,6 +7,7 @@
 //
 
 #import "NodeGraphView.h"
+#import "NodeGraphScrollView.h"
 
 @interface NodeGraphView()
 @end
@@ -75,6 +76,10 @@
         [self addSubview:nodeView];
         nodeView.nodeGraphView = self;
         nodeView.frame = [self.visualDelegate nodeGraphView:self frameForIndex:i];
+        [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
+        [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
+        [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
+        [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
         
         [self.dynamicItemBehavior addItem:nodeView];
     }

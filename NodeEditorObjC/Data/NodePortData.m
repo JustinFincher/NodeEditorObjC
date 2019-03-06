@@ -15,7 +15,7 @@
     self = [super init];
     if (self)
     {
-        self.portName = @"Port PlaceHolder";
+        self.portName = @"Port Title";
         self.connections = [NSMutableSet set];
         self.requiredType = [NSObject class];
     }

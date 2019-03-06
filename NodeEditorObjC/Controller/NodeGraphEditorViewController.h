@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "NodeGraphView.h"
 #import "NodeGraphData.h"
+#import "NodeGraphScrollView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NodeGraphEditorViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet NodeGraphView *nodeGraphView;
+@property (weak, nonatomic) IBOutlet NodeGraphScrollView *nodeGraphScrollView;
 @property (strong,nonatomic) NodeGraphData *nodeGraphData;
 
 @end

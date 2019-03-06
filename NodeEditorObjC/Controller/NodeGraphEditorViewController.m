@@ -8,6 +8,7 @@
 
 #import "NodeGraphEditorViewController.h"
 
+
 @interface NodeGraphEditorViewController ()<NodeGraphViewDataSource,NodeGraphViewVisualDelegate>
 
 @end
@@ -22,10 +23,8 @@
     self.title = @"Node Editor";
     
     self.nodeGraphData = [[NodeGraphData alloc] init];
-    self.nodeGraphView.dataSource = self;
-    self.nodeGraphView.visualDelegate = self;
-    
-    
+    self.nodeGraphScrollView.nodeGraphView.dataSource = self;
+    self.nodeGraphScrollView.nodeGraphView.visualDelegate = self;
     
     // Test
     NodeData *initalNodeData = [[NodeData alloc] init];
@@ -33,7 +32,7 @@
     NodeData *inital2NodeData = [[NodeData alloc] init];
     [self.nodeGraphData addNode:inital2NodeData];
     
-    [self.nodeGraphView reloadData];
+    [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
 
 #pragma mark - NodeGraphViewDataSource

@@ -34,23 +34,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zL-ua-lr6" customClass="NodeGraphView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.20000000000000001" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="MQU-B0-M51" customClass="NodeGraphScrollView">
                                 <rect key="frame" x="0.0" y="74" width="1194" height="760"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            </view>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="8zL-ua-lr6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6XM-LB-ojK"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8zL-ua-lr6" secondAttribute="trailing" id="8cQ-bJ-oTl"/>
-                            <constraint firstItem="8zL-ua-lr6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pz0-Xf-Lgu"/>
-                            <constraint firstAttribute="bottom" secondItem="8zL-ua-lr6" secondAttribute="bottom" id="vb3-We-5UD"/>
+                            <constraint firstAttribute="bottom" secondItem="MQU-B0-M51" secondAttribute="bottom" id="NZ4-Zk-2p3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MQU-B0-M51" secondAttribute="trailing" id="Q3h-dH-3Eo"/>
+                            <constraint firstItem="MQU-B0-M51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WFu-Se-LKp"/>
+                            <constraint firstItem="MQU-B0-M51" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="whR-Bc-IJa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="hXH-Km-zMD"/>
                     <connections>
-                        <outlet property="nodeGraphView" destination="8zL-ua-lr6" id="bqK-fq-I5b"/>
+                        <outlet property="nodeGraphScrollView" destination="MQU-B0-M51" id="pMJ-h8-byo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

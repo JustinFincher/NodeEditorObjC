@@ -11,11 +11,8 @@
 
 @interface NodeView()<UIGestureRecognizerDelegate>
 
-@property (nonatomic,strong) UITapGestureRecognizer *tapGestureRecognizer;
-@property (nonatomic,strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
-@property (nonatomic,strong) UIPanGestureRecognizer *panGestureRecognizer;
-@property (nonatomic,strong) UIViewPropertyAnimator *scaleAnimator;
 
+@property (nonatomic,strong) UIViewPropertyAnimator *scaleAnimator;
 @property (nonatomic,strong) UIAttachmentBehavior *attachmentBehavior;
 @property (nonatomic,strong) UIPushBehavior *pushBehavior;
 
@@ -53,7 +50,7 @@
     self.backgroundBlurEffectView.effect = blurEffect;
     self.backgroundBlurEffectView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.50];
     self.backgroundBlurEffectView.layer.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.4f].CGColor;
-    self.backgroundBlurEffectView.layer.borderWidth = 1;
+    self.backgroundBlurEffectView.layer.borderWidth = 0.5;
     self.backgroundBlurEffectView.layer.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f].CGColor;
     self.backgroundBlurEffectView.layer.shadowOffset = CGSizeZero;
     self.backgroundBlurEffectView.layer.shadowOpacity = 1.0;

@@ -29,9 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@class NodeGraphScrollView;
 @interface NodeGraphView : UIView
 
 - (void)reloadData;
+@property (nonatomic, weak) NodeGraphScrollView *parentScrollView;
 @property (nonatomic, weak) id <NodeGraphViewDataSource> dataSource;
 @property (nonatomic, weak) id <NodeGraphViewVisualDelegate> visualDelegate;
 @property (nonatomic,strong) UIDynamicAnimator *dynamicAnimator;

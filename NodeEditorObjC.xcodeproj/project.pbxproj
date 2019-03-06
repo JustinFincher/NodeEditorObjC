@@ -13,6 +13,7 @@
 		0D0DBEC9222E685800A79415 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D0DBEC7222E685800A79415 /* LaunchScreen.storyboard */; };
 		0D0DBECC222E685800A79415 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DBECB222E685800A79415 /* main.m */; };
 		0D0DBED4222E694E00A79415 /* NodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0DBED3222E694E00A79415 /* NodeData.m */; };
+		0D285242222F78D200830E72 /* NodeGraphScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D285241222F78D200830E72 /* NodeGraphScrollView.m */; };
 		0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D53222E6A4D00DC62DD /* NodeGraphData.m */; };
 		0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D56222E6A5700DC62DD /* NodePortData.m */; };
 		0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D5A222E6B1600DC62DD /* NodeGraphView.m */; };
@@ -33,6 +34,8 @@
 		0D0DBECB222E685800A79415 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0D0DBED2222E694E00A79415 /* NodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeData.h; sourceTree = "<group>"; };
 		0D0DBED3222E694E00A79415 /* NodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeData.m; sourceTree = "<group>"; };
+		0D285240222F78D200830E72 /* NodeGraphScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphScrollView.h; sourceTree = "<group>"; };
+		0D285241222F78D200830E72 /* NodeGraphScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphScrollView.m; sourceTree = "<group>"; };
 		0D835D52222E6A4D00DC62DD /* NodeGraphData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphData.h; sourceTree = "<group>"; };
 		0D835D53222E6A4D00DC62DD /* NodeGraphData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphData.m; sourceTree = "<group>"; };
 		0D835D55222E6A5700DC62DD /* NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodePortData.h; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 		0D835D5C222E6B1D00DC62DD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0D285240222F78D200830E72 /* NodeGraphScrollView.h */,
+				0D285241222F78D200830E72 /* NodeGraphScrollView.m */,
 				0D835D59222E6B1600DC62DD /* NodeGraphView.h */,
 				0D835D5A222E6B1600DC62DD /* NodeGraphView.m */,
 				0DC9F9EA222E74CC001B55C8 /* NodeView.h */,
@@ -203,6 +208,7 @@
 				0D0DBED4222E694E00A79415 /* NodeData.m in Sources */,
 				0D835D5F222E6B9100DC62DD /* NodeGraphEditorViewController.m in Sources */,
 				0D0DBECC222E685800A79415 /* main.m in Sources */,
+				0D285242222F78D200830E72 /* NodeGraphScrollView.m in Sources */,
 				0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */,
 				0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */,
 				0DC9F9EF222E7DA2001B55C8 /* NodeConnectionData.m in Sources */,
