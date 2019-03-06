@@ -14,20 +14,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class NodeGraphView;
+@class NodeGraphConnectionView;
 @protocol NodeGraphViewDataSource <NSObject>
 
-- (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSUInteger)index;
+- (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSString *)index;
 - (NSUInteger)nodeCountInGraphView:(NodeGraphView *)graphView;
 
 @optional
 
-- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSUInteger)index;
+- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSString *)index;
 
 @end
 
 @protocol NodeGraphViewVisualDelegate <NSObject>
 
-- (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSUInteger)index;
+- (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSString *)index;
 
 @end
 
@@ -41,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UIDynamicAnimator *dynamicAnimator;
 @property (nonatomic,strong) UIDynamicItemBehavior *dynamicItemBehavior;
 @property (nonatomic,strong) UICollisionBehavior *collisionBehavior;
+@property (nonatomic,strong) UIView *nodeContainerView;
+@property (nonatomic,strong) NodeGraphConnectionView *nodeConnectionLineView;
 - (void)addDynamicBehavior:(UIDynamicBehavior *)behavior;
 - (void)removeDynamicBehavior:(UIDynamicBehavior *)behavior;
 

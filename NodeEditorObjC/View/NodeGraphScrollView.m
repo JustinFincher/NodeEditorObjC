@@ -41,7 +41,7 @@
     self.maximumZoomScale = 1;
     self.minimumZoomScale = 0.2;
     self.delegate = self;
-    self.nodeGraphView = [[NodeGraphView alloc] initWithFrame:CGRectMake(0, 0, 6000,6000)];
+    self.nodeGraphView = [[NodeGraphView alloc] initWithFrame:CGRectMake(0, 0, 2000,2000)];
     self.nodeGraphView.parentScrollView = self;
     [self addSubview:self.nodeGraphView];
     self.contentSize = self.nodeGraphView.frame.size;

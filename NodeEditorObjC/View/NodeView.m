@@ -9,7 +9,8 @@
 #import "NodeView.h"
 #import "NodeGraphView.h"
 #import "NodeData.h"
-
+#import "NodePortView.h"
+#import "NodeGraphConnectionView.h"
 @interface NodeView()<UIGestureRecognizerDelegate>
 
 
@@ -19,6 +20,8 @@
 
 @property (nonatomic,strong) UIView *inPortsView;
 @property (nonatomic,strong) UIView *outPortsView;
+
+
 @end
 
 @implementation NodeView
@@ -77,6 +80,8 @@
     self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     self.longPressGestureRecognizer.delegate = self;
     [self addGestureRecognizer:self.longPressGestureRecognizer];
+    
+    self.ports = [NSMutableOrderedSet orderedSet];
 
 }
 
@@ -88,11 +93,11 @@
 #pragma mark - Gesture Handler
 - (void)handleTap:(UITapGestureRecognizer *)recognizer
 {
-    [self.nodeGraphView bringSubviewToFront:self];
+    [self.nodeGraphView.nodeContainerView bringSubviewToFront:self];
     __weak __typeof(self) weakSelf = self;
     [self.nodeGraphView removeDynamicBehavior:self.pushBehavior];
     [self.scaleAnimator stopAnimation:YES];
-    self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:0.5 animations:^(void)
+    self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                           {
                               self.transform = CGAffineTransformMakeScale(1.1, 1.1);
                               self.backgroundBlurEffectView.layer.shadowRadius = 36;
@@ -110,13 +115,13 @@
 - (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer
 {
     //NSLog(@"LONG PRESS STATE = %ld",(long)recognizer.state);
-    [self.nodeGraphView bringSubviewToFront:self];
+    [self.nodeGraphView.nodeContainerView bringSubviewToFront:self];
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
         {
             [self.nodeGraphView removeDynamicBehavior:self.pushBehavior];
             [self.scaleAnimator stopAnimation:YES];
-            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:0.5 animations:^(void)
+            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.1, 1.1);
                                       self.backgroundBlurEffectView.layer.shadowRadius = 36;
@@ -128,7 +133,7 @@
         case UIGestureRecognizerStateEnded:
         {
             [self.scaleAnimator stopAnimation:YES];
-            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:0.5 animations:^(void)
+            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.0, 1.0);
                                       self.backgroundBlurEffectView.layer.shadowRadius = 18;
@@ -144,18 +149,16 @@
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
 {
     //NSLog(@"PAN STATE = %ld",recognizer.state);
-    [self.nodeGraphView bringSubviewToFront:self];
+    [self.nodeGraphView.nodeContainerView bringSubviewToFront:self];
     __weak __typeof(self) weakSelf = self;
-    CGPoint velocity = [recognizer velocityInView:self.nodeGraphView];
-//    CGPoint translation = [recognizer translationInView:self.nodeGraphView];
-//    CGPoint location = [recognizer locationInView:self.nodeGraphView];
+    CGPoint velocity = [recognizer velocityInView:self.nodeGraphView.nodeContainerView];
     CGPoint locationInSelf = [recognizer locationInView:self];
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
         {
             [self.nodeGraphView removeDynamicBehavior:self.pushBehavior];
             [self.scaleAnimator stopAnimation:YES];
-            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:0.5 animations:^(void)
+            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.1, 1.1);
                                       self.backgroundBlurEffectView.layer.shadowRadius = 36;
@@ -171,10 +174,13 @@
             [self.nodeGraphView removeDynamicBehavior:self.attachmentBehavior];
 //            self.attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:self attachedToAnchor:[recognizer locationInView:self.nodeGraphView]];
             //NSLog(@"LOCATION %f,%f  BOUNDSSIZE %f,%f",locationInSelf.x,locationInSelf.y,self.bounds.size.width,self.bounds.size.height);
-            self.attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:self offsetFromCenter:UIOffsetMake(locationInSelf.x - self.bounds.size.width / 2.0f, locationInSelf.y - self.bounds.size.height / 2.0f) attachedToAnchor:[recognizer locationInView:self.nodeGraphView]];
+            self.attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:self offsetFromCenter:UIOffsetMake(locationInSelf.x - self.bounds.size.width / 2.0f, locationInSelf.y - self.bounds.size.height / 2.0f) attachedToAnchor:[recognizer locationInView:self.nodeGraphView.nodeContainerView]];
             self.attachmentBehavior.action = ^
             {
                 CGAffineTransform currentTransform = weakSelf.transform;
+                weakSelf.nodeData.coordinate = weakSelf.frame.origin;
+                weakSelf.nodeData.size = weakSelf.frame.size;
+                [weakSelf.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
                 weakSelf.transform = CGAffineTransformScale(currentTransform, 1.1, 1.1);
             };
             [self.nodeGraphView addDynamicBehavior:self.attachmentBehavior];
@@ -182,14 +188,14 @@
             break;
         case UIGestureRecognizerStateChanged:
         {
-            self.attachmentBehavior.anchorPoint = [recognizer locationInView:self.nodeGraphView];
+            self.attachmentBehavior.anchorPoint = [recognizer locationInView:self.nodeGraphView.nodeContainerView];
         }
             break;
         case UIGestureRecognizerStateEnded:
         {
             [self.scaleAnimator stopAnimation:YES];
             [self.nodeGraphView removeDynamicBehavior:self.attachmentBehavior];
-            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:0.5 animations:^(void)
+            self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.0, 1.0);
                                       self.backgroundBlurEffectView.layer.shadowRadius = 18;
@@ -199,8 +205,14 @@
             [self.scaleAnimator startAnimation];
             
             self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self] mode:UIPushBehaviorModeInstantaneous];
+            self.pushBehavior.action = ^
+            {
+                weakSelf.nodeData.coordinate = weakSelf.frame.origin;
+                weakSelf.nodeData.size = weakSelf.frame.size;
+                [weakSelf.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
+            };
             float mang = hypot(velocity.x,velocity.y);
-            NSLog(@"%f",mang);
+//            NSLog(@"%f",mang);
             if (mang > 100)
             {
                 self.pushBehavior.pushDirection = CGVectorMake(velocity.x / 4 / powf(mang, 0.5), velocity.y / 4 / powf(mang, 0.5));
@@ -227,36 +239,38 @@
    
     [self.inPortsView removeFromSuperview];
     [self.outPortsView removeFromSuperview];
+    
     CGRect inRect = CGRectZero;
     CGRect outRect = CGRectZero;
-    NSMutableArray<NodePortData *> * templateInPorts = [[self.nodeData class] templateInPorts];
-    NSMutableArray<NodePortData *> * templateOutPorts = [[self.nodeData class] templateOutPorts];
+    NSMutableArray<NodePortData *> * inPorts = [self.nodeData inPorts];
+    NSMutableArray<NodePortData *> * outPorts = [self.nodeData outPorts];
     
-    if (templateInPorts.count != 0 && templateOutPorts.count == 0)
+    if (inPorts.count != 0 && outPorts.count == 0)
     {
         inRect = CGRectMake(8,
                             NODE_TITLE_HEIGHT + 8,
                             self.backgroundBlurEffectView.contentView.frame.size.width - 16,
-                            templateInPorts.count * NODE_PORT_HEIGHT);
+                            inPorts.count * NODE_PORT_HEIGHT);
     }
-    else if (templateInPorts.count == 0 && templateOutPorts.count != 0)
+    else if (inPorts.count == 0 && outPorts.count != 0)
     {
         outRect = CGRectMake(8,
                             NODE_TITLE_HEIGHT + 8,
                             self.backgroundBlurEffectView.contentView.frame.size.width - 16,
-                            templateOutPorts.count * NODE_PORT_HEIGHT);
+                            outPorts.count * NODE_PORT_HEIGHT);
     }
-    else if (templateInPorts.count != 0 && templateOutPorts.count != 0)
+    else if (inPorts.count != 0 && outPorts.count != 0)
     {
         inRect = CGRectMake(8,
                             NODE_TITLE_HEIGHT + 8,
                             self.backgroundBlurEffectView.contentView.frame.size.width / 2 - 12,
-                            templateInPorts.count * NODE_PORT_HEIGHT);
+                            inPorts.count * NODE_PORT_HEIGHT);
         outRect = CGRectMake(self.backgroundBlurEffectView.contentView.frame.size.width / 2 + 4,
                              NODE_TITLE_HEIGHT + 8,
                              self.backgroundBlurEffectView.contentView.frame.size.width / 2 - 12,
-                             templateOutPorts.count * NODE_PORT_HEIGHT);
+                             outPorts.count * NODE_PORT_HEIGHT);
     }
+    
     if (inRect.size.height != 0 && inRect.size.width != 0)
     {
         self.inPortsView = [[UIView alloc] initWithFrame:inRect];
@@ -266,14 +280,11 @@
         self.inPortsView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
         [self.backgroundBlurEffectView.contentView addSubview:self.inPortsView];
         
-        for (int i = 0; i < templateInPorts.count; i ++ )
+        for (int i = 0; i < inPorts.count; i ++ )
         {
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.inPortsView.frame.size.width, NODE_PORT_HEIGHT)];
-            label.text = [[templateInPorts objectAtIndex:i] title];
-            label.font = [UIFont fontWithName:@"Avenir-Black" size:10];
-            label.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.8];
-            label.textAlignment = NSTextAlignmentLeft;
-            [self.inPortsView addSubview:label];
+            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.inPortsView.frame.size.width, NODE_PORT_HEIGHT) portData:[inPorts objectAtIndex:i] isOutPort:NO];
+            [self.inPortsView addSubview:nodePortView];
+            [self.ports addObject:nodePortView];
         }
     }
     if (outRect.size.height != 0 && outRect.size.width != 0)
@@ -285,14 +296,11 @@
         self.outPortsView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
         [self.backgroundBlurEffectView.contentView addSubview:self.outPortsView];
         
-        for (int i = 0; i < templateOutPorts.count; i ++ )
+        for (int i = 0; i < outPorts.count; i ++ )
         {
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.outPortsView.frame.size.width, NODE_PORT_HEIGHT)];
-            label.text = [[templateOutPorts objectAtIndex:i] title];
-            label.font = [UIFont fontWithName:@"Avenir-Black" size:10];
-            label.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.8];
-            label.textAlignment = NSTextAlignmentRight;
-            [self.outPortsView addSubview:label];
+            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.outPortsView.frame.size.width, NODE_PORT_HEIGHT) portData:[outPorts objectAtIndex:i] isOutPort:YES];
+            [self.outPortsView addSubview:nodePortView];
+            [self.ports addObject:nodePortView];
         }
     }
 }

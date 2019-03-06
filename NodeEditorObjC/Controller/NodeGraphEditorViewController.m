@@ -8,7 +8,7 @@
 
 #import "NodeGraphEditorViewController.h"
 #import "NodeListTableViewController.h"
-
+#import "Hackpad.h"
 
 @interface NodeGraphEditorViewController ()<NodeGraphViewDataSource,NodeGraphViewVisualDelegate>
 
@@ -29,12 +29,8 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAddButttonPressed:)];
     
-//    // Test
-//    NodeData *initalNodeData = [[NodeData alloc] init];
-//    [self.nodeGraphData addNode:initalNodeData];
-//    NodeData *inital2NodeData = [[NodeData alloc] init];
-//    [self.nodeGraphData addNode:inital2NodeData];
     
+    [[Hackpad sharedManager] testNodeOn:self];
     // Reload
     [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
@@ -67,7 +63,7 @@
 
 #pragma mark - NodeGraphViewDataSource
 
-- (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSUInteger)index
+- (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSString *)index
 {
     CGPoint coordinate = [[self.nodeGraphData getNodeWithIndex:index] coordinate];
     CGSize size = [[self.nodeGraphData getNodeWithIndex:index] size];
@@ -79,13 +75,13 @@
 {
     return [self.nodeGraphData getNodeTotalCount];
 }
-- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSUInteger)index
+- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSString *)index
 {
     return [self.nodeGraphData getNodeWithIndex:index];
 }
 #pragma mark - NodeGraphViewVisualDelegate
 
-- (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSUInteger)index
+- (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSString *)index
 {
     CGPoint coordinate = [[self.nodeGraphData getNodeWithIndex:index] coordinate];
     CGSize size = [[self.nodeGraphData getNodeWithIndex:index] size];

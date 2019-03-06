@@ -8,6 +8,7 @@
 
 #import "NodeGraphView.h"
 #import "NodeGraphScrollView.h"
+#import "NodeGraphConnectionView.h"
 
 @interface NodeGraphView()
 @end
@@ -44,7 +45,14 @@
 
 - (void)postInitWork
 {
-    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+    self.nodeContainerView = [[UIView alloc] initWithFrame:self.bounds];
+    [self addSubview:self.nodeContainerView];
+    
+    self.nodeConnectionLineView = [[NodeGraphConnectionView alloc] initWithFrame:self.bounds];
+    self.nodeConnectionLineView.graphView = self;
+    [self addSubview:self.nodeConnectionLineView];
+    
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.nodeContainerView];
     self.dynamicItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[]];
     self.dynamicItemBehavior.allowsRotation = NO;
     self.dynamicItemBehavior.friction = 1000;
@@ -69,7 +77,7 @@
 - (void)reloadData
 {
     //currently do nothing
-    for (NodeView *nodeView in self.subviews)
+    for (NodeView *nodeView in self.nodeContainerView.subviews)
     {
         [self.collisionBehavior removeItem:nodeView];
         [self.dynamicItemBehavior removeItem:nodeView];
@@ -80,10 +88,10 @@
     NSUInteger nodeCount = [self.dataSource nodeCountInGraphView:self];
     for (int i = 0; i < nodeCount; i ++ )
     {
-        NodeView *nodeView = [self.dataSource nodeGraphView:self nodeForIndex:i];
-        [self addSubview:nodeView];
+        NodeView *nodeView = [self.dataSource nodeGraphView:self nodeForIndex:[[NSNumber numberWithInteger:i]stringValue]];
+        [self.nodeContainerView addSubview:nodeView];
         nodeView.nodeGraphView = self;
-        nodeView.frame = [self.visualDelegate nodeGraphView:self frameForIndex:i];
+        nodeView.frame = [self.visualDelegate nodeGraphView:self frameForIndex:[[NSNumber numberWithInteger:i]stringValue]];
         [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
         [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
         [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
@@ -93,9 +101,6 @@
         [self.collisionBehavior addItem:nodeView];
     }
 }
-
-
-
-
+#pragma mark - UIDynamicAnimatorDelegate
 
 @end

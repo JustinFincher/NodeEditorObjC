@@ -20,6 +20,7 @@
 {
     NSMutableArray<NodePortData *> * array = [NSMutableArray array];
     NumberNodePortData *numberExportPort = [[NumberNodePortData alloc] init];
+    numberExportPort.title = @"Value";
     [array addObject:numberExportPort];
     return array;
 }

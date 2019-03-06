@@ -18,16 +18,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Nodes with their out ports not connected
  */
-@property (nonatomic,strong) NSMutableSet<NodeData *>* singleNodes;
-
-- (BOOL)canConnectFrom:(NodePortData *)nodePortOut To:(NodePortData *)nodePortIn;
-- (BOOL)connectFrom:(NodePortData *)nodePortOut To:(NodePortData *)nodePortIn;
+@property (nonatomic,strong) NSMutableOrderedSet<NodeData *>* singleNodes;
 
 - (NSUInteger)getNodeTotalCount;
-- (NodeData *)getNodeWithIndex:(NSUInteger)index;
-- (NSDictionary<NSNumber*,NodeData *> *)getIndexNodeDict;
+- (NodeData *)getNodeWithIndex:(NSString *)index;
+- (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict;
 
 - (BOOL)addNode:(NodeData *)node;
+- (BOOL)removeNode:(NodeData *)node;
+- (void)connectOutPort:(NodePortData *)outPort
+            withInPort:(NodePortData *)inPort;
+- (BOOL)canConnectOutPort:(NodePortData *)outPort
+               withInPort:(NodePortData *)inPort;
 
 @end
 

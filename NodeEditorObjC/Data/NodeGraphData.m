@@ -17,81 +17,70 @@
     self = [super init];
     if (self)
     {
-        self.singleNodes = [NSMutableSet set];
+        self.singleNodes = [NSMutableOrderedSet orderedSet];
     }
     return self;
 }
 
 #pragma mark - Graph Methods
-- (BOOL)canConnectFrom:(NodePortData *)nodePortOut To:(NodePortData *)nodePortIn
-{
-    return YES;
-}
-
-- (BOOL)connectFrom:(NodePortData *)nodePortOut To:(NodePortData *)nodePortIn
-{
-    return YES;
-}
 - (NSUInteger)getNodeTotalCount
 {
     return [[self getIndexNodeDict] count];
 }
-- (NodeData *)getNodeWithIndex:(NSUInteger)index
+- (NodeData *)getNodeWithIndex:(NSString *)index
 {
-    return [[self getIndexNodeDict] objectForKey:[NSNumber numberWithInteger:index]];
+    return [[self getIndexNodeDict] objectForKey:index];
 }
 
-- (NSDictionary<NSNumber *,NodeData *> *)getIndexNodeDict
+- (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict
 {
-    NSMutableDictionary<NSNumber *,NodeData *> *dictionary = [NSMutableDictionary dictionary];
+    NSMutableDictionary<NSString *,NodeData *> *dictionary = [NSMutableDictionary dictionary];
     for (NodeData *finalNode in self.singleNodes)
     {
         [self DFS:finalNode withDict:dictionary];
     }
     
     //
-    for (NSNumber *num in dictionary.allKeys)
+    for (NSString *index in dictionary.allKeys)
     {
-        NSLog(@"KEY:%ld VALUE:%@",(long)[num integerValue],[dictionary objectForKey:num]);
+        NSLog(@"KEY:%@, VALUE:%@",index,[dictionary objectForKey:index]);
     }
     
     return [dictionary copy];
 }
 
-- (void)DFS:(NodeData *)node withDict:(NSMutableDictionary<NSNumber *,NodeData *> *)dict
+- (void)DFS:(NodeData *)node withDict:(NSMutableDictionary<NSString *,NodeData *> *)dict
 {
-//    NSLog(@"DFS NODE %@",node);
+    NSLog(@"DFS NODE %@ INDEX %@",node,node.nodeIndex);
     if (node != nil && ![dict.allValues containsObject:node])
     {
-        [dict setObject:node forKey:[NSNumber numberWithInteger:node.index]];
-    }
-    
-    
-    for (NodePortData *nodePort in node.inPorts)
-    {
-        for (NodeConnectionData *connection in nodePort.connections)
+        [dict setObject:node forKey:node.nodeIndex];
+        for (NodePortData *nodePort in node.inPorts)
         {
-            [self DFS:connection.inPort.belongsToNode withDict:dict];
+            for (NodeConnectionData *connection in nodePort.connections)
+            {
+                [self DFS:connection.inPort.belongsToNode withDict:dict];
+            }
         }
     }
 }
 
 - (BOOL)addNode:(NodeData *)node
 {
-    if ([self.singleNodes containsObject:node])
+    if ([self.singleNodes filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodeIndex == %@", node.nodeIndex]].count > 0)
     {
-        NSLog(@"NODE %@ ALREADY ADDED TO NODE GRAPH %@, NO",node,self);
+        NSLog(@"NODE %@ ALREADY ADDED TO NODE GRAPH %@, NO, INDEX = %@",node,self,node.nodeIndex);
         return NO;
     }
-    node.index = self.singleNodes.count;
+    node.nodeIndex = [[NSNumber numberWithInteger:self.singleNodes.count] stringValue];
     [self.singleNodes addObject:node];
-    NSLog(@"NODE %@ ADDED TO NODE GRAPH %@, YES",node,self);
+    NSLog(@"NODE %@ ADDED TO NODE GRAPH %@, YES, INDEX = %@",node,self,node.nodeIndex);
     return YES;
 }
 
 - (BOOL)removeNode:(NodeData *)node
 {
-    if (![self getNodeWithIndex:node.index])
+    if (![self getNodeWithIndex:node.nodeIndex])
     {
         NSLog(@"NODE %@ NOT ADDED TO NODE GRAPH %@, NO",node,self);
         return NO;
@@ -103,6 +92,33 @@
     {
         [node breakConnections];
     }
+    for (NodePortData *portData in node.inPorts)
+    {
+        for (NodeConnectionData *connection in portData.connections)
+        {
+            [self.singleNodes addObject:connection.inPort.belongsToNode];
+        }
+    }
+    [node prepareForDealloc];
     return YES;
+}
+- (void)connectOutPort:(NodePortData *)outPort
+            withInPort:(NodePortData *)inPort
+{
+    NodeConnectionData *connection = [[NodeConnectionData alloc] init];
+    connection.inPort = outPort;
+    connection.outport = inPort;
+    [outPort.connections addObject:connection];
+    [inPort.connections addObject:connection];
+    
+    if ([self.singleNodes containsObject:outPort.belongsToNode])
+    {
+        NodeData *node = outPort.belongsToNode;
+        [self.singleNodes removeObject:node];
+        inPort.connections.lastObject.inPort.belongsToNode = node;
+    }
+    
+    //NSLog(@"%@",[inPort.connections lastObject].inPort);
+    
 }
 @end

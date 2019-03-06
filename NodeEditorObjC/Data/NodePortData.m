@@ -33,6 +33,12 @@
     return [NSObject class];
 }
 
+- (void)setBelongsToNode:(NodeData *)belongsToNode
+{
+    _belongsToNode = belongsToNode;
+    NSLog(@"SET %@.belongsToNode = %@",self,belongsToNode);
+}
+
 - (void)breakConnections
 {
     for (NodeConnectionData *connection in self.connections)

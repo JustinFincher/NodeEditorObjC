@@ -27,6 +27,32 @@
     self.coordinate = CGPointMake(0, 0);
     self.title = [[self class] templateTitle];
     self.size = [[self class] templateSize];
+    
+}
+- (CGRect)getRecordedFrame
+{
+    return CGRectMake(self.coordinate.x, self.coordinate.y, self.size.width, self.size.height);
+}
+- (void)setNodeIndex:(NSString *)index
+{
+    _nodeIndex = index;
+    NSLog(@"SET %@ INDEX = %@",self,index);
+    int i = 0;
+    for (NodePortData *port in self.inPorts)
+    {
+        port.belongsToNode = self;
+        port.portIndex = [NSString stringWithFormat:@"%@-%@",index,[[NSNumber numberWithInteger:i] stringValue]];
+        NSLog(@"SET %@ INDEX = %@",port,port.portIndex);
+        i ++;
+    }
+    for (NodePortData *port in self.outPorts)
+    {
+        port.belongsToNode = self;
+        port.portIndex = [NSString stringWithFormat:@"%@-%@",index,[[NSNumber numberWithInteger:i] stringValue]];
+        NSLog(@"SET %@ INDEX = %@",port,port.portIndex);
+        i ++;
+    }
+    
 }
 
 + (NSString *)templateTitle;
@@ -35,7 +61,7 @@
 }
 + (CGSize)templateSize
 {
-    return CGSizeMake(200, NODE_PADDING_HEIGHT * 2 + NODE_TITLE_HEIGHT + fmaxf([[self templateInPorts] count] * NODE_PORT_HEIGHT, [[self templateOutPorts] count] * NODE_PORT_HEIGHT));
+    return CGSizeMake(NODE_WIDTH, NODE_PADDING_HEIGHT * 2 + NODE_TITLE_HEIGHT + fmaxf([[self templateInPorts] count] * NODE_PORT_HEIGHT, [[self templateOutPorts] count] * NODE_PORT_HEIGHT));
 }
 + (NSMutableArray<NodePortData *> *)templateInPorts
 {
@@ -57,5 +83,24 @@
     }
 }
 
-
+- (void)prepareForDealloc
+{
+    for (NodePortData *port in self.inPorts)
+    {
+        port.belongsToNode = nil;
+    }
+    for (NodePortData *port in self.outPorts)
+    {
+        port.belongsToNode = nil;
+    }
+    [self.inPorts removeAllObjects];
+    [self.outPorts removeAllObjects];
+}
+/**
+ Add this because we need two way strong reference (node <--> port). Hmmm not a good practice but needed for now
+ */
+- (void)dealloc
+{
+    [self prepareForDealloc];
+}
 @end
