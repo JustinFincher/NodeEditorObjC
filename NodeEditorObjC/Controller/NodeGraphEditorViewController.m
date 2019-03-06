@@ -30,7 +30,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAddButttonPressed:)];
     
     
-    [[Hackpad sharedManager] testNodeOn:self];
+//    [[Hackpad sharedManager] testNodeOn:self];
     // Reload
     [self.nodeGraphScrollView.nodeGraphView reloadData];
 }

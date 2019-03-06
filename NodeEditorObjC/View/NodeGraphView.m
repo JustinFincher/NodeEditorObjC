@@ -100,6 +100,7 @@
         [self.dynamicItemBehavior addItem:nodeView];
         [self.collisionBehavior addItem:nodeView];
     }
+    [self.nodeConnectionLineView setNeedsDisplay];
 }
 #pragma mark - UIDynamicAnimatorDelegate
 

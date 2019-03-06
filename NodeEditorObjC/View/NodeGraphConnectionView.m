@@ -49,12 +49,11 @@
     if (self.graphView && self.graphView.dataSource)
     {
         NSUInteger count = [self.graphView.dataSource nodeCountInGraphView:self.graphView];
-        NSLog(@"COUNT = %lu",(unsigned long)count);
+        //NSLog(@"COUNT = %lu",(unsigned long)count);
         for (int i = 0; i < count; i ++)
         {
             NodeData *inNodeData = [self.graphView.dataSource nodeGraphView:self.graphView nodeDataForIndex:[[NSNumber numberWithInteger:i]stringValue]];
             NodeView *inNodeView = [self.graphView.dataSource nodeGraphView:self.graphView nodeForIndex:[[NSNumber numberWithInteger:i]stringValue]];
-//            [self.graphView.dynamicAnimator updateItemUsingCurrentState:inNodeView];
             
             for (NodePortData *port in inNodeData.inPorts)
             {
@@ -74,19 +73,14 @@
                     CGPoint inNodePoint = CGPointMake(
                                                       [inNodeView convertRect:inNodePortView.knotIndicator.bounds fromView:inNodePortView.knotIndicator].origin.x + inNodePortView.knotIndicator.bounds.size.width / 2 + inNodeData.coordinate.x,
                                                       [inNodeView convertRect:inNodePortView.knotIndicator.bounds fromView:inNodePortView.knotIndicator].origin.y + inNodePortView.knotIndicator.bounds.size.height / 2 + inNodeData.coordinate.y);
-                    UIColor *color = [UIColor redColor];
-                    [color set]; //设置线条颜色
+                    UIColor *color = [[UIColor redColor] colorWithAlphaComponent:0.5f];
+                    [color set];
                     UIBezierPath *path = [UIBezierPath bezierPath];
                     [path moveToPoint:outNodePoint];
-                    [path addCurveToPoint:inNodePoint controlPoint1:CGPointMake(outNodePoint.x + 60, outNodePoint.y) controlPoint2:CGPointMake(inNodePoint.x - 60, inNodePoint.y)];
-                    
-                    
-//                    [path addLineToPoint:outNodePoint];
-                    
+                    [path addCurveToPoint:inNodePoint controlPoint1:CGPointMake(outNodePoint.x + NODE_CONNECTION_CURVE_CONTROL_OFFSET, outNodePoint.y) controlPoint2:CGPointMake(inNodePoint.x - NODE_CONNECTION_CURVE_CONTROL_OFFSET, inNodePoint.y)];
                     path.lineWidth = 5.0;
                     path.lineCapStyle = kCGLineCapRound; //线条拐角
                     path.lineJoinStyle = kCGLineJoinRound; //终点处理
-                    
                     [path stroke];
 
                 }

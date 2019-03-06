@@ -9,6 +9,12 @@
 #import "NodeGraphData.h"
 #import "NodeConnectionData.h"
 
+@interface NodeGraphData()
+
+@property (nonatomic,strong) NSMutableDictionary<NSString *,NodeData *> *cachedDictionary;
+@property (nonatomic) BOOL useCache;
+
+@end
 @implementation NodeGraphData
 
 #pragma mark - Init
@@ -18,6 +24,7 @@
     if (self)
     {
         self.singleNodes = [NSMutableOrderedSet orderedSet];
+        self.useCache = NO;
     }
     return self;
 }
@@ -34,24 +41,20 @@
 
 - (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict
 {
-    NSMutableDictionary<NSString *,NodeData *> *dictionary = [NSMutableDictionary dictionary];
-    for (NodeData *finalNode in self.singleNodes)
+    if (!self.useCache || !self.cachedDictionary)
     {
-        [self DFS:finalNode withDict:dictionary];
+        self.cachedDictionary = [NSMutableDictionary dictionary];
+        for (NodeData *finalNode in self.singleNodes)
+        {
+            [self DFS:finalNode withDict:self.cachedDictionary];
+        }
     }
-    
-    //
-    for (NSString *index in dictionary.allKeys)
-    {
-        NSLog(@"KEY:%@, VALUE:%@",index,[dictionary objectForKey:index]);
-    }
-    
-    return [dictionary copy];
+    return self.cachedDictionary;
 }
 
 - (void)DFS:(NodeData *)node withDict:(NSMutableDictionary<NSString *,NodeData *> *)dict
 {
-    NSLog(@"DFS NODE %@ INDEX %@",node,node.nodeIndex);
+//    NSLog(@"DFS NODE %@ INDEX %@",node,node.nodeIndex);
     if (node != nil && ![dict.allValues containsObject:node])
     {
         [dict setObject:node forKey:node.nodeIndex];
@@ -75,6 +78,7 @@
     node.nodeIndex = [[NSNumber numberWithInteger:self.singleNodes.count] stringValue];
     [self.singleNodes addObject:node];
     NSLog(@"NODE %@ ADDED TO NODE GRAPH %@, YES, INDEX = %@",node,self,node.nodeIndex);
+    self.cachedDictionary = nil;
     return YES;
 }
 
@@ -100,6 +104,7 @@
         }
     }
     [node prepareForDealloc];
+    self.cachedDictionary = nil;
     return YES;
 }
 - (void)connectOutPort:(NodePortData *)outPort
@@ -119,6 +124,8 @@
     }
     
     //NSLog(@"%@",[inPort.connections lastObject].inPort);
+    
+    self.cachedDictionary = nil;
     
 }
 @end
