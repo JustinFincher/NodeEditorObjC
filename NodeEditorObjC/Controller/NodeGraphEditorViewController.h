@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NodeGraphScrollView *nodeGraphScrollView;
 @property (strong,nonatomic) NodeGraphData *nodeGraphData;
 
+- (void) addNode:(Class)nodeClass;
+- (void) addNode:(Class)nodeClass atPoint:(CGPoint)point;
+
 @end
 
 NS_ASSUME_NONNULL_END

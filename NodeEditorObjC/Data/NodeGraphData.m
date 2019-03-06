@@ -89,4 +89,20 @@
     return YES;
 }
 
+- (BOOL)removeNode:(NodeData *)node
+{
+    if (![self getNodeWithIndex:node.index])
+    {
+        NSLog(@"NODE %@ NOT ADDED TO NODE GRAPH %@, NO",node,self);
+        return NO;
+    }
+    if ([self.singleNodes containsObject:node])
+    {
+        [self.singleNodes removeObject:node];
+    }else
+    {
+        [node breakConnections];
+    }
+    return YES;
+}
 @end

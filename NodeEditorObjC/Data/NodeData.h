@@ -10,6 +10,10 @@
 #import "NodePortData.h"
 @import UIKit;
 
+#define NODE_PORT_HEIGHT 40.0f
+#define NODE_TITLE_HEIGHT 20.0f
+#define NODE_PADDING_HEIGHT 8.0f
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NodeData : NSObject
@@ -20,6 +24,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) CGSize size;
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *inPorts;
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *outPorts;
+
+- (void)postInitWork;
+- (void)breakConnections;
+
++ (NSString *)templateTitle;
++ (CGSize)templateSize;
++ (NSMutableArray<NodePortData *> *) templateInPorts;
++ (NSMutableArray<NodePortData *> *) templateOutPorts;
 
 @end
 

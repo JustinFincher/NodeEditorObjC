@@ -48,9 +48,14 @@
     self.dynamicItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[]];
     self.dynamicItemBehavior.allowsRotation = NO;
     self.dynamicItemBehavior.friction = 1000;
-    self.dynamicItemBehavior.elasticity = 0.3;
+    self.dynamicItemBehavior.elasticity = 0.9;
     self.dynamicItemBehavior.resistance = 0.6;
     [self.dynamicAnimator addBehavior:self.dynamicItemBehavior];
+    
+    self.collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[]];
+    self.collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+    self.collisionBehavior.collisionMode = UICollisionBehaviorModeBoundaries;
+    [self.dynamicAnimator addBehavior:self.collisionBehavior];
 }
 - (void)addDynamicBehavior:(UIDynamicBehavior *)behavior
 {
@@ -64,10 +69,13 @@
 - (void)reloadData
 {
     //currently do nothing
-    for (UIView *view in self.subviews)
+    for (NodeView *nodeView in self.subviews)
     {
-        [self.dynamicItemBehavior removeItem:view];
-        [view removeFromSuperview];
+        [self.collisionBehavior removeItem:nodeView];
+        [self.dynamicItemBehavior removeItem:nodeView];
+        nodeView.nodeData.coordinate = nodeView.frame.origin;
+        nodeView.nodeData.size = nodeView.frame.size;
+        [nodeView removeFromSuperview];
     }
     NSUInteger nodeCount = [self.dataSource nodeCountInGraphView:self];
     for (int i = 0; i < nodeCount; i ++ )
@@ -82,8 +90,10 @@
         [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
         
         [self.dynamicItemBehavior addItem:nodeView];
+        [self.collisionBehavior addItem:nodeView];
     }
 }
+
 
 
 

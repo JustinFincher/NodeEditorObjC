@@ -7,6 +7,7 @@
 //
 
 #import "NodePortData.h"
+#import "NodeConnectionData.h"
 
 @implementation NodePortData
 
@@ -15,11 +16,36 @@
     self = [super init];
     if (self)
     {
-        self.portName = @"Port Title";
-        self.connections = [NSMutableSet set];
-        self.requiredType = [NSObject class];
+        self.title = [[self class] templateTitle];
+        self.connections = [NSMutableOrderedSet orderedSet];
+        self.requiredType = [[self class] templateRequiredType];
     }
     return self;
 }
 
++ (NSString *)templateTitle
+{
+    return @"Port Title";
+}
+
++ (Class) templateRequiredType
+{
+    return [NSObject class];
+}
+
+- (void)breakConnections
+{
+    for (NodeConnectionData *connection in self.connections)
+    {
+        if (connection.inPort != self)
+        {
+            [connection.inPort.connections removeObject:connection];
+        }
+        
+        if (connection.outport != self)
+        {
+            [connection.outport.connections removeObject:connection];
+        }
+    }
+}
 @end

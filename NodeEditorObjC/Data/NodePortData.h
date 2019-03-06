@@ -13,10 +13,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NodePortData : NSObject
 
-@property (nonatomic,strong) NSMutableSet<NodeConnectionData *> *connections;
-@property (nonatomic,strong) NSString *portName;
+@property (nonatomic,strong) NSMutableOrderedSet<NodeConnectionData *> *connections;
+
+@property (nonatomic,strong) NSString *title;
++ (NSString *)templateTitle;
+
 @property (nonatomic) Class requiredType;
++ (Class) templateRequiredType;
+
 @property (nonatomic,weak) NodeData *belongsToNode;
+
+- (void)breakConnections;
 
 @end
 

@@ -11,8 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NodeConnectionData : NSObject
-@property (nonatomic,weak) NodePortData *inPort;
+@property (nonatomic,strong) NodePortData *inPort;
 @property (nonatomic,weak) NodePortData *outport;
+
+- (NSObject *)getConnectionValue;
 @end
 
 NS_ASSUME_NONNULL_END

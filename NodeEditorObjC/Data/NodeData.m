@@ -15,13 +15,47 @@
     self = [super init];
     if (self)
     {
-        self.title = @"Node Title";
-        self.outPorts = [NSMutableArray array];
-        self.inPorts = [NSMutableArray array];
-        self.coordinate = CGPointMake(0, 0);
-        self.size = CGSizeMake(200, 360);
+        [self postInitWork];
     }
     return self;
 }
+
+- (void)postInitWork
+{
+    self.outPorts = [[self class] templateOutPorts];
+    self.inPorts = [[self class] templateInPorts];
+    self.coordinate = CGPointMake(0, 0);
+    self.title = [[self class] templateTitle];
+    self.size = [[self class] templateSize];
+}
+
++ (NSString *)templateTitle;
+{
+    return @"Node Title";
+}
++ (CGSize)templateSize
+{
+    return CGSizeMake(200, NODE_PADDING_HEIGHT * 2 + NODE_TITLE_HEIGHT + fmaxf([[self templateInPorts] count] * NODE_PORT_HEIGHT, [[self templateOutPorts] count] * NODE_PORT_HEIGHT));
+}
++ (NSMutableArray<NodePortData *> *)templateInPorts
+{
+    return [NSMutableArray array];
+}
++ (NSMutableArray<NodePortData *> *)templateOutPorts
+{
+    return [NSMutableArray array];
+}
+- (void)breakConnections
+{
+    for (NodePortData *port in self.inPorts)
+    {
+        [port breakConnections];
+    }
+    for (NodePortData *port in self.outPorts)
+    {
+        [port breakConnections];
+    }
+}
+
 
 @end

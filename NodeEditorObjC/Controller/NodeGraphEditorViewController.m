@@ -7,6 +7,7 @@
 //
 
 #import "NodeGraphEditorViewController.h"
+#import "NodeListTableViewController.h"
 
 
 @interface NodeGraphEditorViewController ()<NodeGraphViewDataSource,NodeGraphViewVisualDelegate>
@@ -20,26 +21,57 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Node Editor";
+    self.title = @"Shader Node Editor";
     
     self.nodeGraphData = [[NodeGraphData alloc] init];
     self.nodeGraphScrollView.nodeGraphView.dataSource = self;
     self.nodeGraphScrollView.nodeGraphView.visualDelegate = self;
     
-    // Test
-    NodeData *initalNodeData = [[NodeData alloc] init];
-    [self.nodeGraphData addNode:initalNodeData];
-    NodeData *inital2NodeData = [[NodeData alloc] init];
-    [self.nodeGraphData addNode:inital2NodeData];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAddButttonPressed:)];
     
+//    // Test
+//    NodeData *initalNodeData = [[NodeData alloc] init];
+//    [self.nodeGraphData addNode:initalNodeData];
+//    NodeData *inital2NodeData = [[NodeData alloc] init];
+//    [self.nodeGraphData addNode:inital2NodeData];
+    
+    // Reload
     [self.nodeGraphScrollView.nodeGraphView reloadData];
+}
+
+#pragma mark - UI Event
+- (void)rightAddButttonPressed:(UIBarButtonItem *)item
+{
+    NodeListTableViewController *tableViewController = [[NodeListTableViewController alloc] init];
+    tableViewController.modalPresentationStyle = UIModalPresentationPopover;
+    tableViewController.graphEditorViewController = self;
+    UIPopoverPresentationController *popover = tableViewController.popoverPresentationController;
+    if (popover)
+    {
+        popover.barButtonItem = item;
+        popover.delegate = tableViewController;
+    }
+    [self presentViewController:tableViewController animated:YES completion:nil];
+}
+
+#pragma mark - Data Event
+- (void) addNode:(Class)nodeClass
+{
+    [self.nodeGraphData addNode:[[nodeClass alloc] init]];
+    [self.nodeGraphScrollView.nodeGraphView reloadData];
+}
+- (void)addNode:(Class)nodeClass atPoint:(CGPoint)point
+{
+    
 }
 
 #pragma mark - NodeGraphViewDataSource
 
 - (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSUInteger)index
 {
-    NodeView *node = [[NodeView alloc] init];
+    CGPoint coordinate = [[self.nodeGraphData getNodeWithIndex:index] coordinate];
+    CGSize size = [[self.nodeGraphData getNodeWithIndex:index] size];
+    NodeView *node = [[NodeView alloc] initWithFrame:CGRectMake(coordinate.x, coordinate.y, size.width, size.height)];
     node.nodeData = [self.nodeGraphData getNodeWithIndex:index];
     return node;
 }
@@ -47,7 +79,10 @@
 {
     return [self.nodeGraphData getNodeTotalCount];
 }
-
+- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSUInteger)index
+{
+    return [self.nodeGraphData getNodeWithIndex:index];
+}
 #pragma mark - NodeGraphViewVisualDelegate
 
 - (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSUInteger)index

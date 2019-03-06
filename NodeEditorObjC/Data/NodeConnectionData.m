@@ -10,5 +10,8 @@
 
 @implementation NodeConnectionData
 
-
+- (NSObject *)getConnectionValue
+{
+    return nil;
+}
 @end

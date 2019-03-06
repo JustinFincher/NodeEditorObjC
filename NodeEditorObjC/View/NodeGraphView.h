@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSUInteger)index;
+
 @end
 
 @protocol NodeGraphViewVisualDelegate <NSObject>
@@ -38,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <NodeGraphViewVisualDelegate> visualDelegate;
 @property (nonatomic,strong) UIDynamicAnimator *dynamicAnimator;
 @property (nonatomic,strong) UIDynamicItemBehavior *dynamicItemBehavior;
+@property (nonatomic,strong) UICollisionBehavior *collisionBehavior;
 - (void)addDynamicBehavior:(UIDynamicBehavior *)behavior;
 - (void)removeDynamicBehavior:(UIDynamicBehavior *)behavior;
 
