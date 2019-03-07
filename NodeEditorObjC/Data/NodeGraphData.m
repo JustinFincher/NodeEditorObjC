@@ -131,9 +131,10 @@
 - (BOOL)canConnectOutPort:(NodePortData *)outPort withInPort:(NodePortData *)inPort
 {
     return (
-        [outPort isOutPortRelativeToNode] &&
-        [inPort isInPortRelativeToNode] &&
-        outPort.belongsToNode.nodeIndex != inPort.belongsToNode.nodeIndex
+            [outPort isOutPortRelativeToNode] &&
+            [inPort isInPortRelativeToNode] &&
+            [[inPort connections] count] == 0 &&
+            outPort.belongsToNode.nodeIndex != inPort.belongsToNode.nodeIndex
             );
 }
 @end

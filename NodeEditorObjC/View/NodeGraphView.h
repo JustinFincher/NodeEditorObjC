@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -  (void)currentPointAt:(CGPoint)endPosition
                dragging:(BOOL)isDragging
-                   from:(NodePortData *)port;
+                   from:(NodePortView *_Nullable)portView;
 
 @end
 

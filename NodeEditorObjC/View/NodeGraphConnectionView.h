@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NodeGraphConnectionView : UIView
 
 @property (weak,nonatomic) NodeGraphView *nodeGraphView;
+- (instancetype)initWithFrame:(CGRect)frame
+                nodeGraphView:(NodeGraphView *)nodeGraphView;
 
 @end
 

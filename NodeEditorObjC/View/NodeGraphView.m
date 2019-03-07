@@ -53,8 +53,7 @@
     self.nodeContainerView = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:self.nodeContainerView];
     
-    self.nodeConnectionLineView = [[NodeGraphConnectionView alloc] initWithFrame:self.bounds];
-    self.nodeConnectionLineView.nodeGraphView = self;
+    self.nodeConnectionLineView = [[NodeGraphConnectionView alloc] initWithFrame:self.bounds nodeGraphView:self];
     [self addSubview:self.nodeConnectionLineView];
     
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.nodeContainerView];
@@ -147,5 +146,25 @@
 {
     NodePortView *portView = [NodePortView getNodePortFromKnotView:gesture.view];
     NSLog(@"%@",portView);
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateChanged:
+        {
+            [self.connectionVisualDelegate currentPointAt:[gesture locationInView:self.nodeContainerView] dragging:YES from:portView];
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+        {
+            [self.connectionVisualDelegate currentPointAt:[gesture locationInView:self.nodeContainerView] dragging:NO from:nil];
+        }
+            break;
+        default:
+            break;
+        case UIGestureRecognizerStatePossible:
+            {}
+            break;
+    }
 }
 @end

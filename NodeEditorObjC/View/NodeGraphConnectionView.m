@@ -12,29 +12,21 @@
 
 @property (nonatomic) BOOL isDragging;
 @property (nonatomic) CGPoint currentPosition;
+@property (nonatomic,weak) NodePortView *dragFromNodePortView;
 
 @end
 
 @implementation NodeGraphConnectionView
 #pragma mark - Init
 
-- (instancetype)init
-{
-    self = [super init];
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self){[self postInitWork];}
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame nodeGraphView:(NodeGraphView *)nodeGraphView
 {
     self = [super initWithFrame:frame];
-    if (self){[self postInitWork];}
+    if (self)
+    {
+        _nodeGraphView = nodeGraphView;
+        [self postInitWork];
+    }
     return self;
 }
 
@@ -55,8 +47,35 @@
 {
     if (self.nodeGraphView && self.nodeGraphView.dataSource)
     {
+        UIColor *color = [[UIColor redColor] colorWithAlphaComponent:0.5f];
+        [color set];
+        
+        if (self.isDragging)
+        {
+            CGPoint draggingStartPos = CGPointMake(
+                                               [self.dragFromNodePortView.nodeView convertRect:self.dragFromNodePortView.knotIndicator.bounds fromView:self.dragFromNodePortView.knotIndicator].origin.x + self.dragFromNodePortView.knotIndicator.bounds.size.width / 2 + self.dragFromNodePortView.nodeView.nodeData.coordinate.x,
+                                               [self.dragFromNodePortView.nodeView convertRect:self.dragFromNodePortView.knotIndicator.bounds fromView:self.dragFromNodePortView.knotIndicator].origin.y + self.dragFromNodePortView.knotIndicator.bounds.size.height / 2 + self.dragFromNodePortView.nodeView.nodeData.coordinate.y);
+            
+            UIBezierPath *path = [UIBezierPath bezierPath];
+            
+            
+            if ([self.dragFromNodePortView.nodePortData isInPortRelativeToConnection])
+            {
+                [path moveToPoint:draggingStartPos];
+                [path addCurveToPoint:self.currentPosition controlPoint1:CGPointMake(draggingStartPos.x + NODE_CONNECTION_CURVE_CONTROL_OFFSET, draggingStartPos.y) controlPoint2:CGPointMake(self.currentPosition.x - NODE_CONNECTION_CURVE_CONTROL_OFFSET, self.currentPosition.y)];
+            }else if ([self.dragFromNodePortView.nodePortData isOutPortRelativeToConnection])
+            {
+                [path moveToPoint:self.currentPosition];
+                [path addCurveToPoint:draggingStartPos controlPoint1:CGPointMake(self.currentPosition.x + NODE_CONNECTION_CURVE_CONTROL_OFFSET, self.currentPosition.y) controlPoint2:CGPointMake(draggingStartPos.x - NODE_CONNECTION_CURVE_CONTROL_OFFSET, draggingStartPos.y)];
+            }
+            
+            path.lineWidth = 5.0;
+            path.lineCapStyle = kCGLineCapRound; //线条拐角
+            path.lineJoinStyle = kCGLineJoinRound; //终点处理
+            [path stroke];
+        }
+        
         NSUInteger count = [self.nodeGraphView.dataSource nodeCountInGraphView:self.nodeGraphView];
-        //NSLog(@"COUNT = %lu",(unsigned long)count);
         for (int i = 0; i < count; i ++)
         {
             NodeData *inNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:[[NSNumber numberWithInteger:i]stringValue]];
@@ -79,8 +98,7 @@
                     CGPoint inNodePoint = CGPointMake(
                                                       [inNodeView convertRect:inNodePortView.knotIndicator.bounds fromView:inNodePortView.knotIndicator].origin.x + inNodePortView.knotIndicator.bounds.size.width / 2 + inNodeData.coordinate.x,
                                                       [inNodeView convertRect:inNodePortView.knotIndicator.bounds fromView:inNodePortView.knotIndicator].origin.y + inNodePortView.knotIndicator.bounds.size.height / 2 + inNodeData.coordinate.y);
-                    UIColor *color = [[UIColor redColor] colorWithAlphaComponent:0.5f];
-                    [color set];
+                    
                     UIBezierPath *path = [UIBezierPath bezierPath];
                     [path moveToPoint:outNodePoint];
                     [path addCurveToPoint:inNodePoint controlPoint1:CGPointMake(outNodePoint.x + NODE_CONNECTION_CURVE_CONTROL_OFFSET, outNodePoint.y) controlPoint2:CGPointMake(inNodePoint.x - NODE_CONNECTION_CURVE_CONTROL_OFFSET, inNodePoint.y)];
@@ -96,11 +114,12 @@
 }
 
 #pragma mark - NodeGraphViewConnectionVisualDelegate
--  (void)currentPointAt:(CGPoint)endPosition
-               dragging:(BOOL)isDragging
-                   from:(NodePortData *)port
+-  (void)currentPointAt:(CGPoint)endPosition dragging:(BOOL)isDragging from:(NodePortView *)portView
 {
-    
+    _currentPosition = endPosition;
+    _isDragging = isDragging;
+    _dragFromNodePortView = portView;
+    [self setNeedsDisplay];
 }
 
 @end
