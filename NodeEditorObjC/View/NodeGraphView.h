@@ -20,16 +20,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSString *)index;
 - (NSUInteger)nodeCountInGraphView:(NodeGraphView *)graphView;
 - (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSString *)index;
+- (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict;
 
 @optional
-
-- (void)nodeGraphView:(NodeGraphView *)graphView focusedOnData:(NodeData *)nodeData;
 
 @end
 
 @protocol NodeGraphViewVisualDelegate <NSObject>
 
 - (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSString *)index;
+
+@end
+
+@protocol NodeGraphViewConnectionDataSource <NSObject>
+
+- (void)port:(NodePortData *)portA
+ connectedTo:(NodePortData *)portB;
 
 @end
 
@@ -40,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) NodeGraphScrollView *parentScrollView;
 @property (nonatomic, weak) id <NodeGraphViewDataSource> dataSource;
 @property (nonatomic, weak) id <NodeGraphViewVisualDelegate> visualDelegate;
+@property (nonatomic, weak) id <NodeGraphViewConnectionDataSource> connectionDataSource;
 @property (nonatomic,strong) UIDynamicAnimator *dynamicAnimator;
 @property (nonatomic,strong) UIDynamicItemBehavior *dynamicItemBehavior;
 @property (nonatomic,strong) UICollisionBehavior *collisionBehavior;

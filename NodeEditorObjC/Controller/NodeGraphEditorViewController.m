@@ -28,9 +28,11 @@
     self.nodeGraphScrollView.nodeGraphView.visualDelegate = self;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAddButttonPressed:)];
+    [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_SHOW_NODE_LIST object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
+        [self showNodeListControllerAt:[[[notification userInfo] valueForKey:@"point"] CGPointValue]];
+    }];
     
-    
-    [[Hackpad sharedManager] testNodeOn:self];
+//    [[Hackpad sharedManager] testNodeOn:self];
     // Reload
     [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
@@ -50,15 +52,34 @@
     [self presentViewController:tableViewController animated:YES completion:nil];
 }
 
+- (void) showNodeListControllerAt:(CGPoint)point
+{
+    NodeListTableViewController *tableViewController = [[NodeListTableViewController alloc] init];
+    tableViewController.modalPresentationStyle = UIModalPresentationPopover;
+    tableViewController.graphEditorViewController = self;
+    UIPopoverPresentationController *popover = tableViewController.popoverPresentationController;
+    if (popover)
+    {
+        popover.sourceRect = CGRectMake(point.x - 5, point.y - 5, 10,10);
+        popover.sourceView = self.nodeGraphScrollView.nodeGraphView.nodeContainerView;
+        popover.delegate = tableViewController;
+    }
+    [self presentViewController:tableViewController animated:YES completion:nil];
+}
+
 #pragma mark - Data Event
 - (void) addNode:(Class)nodeClass
 {
     [self.nodeGraphData addNode:[[nodeClass alloc] init]];
     [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
-- (void)addNode:(Class)nodeClass atPoint:(CGPoint)point
+- (void) addNode:(Class)nodeClass
+              at:(CGPoint)point
 {
-    
+    NodeData *node = [[nodeClass alloc] init];
+    node.coordinate = point;
+    [self.nodeGraphData addNode:node];
+    [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
 
 #pragma mark - NodeGraphViewDataSource
@@ -80,11 +101,9 @@
 {
     return [self.nodeGraphData getNodeWithIndex:index];
 }
-- (void)nodeGraphView:(NodeGraphView *)graphView focusedOnData:(NodeData *)nodeData
+- (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict
 {
-    [[self.nodeGraphData getIndexNodeDict] enumerateKeysAndObjectsUsingBlock:^(NSString *key,NodeData *value,BOOL *stop){
-        value.isFocused = (nodeData.nodeIndex == value.nodeIndex);
-    }];
+    return [[self nodeGraphData] getIndexNodeDict];
 }
 #pragma mark - NodeGraphViewVisualDelegate
 

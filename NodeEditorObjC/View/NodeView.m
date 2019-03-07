@@ -76,6 +76,7 @@
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self addGestureRecognizer:self.tapGestureRecognizer];
     
+    
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     self.panGestureRecognizer.delegate = self;
     [self addGestureRecognizer:self.panGestureRecognizer];
@@ -302,8 +303,9 @@
 {
     self.nodeData.coordinate = self.frame.origin;
     self.nodeData.size = self.frame.size;
-    [self.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
     self.backgroundBlurEffectView.layer.borderColor = self.nodeData.isFocused ? [[UIColor orangeColor] colorWithAlphaComponent:0.6f].CGColor : [UIColor clearColor].CGColor;
     self.backgroundBlurEffectView.layer.borderWidth = self.nodeData.isFocused ? 4.0f : 0.0f;
+    [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
+    [self.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
 }
 @end

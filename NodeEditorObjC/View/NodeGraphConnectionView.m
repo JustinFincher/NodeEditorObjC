@@ -65,7 +65,6 @@
                     NodePortView *outNodePortView = [[outNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.inPort.portIndex]] firstObject];
                     NodePortView *inNodePortView = [[inNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.outport.portIndex]] firstObject];
                     
-                    
                     CGPoint outNodePoint = CGPointMake(
                                                        [outNodeView convertRect:outNodePortView.knotIndicator.bounds fromView:outNodePortView.knotIndicator].origin.x + outNodePortView.knotIndicator.bounds.size.width / 2 + outNodeData.coordinate.x,
                                                        [outNodeView convertRect:outNodePortView.knotIndicator.bounds fromView:outNodePortView.knotIndicator].origin.y + outNodePortView.knotIndicator.bounds.size.height / 2 + outNodeData.coordinate.y);

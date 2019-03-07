@@ -20,15 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.nodeSubclasses = [NSMutableOrderedSet orderedSetWithArray:[Helper ClassGetNodeSubclasses]];
-    
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate
@@ -59,7 +52,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.graphEditorViewController)
+    if (!self.graphEditorViewController)
+    {
+        return;
+    }
+    if ([self.presentationController isKindOfClass:[UIPopoverPresentationController class]] && [(UIPopoverPresentationController *)(self.presentationController) barButtonItem] == nil)
+    {
+        [self.graphEditorViewController addNode:[self.nodeSubclasses objectAtIndex:indexPath.row] at:[(UIPopoverPresentationController *)(self.presentationController) sourceRect].origin];
+    }else
     {
         [self.graphEditorViewController addNode:[self.nodeSubclasses objectAtIndex:indexPath.row]];
     }

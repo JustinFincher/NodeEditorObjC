@@ -10,7 +10,9 @@
 #import "NodeGraphScrollView.h"
 #import "NodeGraphConnectionView.h"
 
-@interface NodeGraphView()
+@interface NodeGraphView()<NodeGraphViewConnectionVisualDelegate>
+
+@property (nonatomic,strong) UILongPressGestureRecognizer *longPressGestureRecoginzer;
 @end
 
 @implementation NodeGraphView
@@ -79,7 +81,8 @@
         }
     };
     
-    
+    self.longPressGestureRecoginzer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [self.nodeContainerView addGestureRecognizer:self.longPressGestureRecoginzer];
     
 }
 - (void)addDynamicBehavior:(UIDynamicBehavior *)behavior
@@ -89,6 +92,14 @@
 - (void)removeDynamicBehavior:(UIDynamicBehavior *)behavior
 {
     [self.dynamicAnimator removeBehavior:behavior];
+}
+
+- (void)updateFocusState:(NodeData *)nodeData
+{
+    [[self.dataSource getIndexNodeDict] enumerateKeysAndObjectsUsingBlock:^(NSString *key,NodeData *value,BOOL *stop)
+    {
+        value.isFocused = (nodeData.nodeIndex == value.nodeIndex);
+    }];
 }
 
 - (void)reloadData
@@ -111,18 +122,33 @@
         nodeView.frame = [self.visualDelegate nodeGraphView:self frameForIndex:[[NSNumber numberWithInteger:i]stringValue]];
         nodeView.makeFocusBlock = ^(NodeData *newFocusedData)
         {
-            [self.dataSource nodeGraphView:self focusedOnData:newFocusedData];
+            [self updateFocusState:newFocusedData];
         };
         [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
         [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
         [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
         [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
+        [self.longPressGestureRecoginzer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
+        [self.longPressGestureRecoginzer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
         
         [self.dynamicItemBehavior addItem:nodeView];
         [self.collisionBehavior addItem:nodeView];
     }
     [self.nodeConnectionLineView setNeedsDisplay];
 }
+#pragma mark - Gesture
+- (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+    CGPoint point = [recognizer locationInView:self.nodeContainerView];
+    NSDictionary *userInfo  = [NSDictionary dictionaryWithObject:[NSValue valueWithCGPoint:point] forKey:@"point"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NODE_LIST object:self.nodeContainerView userInfo:userInfo];
+}
 #pragma mark - UIDynamicAnimatorDelegate
+
+#pragma mark - NodeGraphViewConnectionVisualDelegate
+- (void)currentConnectionUpdated:(NodePortData *)startPort :(CGPoint)endPosition
+{
+    
+}
 
 @end

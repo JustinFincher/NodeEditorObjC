@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic) NodeGraphData *nodeGraphData;
 
 - (void) addNode:(Class)nodeClass;
-- (void) addNode:(Class)nodeClass atPoint:(CGPoint)point;
+- (void) addNode:(Class)nodeClass
+              at:(CGPoint)point;
+- (void) showNodeListControllerAt:(CGPoint)point;
 
 @end
 
