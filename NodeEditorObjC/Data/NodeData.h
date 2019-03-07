@@ -16,6 +16,8 @@
 #define NODE_TITLE_HEIGHT 20.0f
 #define NODE_PADDING_HEIGHT 8.0f
 #define NODE_CONNECTION_CURVE_CONTROL_OFFSET 90.0f
+#define NOTIFICATION_NODE_CONNECTION_START @"NOTIFICATION_NODE_CONNECTION_START"
+#define NOTIFICATION_NODE_CONNECTION_END @"NOTIFICATION_NODE_CONNECTION_END"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *nodeIndex;
 @property(nonatomic) CGPoint coordinate;
 @property(nonatomic) CGSize size;
+@property(nonatomic) BOOL isFocused;
+@property(nonatomic, copy, nullable) void (^isFocusedChangedBlock)(BOOL isFocused);
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *inPorts;
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *outPorts;
 - (CGRect)getRecordedFrame;

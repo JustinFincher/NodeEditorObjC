@@ -45,6 +45,8 @@
 
 - (void)postInitWork
 {
+    __weak __typeof(self)weakSelf= self;
+    
     self.nodeContainerView = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:self.nodeContainerView];
     
@@ -59,11 +61,26 @@
     self.dynamicItemBehavior.elasticity = 0.9;
     self.dynamicItemBehavior.resistance = 0.6;
     [self.dynamicAnimator addBehavior:self.dynamicItemBehavior];
+    self.dynamicItemBehavior.action = ^(){
+        for (NodeView *nodeView in weakSelf.nodeContainerView.subviews)
+        {
+            [nodeView updateSelfInAnimator];
+        }
+    };
     
     self.collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[]];
     self.collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
     self.collisionBehavior.collisionMode = UICollisionBehaviorModeBoundaries;
     [self.dynamicAnimator addBehavior:self.collisionBehavior];
+    self.collisionBehavior.action = ^(){
+        for (NodeView *nodeView in weakSelf.nodeContainerView.subviews)
+        {
+            [nodeView updateSelfInAnimator];
+        }
+    };
+    
+    
+    
 }
 - (void)addDynamicBehavior:(UIDynamicBehavior *)behavior
 {
@@ -92,6 +109,10 @@
         [self.nodeContainerView addSubview:nodeView];
         nodeView.nodeGraphView = self;
         nodeView.frame = [self.visualDelegate nodeGraphView:self frameForIndex:[[NSNumber numberWithInteger:i]stringValue]];
+        nodeView.makeFocusBlock = ^(NodeData *newFocusedData)
+        {
+            [self.dataSource nodeGraphView:self focusedOnData:newFocusedData];
+        };
         [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
         [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
         [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];

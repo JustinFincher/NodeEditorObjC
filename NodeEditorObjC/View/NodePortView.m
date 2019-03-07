@@ -33,6 +33,8 @@
     [self addSubview:self.titleLabel];
     
     self.knotButton = [[UIButton alloc] initWithFrame:CGRectMake(isOut ? self.frame.size.width - NODE_KNOT_WIDTH : 0, 0, NODE_KNOT_WIDTH, NODE_PORT_HEIGHT)];
+    [self.knotButton addTarget:self action:@selector(knotTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [self.knotButton addTarget:self action:@selector(knotTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
     [self addSubview:self.knotButton];
     
     self.knotIndicator = [[UIView alloc] initWithFrame:CGRectMake(NODE_KNOT_WIDTH / 2 - NODE_PORT_HEIGHT / 8,
@@ -45,5 +47,12 @@
     [self.knotButton addSubview:self.knotIndicator];
     return self;
 }
-
+- (void)knotTouchDown:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NODE_CONNECTION_START object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: nil]];
+}
+- (void)knotTouchUp:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NODE_CONNECTION_END object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: nil]];
+}
 @end

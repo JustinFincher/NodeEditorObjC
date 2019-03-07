@@ -27,7 +27,19 @@
     self.coordinate = CGPointMake(0, 0);
     self.title = [[self class] templateTitle];
     self.size = [[self class] templateSize];
-    
+    self.isFocused = false;
+}
+- (void)setIsFocused:(BOOL)isFocused
+{
+    if (_isFocused != isFocused && self.isFocusedChangedBlock)
+    {
+        _isFocused = isFocused;
+        self.isFocusedChangedBlock(isFocused);
+    }
+    else
+    {
+        _isFocused = isFocused;
+    }
 }
 - (CGRect)getRecordedFrame
 {

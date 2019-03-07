@@ -30,7 +30,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAddButttonPressed:)];
     
     
-//    [[Hackpad sharedManager] testNodeOn:self];
+    [[Hackpad sharedManager] testNodeOn:self];
     // Reload
     [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
@@ -69,6 +69,7 @@
     CGSize size = [[self.nodeGraphData getNodeWithIndex:index] size];
     NodeView *node = [[NodeView alloc] initWithFrame:CGRectMake(coordinate.x, coordinate.y, size.width, size.height)];
     node.nodeData = [self.nodeGraphData getNodeWithIndex:index];
+    
     return node;
 }
 - (NSUInteger)nodeCountInGraphView:(NodeGraphView *)graphView
@@ -78,6 +79,12 @@
 - (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSString *)index
 {
     return [self.nodeGraphData getNodeWithIndex:index];
+}
+- (void)nodeGraphView:(NodeGraphView *)graphView focusedOnData:(NodeData *)nodeData
+{
+    [[self.nodeGraphData getIndexNodeDict] enumerateKeysAndObjectsUsingBlock:^(NSString *key,NodeData *value,BOOL *stop){
+        value.isFocused = (nodeData.nodeIndex == value.nodeIndex);
+    }];
 }
 #pragma mark - NodeGraphViewVisualDelegate
 

@@ -13,14 +13,13 @@
 #import "NodeGraphConnectionView.h"
 @interface NodeView()<UIGestureRecognizerDelegate>
 
-
 @property (nonatomic,strong) UIViewPropertyAnimator *scaleAnimator;
+@property (nonatomic,strong) UIViewPropertyAnimator *borderAnimator;
 @property (nonatomic,strong) UIAttachmentBehavior *attachmentBehavior;
 @property (nonatomic,strong) UIPushBehavior *pushBehavior;
 
 @property (nonatomic,strong) UIView *inPortsView;
 @property (nonatomic,strong) UIView *outPortsView;
-
 
 @end
 
@@ -48,20 +47,24 @@
 - (void)postInitWork
 {
     self.backgroundColor = [UIColor clearColor];
+//    self.layer.cornerRadius = 8;
+//    self.layer.masksToBounds = YES;
     
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
     self.backgroundBlurEffectView = [[UIVisualEffectView alloc] initWithFrame:self.bounds];
     self.backgroundBlurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.backgroundBlurEffectView.effect = blurEffect;
     self.backgroundBlurEffectView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.50];
-//    self.backgroundBlurEffectView.layer.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.4f].CGColor;
-//    self.backgroundBlurEffectView.layer.borderWidth = 0.5;
     self.backgroundBlurEffectView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.backgroundBlurEffectView.layer.shadowOffset = CGSizeZero;
     self.backgroundBlurEffectView.layer.shadowOpacity = 1.0;
     self.backgroundBlurEffectView.layer.shadowRadius = 18;
     self.backgroundBlurEffectView.layer.masksToBounds = YES;
     self.backgroundBlurEffectView.layer.cornerRadius = 8;
+    
+//    self.backgroundBlurEffectView.layer.borderColor = [[UIColor orangeColor] colorWithAlphaComponent:0.6f].CGColor;
+//    self.backgroundBlurEffectView.layer.borderWidth = 3;
+    
     [self addSubview:self.backgroundBlurEffectView];
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, self.backgroundBlurEffectView.frame.size.width - 16, NODE_TITLE_HEIGHT)];
@@ -82,7 +85,6 @@
     [self addGestureRecognizer:self.longPressGestureRecognizer];
     
     self.ports = [NSMutableOrderedSet orderedSet];
-
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -94,28 +96,26 @@
 - (void)handleTap:(UITapGestureRecognizer *)recognizer
 {
     [self.nodeGraphView.nodeContainerView bringSubviewToFront:self];
+    self.makeFocusBlock(self.nodeData);
     __weak __typeof(self) weakSelf = self;
     [self.nodeGraphView removeDynamicBehavior:self.pushBehavior];
     [self.scaleAnimator stopAnimation:YES];
     self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                           {
                               self.transform = CGAffineTransformMakeScale(1.1, 1.1);
-                              self.backgroundBlurEffectView.layer.shadowRadius = 36;
-                              self.backgroundBlurEffectView.layer.shadowOffset = CGSizeMake(0, -4);
+                              [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
                           }];
     [self.scaleAnimator addAnimations:^(void)
      {
          weakSelf.transform = CGAffineTransformMakeScale(1.0, 1.0);
-         weakSelf.backgroundBlurEffectView.layer.shadowRadius = 18;
-         weakSelf.backgroundBlurEffectView.layer.shadowOffset = CGSizeZero;
      } delayFactor:0.5];
     [self.scaleAnimator startAnimation];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer
 {
-    //NSLog(@"LONG PRESS STATE = %ld",(long)recognizer.state);
     [self.nodeGraphView.nodeContainerView bringSubviewToFront:self];
+    self.makeFocusBlock(self.nodeData);
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
         {
@@ -124,8 +124,7 @@
             self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.1, 1.1);
-                                      self.backgroundBlurEffectView.layer.shadowRadius = 36;
-                                      self.backgroundBlurEffectView.layer.shadowOffset = CGSizeMake(0, -4);
+                                      [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
                                   }];
             [self.scaleAnimator startAnimation];
         }
@@ -136,8 +135,7 @@
             self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.0, 1.0);
-                                      self.backgroundBlurEffectView.layer.shadowRadius = 18;
-                                      self.backgroundBlurEffectView.layer.shadowOffset = CGSizeZero;
+                                      [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
                                   }];
             [self.scaleAnimator startAnimation];
         }
@@ -148,8 +146,8 @@
 }
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
 {
-    //NSLog(@"PAN STATE = %ld",recognizer.state);
     [self.nodeGraphView.nodeContainerView bringSubviewToFront:self];
+    self.makeFocusBlock(self.nodeData);
     __weak __typeof(self) weakSelf = self;
     CGPoint velocity = [recognizer velocityInView:self.nodeGraphView.nodeContainerView];
     CGPoint locationInSelf = [recognizer locationInView:self];
@@ -161,8 +159,7 @@
             self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.1, 1.1);
-                                      self.backgroundBlurEffectView.layer.shadowRadius = 36;
-                                      self.backgroundBlurEffectView.layer.shadowOffset = CGSizeMake(0, -4);
+                                      [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
                                   }];
             [self.scaleAnimator addCompletion:^(UIViewAnimatingPosition finalPosition)
              {
@@ -172,15 +169,11 @@
             [self.scaleAnimator startAnimation];
             
             [self.nodeGraphView removeDynamicBehavior:self.attachmentBehavior];
-//            self.attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:self attachedToAnchor:[recognizer locationInView:self.nodeGraphView]];
-            //NSLog(@"LOCATION %f,%f  BOUNDSSIZE %f,%f",locationInSelf.x,locationInSelf.y,self.bounds.size.width,self.bounds.size.height);
             self.attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:self offsetFromCenter:UIOffsetMake(locationInSelf.x - self.bounds.size.width / 2.0f, locationInSelf.y - self.bounds.size.height / 2.0f) attachedToAnchor:[recognizer locationInView:self.nodeGraphView.nodeContainerView]];
             self.attachmentBehavior.action = ^
             {
+                [weakSelf updateSelfInAnimator];
                 CGAffineTransform currentTransform = weakSelf.transform;
-                weakSelf.nodeData.coordinate = weakSelf.frame.origin;
-                weakSelf.nodeData.size = weakSelf.frame.size;
-                [weakSelf.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
                 weakSelf.transform = CGAffineTransformScale(currentTransform, 1.1, 1.1);
             };
             [self.nodeGraphView addDynamicBehavior:self.attachmentBehavior];
@@ -198,8 +191,6 @@
             self.scaleAnimator = [[UIViewPropertyAnimator alloc] initWithDuration:0.5 dampingRatio:1 animations:^(void)
                                   {
                                       self.transform = CGAffineTransformMakeScale(1.0, 1.0);
-                                      self.backgroundBlurEffectView.layer.shadowRadius = 18;
-                                      self.backgroundBlurEffectView.layer.shadowOffset = CGSizeZero;
                                       [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
                                   }];
             [self.scaleAnimator startAnimation];
@@ -207,12 +198,9 @@
             self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self] mode:UIPushBehaviorModeInstantaneous];
             self.pushBehavior.action = ^
             {
-                weakSelf.nodeData.coordinate = weakSelf.frame.origin;
-                weakSelf.nodeData.size = weakSelf.frame.size;
-                [weakSelf.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
+                [weakSelf updateSelfInAnimator];
             };
             float mang = hypot(velocity.x,velocity.y);
-//            NSLog(@"%f",mang);
             if (mang > 100)
             {
                 self.pushBehavior.pushDirection = CGVectorMake(velocity.x / 4 / powf(mang, 0.5), velocity.y / 4 / powf(mang, 0.5));
@@ -229,17 +217,22 @@
 }
 - (void)setNodeData:(NodeData *)nodeData
 {
-    _nodeData = nodeData;
-    
-    if (self.nodeData)
-    {
-        self.titleLabel.text = self.nodeData.title;
-    }
-    
-   
     [self.inPortsView removeFromSuperview];
     [self.outPortsView removeFromSuperview];
     
+    _nodeData = nodeData;
+    
+    if (!self.nodeData)
+    {
+        return;
+    }
+    
+    self.nodeData.isFocusedChangedBlock = ^(BOOL isFocused)
+    {
+
+    };
+    
+    self.titleLabel.text = self.nodeData.title;
     CGRect inRect = CGRectZero;
     CGRect outRect = CGRectZero;
     NSMutableArray<NodePortData *> * inPorts = [self.nodeData inPorts];
@@ -255,9 +248,9 @@
     else if (inPorts.count == 0 && outPorts.count != 0)
     {
         outRect = CGRectMake(8,
-                            NODE_TITLE_HEIGHT + 8,
-                            self.backgroundBlurEffectView.contentView.frame.size.width - 16,
-                            outPorts.count * NODE_PORT_HEIGHT);
+                             NODE_TITLE_HEIGHT + 8,
+                             self.backgroundBlurEffectView.contentView.frame.size.width - 16,
+                             outPorts.count * NODE_PORT_HEIGHT);
     }
     else if (inPorts.count != 0 && outPorts.count != 0)
     {
@@ -305,4 +298,12 @@
     }
 }
 
+- (void)updateSelfInAnimator
+{
+    self.nodeData.coordinate = self.frame.origin;
+    self.nodeData.size = self.frame.size;
+    [self.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
+    self.backgroundBlurEffectView.layer.borderColor = self.nodeData.isFocused ? [[UIColor orangeColor] colorWithAlphaComponent:0.6f].CGColor : [UIColor clearColor].CGColor;
+    self.backgroundBlurEffectView.layer.borderWidth = self.nodeData.isFocused ? 4.0f : 0.0f;
+}
 @end

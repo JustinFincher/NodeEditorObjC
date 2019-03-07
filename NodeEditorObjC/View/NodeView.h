@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NodeData.h"
 
-
+typedef void (^VoidBlock)(void);
 NS_ASSUME_NONNULL_BEGIN
 @class NodeGraphView;
 @class NodePortView;
@@ -25,8 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic,strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic,strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property(nonatomic, copy, nullable) void (^makeFocusBlock)(NodeData *nodeData);
 #pragma mark - Data
 @property (nonatomic,weak) NodeData *nodeData;
+
+- (void)updateSelfInAnimator;
+
 
 @end
 

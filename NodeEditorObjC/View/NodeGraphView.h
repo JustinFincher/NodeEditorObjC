@@ -19,10 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSString *)index;
 - (NSUInteger)nodeCountInGraphView:(NodeGraphView *)graphView;
+- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSString *)index;
 
 @optional
 
-- (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSString *)index;
+- (void)nodeGraphView:(NodeGraphView *)graphView focusedOnData:(NodeData *)nodeData;
 
 @end
 
