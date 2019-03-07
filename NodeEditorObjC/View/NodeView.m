@@ -276,7 +276,10 @@
         
         for (int i = 0; i < inPorts.count; i ++ )
         {
-            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.inPortsView.frame.size.width, NODE_PORT_HEIGHT) portData:[inPorts objectAtIndex:i] isOutPort:NO];
+            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.inPortsView.frame.size.width, NODE_PORT_HEIGHT) portData:[inPorts objectAtIndex:i] isOutPort:NO nodeView:self];
+            nodePortView.nodeView = self;
+            [self.panGestureRecognizer requireGestureRecognizerToFail:nodePortView.knotPanGesgtureRecognizer];
+            [self.longPressGestureRecognizer requireGestureRecognizerToFail:nodePortView.knotPanGesgtureRecognizer];
             [self.inPortsView addSubview:nodePortView];
             [self.ports addObject:nodePortView];
         }
@@ -292,7 +295,9 @@
         
         for (int i = 0; i < outPorts.count; i ++ )
         {
-            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.outPortsView.frame.size.width, NODE_PORT_HEIGHT) portData:[outPorts objectAtIndex:i] isOutPort:YES];
+            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.outPortsView.frame.size.width, NODE_PORT_HEIGHT) portData:[outPorts objectAtIndex:i] isOutPort:YES nodeView:self];
+            [self.panGestureRecognizer requireGestureRecognizerToFail:nodePortView.knotPanGesgtureRecognizer];
+            [self.longPressGestureRecognizer requireGestureRecognizerToFail:nodePortView.knotPanGesgtureRecognizer];
             [self.outPortsView addSubview:nodePortView];
             [self.ports addObject:nodePortView];
         }

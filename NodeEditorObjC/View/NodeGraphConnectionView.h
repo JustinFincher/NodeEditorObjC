@@ -12,16 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol NodeGraphViewConnectionVisualDelegate <NSObject>
-
-- (void)currentConnectionUpdated:(NodePortData *)startPort
-                                :(CGPoint)endPosition;
-@end
-
 @interface NodeGraphConnectionView : UIView
 
-@property (weak,nonatomic) NodeGraphView *graphView;
-@property (nonatomic, weak) id <NodeGraphViewConnectionVisualDelegate> connectionVisualDelegate;
+@property (weak,nonatomic) NodeGraphView *nodeGraphView;
 
 @end
 

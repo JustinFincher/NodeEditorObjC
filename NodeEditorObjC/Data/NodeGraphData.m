@@ -126,6 +126,14 @@
     //NSLog(@"%@",[inPort.connections lastObject].inPort);
     
     self.cachedDictionary = nil;
-    
+}
+
+- (BOOL)canConnectOutPort:(NodePortData *)outPort withInPort:(NodePortData *)inPort
+{
+    return (
+        [outPort isOutPortRelativeToNode] &&
+        [inPort isInPortRelativeToNode] &&
+        outPort.belongsToNode.nodeIndex != inPort.belongsToNode.nodeIndex
+            );
 }
 @end

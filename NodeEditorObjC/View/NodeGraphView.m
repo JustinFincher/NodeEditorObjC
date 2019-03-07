@@ -9,8 +9,9 @@
 #import "NodeGraphView.h"
 #import "NodeGraphScrollView.h"
 #import "NodeGraphConnectionView.h"
+#import "NodePortView.h"
 
-@interface NodeGraphView()<NodeGraphViewConnectionVisualDelegate>
+@interface NodeGraphView()
 
 @property (nonatomic,strong) UILongPressGestureRecognizer *longPressGestureRecoginzer;
 @end
@@ -53,7 +54,7 @@
     [self addSubview:self.nodeContainerView];
     
     self.nodeConnectionLineView = [[NodeGraphConnectionView alloc] initWithFrame:self.bounds];
-    self.nodeConnectionLineView.graphView = self;
+    self.nodeConnectionLineView.nodeGraphView = self;
     [self addSubview:self.nodeConnectionLineView];
     
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.nodeContainerView];
@@ -118,7 +119,6 @@
     {
         NodeView *nodeView = [self.dataSource nodeGraphView:self nodeForIndex:[[NSNumber numberWithInteger:i]stringValue]];
         [self.nodeContainerView addSubview:nodeView];
-        nodeView.nodeGraphView = self;
         nodeView.frame = [self.visualDelegate nodeGraphView:self frameForIndex:[[NSNumber numberWithInteger:i]stringValue]];
         nodeView.makeFocusBlock = ^(NodeData *newFocusedData)
         {
@@ -143,12 +143,9 @@
     NSDictionary *userInfo  = [NSDictionary dictionaryWithObject:[NSValue valueWithCGPoint:point] forKey:@"point"];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NODE_LIST object:self.nodeContainerView userInfo:userInfo];
 }
-#pragma mark - UIDynamicAnimatorDelegate
-
-#pragma mark - NodeGraphViewConnectionVisualDelegate
-- (void)currentConnectionUpdated:(NodePortData *)startPort :(CGPoint)endPosition
+- (void)handleKnotPanGesture:(UIPanGestureRecognizer *)gesture
 {
-    
+    NodePortView *portView = [NodePortView getNodePortFromKnotView:gesture.view];
+    NSLog(@"%@",portView);
 }
-
 @end

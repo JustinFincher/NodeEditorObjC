@@ -8,6 +8,12 @@
 
 #import "NodeGraphConnectionView.h"
 #import "NodePortView.h"
+@interface NodeGraphConnectionView()<NodeGraphViewConnectionVisualDelegate>
+
+@property (nonatomic) BOOL isDragging;
+@property (nonatomic) CGPoint currentPosition;
+
+@end
 
 @implementation NodeGraphConnectionView
 #pragma mark - Init
@@ -37,6 +43,7 @@
     self.userInteractionEnabled = YES;
     self.opaque = NO;
     self.backgroundColor = [UIColor clearColor];
+    self.nodeGraphView.connectionVisualDelegate = self;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
@@ -46,21 +53,21 @@
 }
 - (void)drawRect:(CGRect)rect
 {
-    if (self.graphView && self.graphView.dataSource)
+    if (self.nodeGraphView && self.nodeGraphView.dataSource)
     {
-        NSUInteger count = [self.graphView.dataSource nodeCountInGraphView:self.graphView];
+        NSUInteger count = [self.nodeGraphView.dataSource nodeCountInGraphView:self.nodeGraphView];
         //NSLog(@"COUNT = %lu",(unsigned long)count);
         for (int i = 0; i < count; i ++)
         {
-            NodeData *inNodeData = [self.graphView.dataSource nodeGraphView:self.graphView nodeDataForIndex:[[NSNumber numberWithInteger:i]stringValue]];
-            NodeView *inNodeView = [self.graphView.dataSource nodeGraphView:self.graphView nodeForIndex:[[NSNumber numberWithInteger:i]stringValue]];
+            NodeData *inNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:[[NSNumber numberWithInteger:i]stringValue]];
+            NodeView *inNodeView = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeForIndex:[[NSNumber numberWithInteger:i]stringValue]];
             
             for (NodePortData *port in inNodeData.inPorts)
             {
                 for (NodeConnectionData *connection in port.connections)
                 {
-                    NodeView *outNodeView = [self.graphView.dataSource nodeGraphView:self.graphView nodeForIndex:connection.inPort.belongsToNode.nodeIndex];
-                    NodeData *outNodeData = [self.graphView.dataSource nodeGraphView:self.graphView nodeDataForIndex:connection.inPort.belongsToNode.nodeIndex];
+                    NodeView *outNodeView = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeForIndex:connection.inPort.belongsToNode.nodeIndex];
+                    NodeData *outNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:connection.inPort.belongsToNode.nodeIndex];
 
                     NodePortView *outNodePortView = [[outNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.inPort.portIndex]] firstObject];
                     NodePortView *inNodePortView = [[inNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.outport.portIndex]] firstObject];
@@ -88,5 +95,12 @@
     }
 }
 
+#pragma mark - NodeGraphViewConnectionVisualDelegate
+-  (void)currentPointAt:(CGPoint)endPosition
+               dragging:(BOOL)isDragging
+                   from:(NodePortData *)port
+{
+    
+}
 
 @end

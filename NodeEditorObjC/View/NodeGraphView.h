@@ -39,6 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol NodeGraphViewConnectionVisualDelegate <NSObject>
+
+-  (void)currentPointAt:(CGPoint)endPosition
+               dragging:(BOOL)isDragging
+                   from:(NodePortData *)port;
+
+@end
+
 @class NodeGraphScrollView;
 @interface NodeGraphView : UIView
 
@@ -47,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <NodeGraphViewDataSource> dataSource;
 @property (nonatomic, weak) id <NodeGraphViewVisualDelegate> visualDelegate;
 @property (nonatomic, weak) id <NodeGraphViewConnectionDataSource> connectionDataSource;
+@property (nonatomic, weak) id <NodeGraphViewConnectionVisualDelegate> connectionVisualDelegate;
 @property (nonatomic,strong) UIDynamicAnimator *dynamicAnimator;
 @property (nonatomic,strong) UIDynamicItemBehavior *dynamicItemBehavior;
 @property (nonatomic,strong) UICollisionBehavior *collisionBehavior;
@@ -54,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NodeGraphConnectionView *nodeConnectionLineView;
 - (void)addDynamicBehavior:(UIDynamicBehavior *)behavior;
 - (void)removeDynamicBehavior:(UIDynamicBehavior *)behavior;
+- (void)handleKnotPanGesture:(UIPanGestureRecognizer *)gesture;
 
 @end
 

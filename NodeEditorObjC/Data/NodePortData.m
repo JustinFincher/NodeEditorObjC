@@ -8,6 +8,7 @@
 
 #import "NodePortData.h"
 #import "NodeConnectionData.h"
+#import "NodeData.h"
 
 @implementation NodePortData
 
@@ -53,5 +54,22 @@
             [connection.outport.connections removeObject:connection];
         }
     }
+}
+
+- (BOOL)isInPortRelativeToNode
+{
+    return [self.belongsToNode.inPorts containsObject:self];
+}
+- (BOOL)isOutPortRelativeToNode
+{
+    return [self.belongsToNode.outPorts containsObject:self];
+}
+- (BOOL)isInPortRelativeToConnection
+{
+    return [self isOutPortRelativeToNode];
+}
+- (BOOL)isOutPortRelativeToConnection
+{
+    return [self isInPortRelativeToNode];
 }
 @end

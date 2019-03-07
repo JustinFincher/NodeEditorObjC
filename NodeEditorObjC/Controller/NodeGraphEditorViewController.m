@@ -60,7 +60,7 @@
     UIPopoverPresentationController *popover = tableViewController.popoverPresentationController;
     if (popover)
     {
-        popover.sourceRect = CGRectMake(point.x - 5, point.y - 5, 10,10);
+        popover.sourceRect = CGRectMake(point.x, point.y, 1,1);
         popover.sourceView = self.nodeGraphScrollView.nodeGraphView.nodeContainerView;
         popover.delegate = tableViewController;
     }
@@ -77,7 +77,7 @@
               at:(CGPoint)point
 {
     NodeData *node = [[nodeClass alloc] init];
-    node.coordinate = point;
+    node.coordinate = CGPointMake(point.x - node.size.width / 2, point.y - node.size.height / 2);
     [self.nodeGraphData addNode:node];
     [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
@@ -89,6 +89,7 @@
     CGPoint coordinate = [[self.nodeGraphData getNodeWithIndex:index] coordinate];
     CGSize size = [[self.nodeGraphData getNodeWithIndex:index] size];
     NodeView *node = [[NodeView alloc] initWithFrame:CGRectMake(coordinate.x, coordinate.y, size.width, size.height)];
+    node.nodeGraphView = self.nodeGraphScrollView.nodeGraphView;
     node.nodeData = [self.nodeGraphData getNodeWithIndex:index];
     
     return node;

@@ -7,7 +7,13 @@
 //
 
 #import "NodePortView.h"
+#import "NodeGraphView.h"
 #import "NodeData.h"
+#import "NodeView.h"
+
+#define NODE_PORT_INDICATOR_INACTIVE_COLOR [[UIColor blackColor] colorWithAlphaComponent:0.1];
+#define NODE_PORT_INDICATOR_ACTIVE_COLOR [[UIColor redColor] colorWithAlphaComponent:0.6];
+
 @interface NodePortView()
 
 @end
@@ -17,10 +23,12 @@
 - (instancetype)initWithFrame:(CGRect)frame
                      portData:(NodePortData *)data
                     isOutPort:(BOOL)isOut
+                     nodeView:(nonnull NodeView *)nodeView
 {
     self = [super initWithFrame:frame];
     
     _nodePortData = data;
+    _nodeView = nodeView;
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(isOut ? 0 : NODE_KNOT_WIDTH,
                                                                 0,
@@ -32,27 +40,29 @@
     self.titleLabel.textAlignment = isOut ? NSTextAlignmentRight : NSTextAlignmentLeft;
     [self addSubview:self.titleLabel];
     
-    self.knotButton = [[UIButton alloc] initWithFrame:CGRectMake(isOut ? self.frame.size.width - NODE_KNOT_WIDTH : 0, 0, NODE_KNOT_WIDTH, NODE_PORT_HEIGHT)];
-    [self.knotButton addTarget:self action:@selector(knotTouchDown:) forControlEvents:UIControlEventTouchDown];
-    [self.knotButton addTarget:self action:@selector(knotTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
+    self.knotButton = [[UIView alloc] initWithFrame:CGRectMake(isOut ? self.frame.size.width - NODE_KNOT_WIDTH : 0, 0, NODE_KNOT_WIDTH, NODE_PORT_HEIGHT)];
     [self addSubview:self.knotButton];
+    self.knotPanGesgtureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self.nodeView.nodeGraphView action:@selector(handleKnotPanGesture:)];
+    [self.knotButton addGestureRecognizer:self.knotPanGesgtureRecognizer];
     
     self.knotIndicator = [[UIView alloc] initWithFrame:CGRectMake(NODE_KNOT_WIDTH / 2 - NODE_PORT_HEIGHT / 8,
                                                                   NODE_PORT_HEIGHT / 2 - NODE_PORT_HEIGHT / 8,
                                                                   NODE_PORT_HEIGHT / 4,
                                                                   NODE_PORT_HEIGHT / 4)];
-    self.knotIndicator.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+    self.knotIndicator.backgroundColor = NODE_PORT_INDICATOR_INACTIVE_COLOR;
     self.knotIndicator.layer.cornerRadius = NODE_PORT_HEIGHT / 8;
     self.knotIndicator.layer.masksToBounds = YES;
     [self.knotButton addSubview:self.knotIndicator];
     return self;
 }
-- (void)knotTouchDown:(id)sender
+
++ (NodePortView *)getNodePortFromKnotView:(UIView *)knotView
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NODE_CONNECTION_START object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: nil]];
-}
-- (void)knotTouchUp:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NODE_CONNECTION_END object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: nil]];
+    UIView *view = knotView;
+    while (![view isKindOfClass:[NodePortView class]] && [view superview] != nil)
+    {
+        view = [view superview];
+    }
+    return (NodePortView *)view;
 }
 @end

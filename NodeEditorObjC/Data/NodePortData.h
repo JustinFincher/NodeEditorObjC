@@ -25,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)breakConnections;
 
+- (BOOL)isInPortRelativeToNode;
+- (BOOL)isOutPortRelativeToNode;
+- (BOOL)isInPortRelativeToConnection;
+- (BOOL)isOutPortRelativeToConnection;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
