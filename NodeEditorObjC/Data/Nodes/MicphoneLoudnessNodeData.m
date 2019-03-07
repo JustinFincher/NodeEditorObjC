@@ -1,19 +1,19 @@
 //
-//  NumberNodeData.m
+//  MicphoneLoudnessNodeData.m
 //  NodeEditorObjC
 //
-//  Created by Justin Fincher on 6/3/2019.
+//  Created by Justin Fincher on 7/3/2019.
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
-#import "NumberNodeData.h"
+#import "MicphoneLoudnessNodeData.h"
 #import "NumberNodePortData.h"
 
-@implementation NumberNodeData
+@implementation MicphoneLoudnessNodeData
 
 + (NSString *)templateTitle
 {
-    return @"Number";
+    return @"Micphone Loudness";
 }
 
 + (NSMutableArray<NodePortData *> *)templateOutPorts
@@ -25,8 +25,4 @@
     return array;
 }
 
-+ (CGSize)templateCustomValueViewSize
-{
-    return CGSizeMake(NODE_WIDTH, 60);
-}
 @end

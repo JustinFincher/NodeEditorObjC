@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NodeData.h"
+@import SpriteKit;
 
 typedef void (^VoidBlock)(void);
 NS_ASSUME_NONNULL_BEGIN
@@ -20,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIVisualEffectView *backgroundBlurEffectView;
 @property (nonatomic,strong) NSMutableOrderedSet<NodePortView *> *ports;
+@property (nonatomic,strong) SKView *shaderPreviewView;
 
 #pragma mark - Gestures
 @property (nonatomic,strong) UITapGestureRecognizer *tapGestureRecognizer;
@@ -28,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) void (^makeFocusBlock)(NodeData *nodeData);
 #pragma mark - Data
 @property (nonatomic,weak) NodeData *nodeData;
+
 
 - (void)updateSelfInAnimator;
 

@@ -72,4 +72,5 @@
 {
     return [self isInPortRelativeToNode];
 }
+
 @end

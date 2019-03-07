@@ -24,6 +24,7 @@
 		0D43AAC7222FD81E002FBB9F /* Hackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC6222FD81E002FBB9F /* Hackpad.m */; };
 		0D43AACA223119AB002FBB9F /* NodePortKnotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC9223119AB002FBB9F /* NodePortKnotView.m */; };
 		0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */; };
+		0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */; };
 		0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D53222E6A4D00DC62DD /* NodeGraphData.m */; };
 		0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D56222E6A5700DC62DD /* NodePortData.m */; };
 		0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D5A222E6B1600DC62DD /* NodeGraphView.m */; };
@@ -66,6 +67,8 @@
 		0D43AAC9223119AB002FBB9F /* NodePortKnotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodePortKnotView.m; sourceTree = "<group>"; };
 		0D43AACB2231458D002FBB9F /* NodeInstanceDebugTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeInstanceDebugTableViewController.h; sourceTree = "<group>"; };
 		0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeInstanceDebugTableViewController.m; sourceTree = "<group>"; };
+		0D43AACE223175F6002FBB9F /* MicphoneLoudnessNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MicphoneLoudnessNodeData.h; sourceTree = "<group>"; };
+		0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MicphoneLoudnessNodeData.m; sourceTree = "<group>"; };
 		0D835D52222E6A4D00DC62DD /* NodeGraphData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphData.h; sourceTree = "<group>"; };
 		0D835D53222E6A4D00DC62DD /* NodeGraphData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphData.m; sourceTree = "<group>"; };
 		0D835D55222E6A5700DC62DD /* NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodePortData.h; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				0D285244222F872300830E72 /* AddNodeData.m */,
 				0D28524D222F9C7000830E72 /* NumberNodeData.h */,
 				0D28524E222F9C7000830E72 /* NumberNodeData.m */,
+				0D43AACE223175F6002FBB9F /* MicphoneLoudnessNodeData.h */,
+				0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -294,6 +299,7 @@
 				0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */,
 				0D285245222F872300830E72 /* AddNodeData.m in Sources */,
 				0D0DBEBE222E685500A79415 /* AppDelegate.m in Sources */,
+				0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */,
 				0D28524C222F8AFE00830E72 /* Helper.m in Sources */,
 				0D285249222F88F100830E72 /* NodeListTableViewController.m in Sources */,
 				0D285252222F9FC500830E72 /* NumberNodePortData.m in Sources */,

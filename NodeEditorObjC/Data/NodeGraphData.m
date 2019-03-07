@@ -97,10 +97,8 @@
     if ([self.singleNodes containsObject:node])
     {
         [self.singleNodes removeObject:node];
-    }else
-    {
-        [node breakConnections];
     }
+    [node breakConnections];
     for (NodePortData *portData in node.inPorts)
     {
         for (NodeConnectionData *connection in portData.connections)

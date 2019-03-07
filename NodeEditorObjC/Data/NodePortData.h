@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isInPortRelativeToConnection;
 - (BOOL)isOutPortRelativeToConnection;
 
+@property (nonatomic,strong) NSObject *cachedValue;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -28,21 +28,28 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *nodeIndex;
 @property(nonatomic) CGPoint coordinate;
 @property(nonatomic) CGSize size;
+@property(nonatomic) CGSize customValueViewSize;
 @property(nonatomic) BOOL isFocused;
 @property(nonatomic, copy, nullable) void (^isFocusedChangedBlock)(BOOL isFocused);
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *inPorts;
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *outPorts;
+@property(nonatomic,strong) UIView *customValueView;
+@property(nonatomic,strong) UIView *previewView;
+
 - (CGRect)getRecordedFrame;
 - (void)postInitWork;
 - (void)breakConnections;
 
+@property (nonatomic,strong) NSString *cachedExpressionRule;
+
 + (NSString *)templateTitle;
 + (CGSize)templateSize;
++ (CGSize)templateCustomValueViewSize;
 + (NSMutableArray<NodePortData *> *) templateInPorts;
 + (NSMutableArray<NodePortData *> *) templateOutPorts;
 
-
 - (void)prepareForDealloc;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -254,25 +254,25 @@
     if (inPorts.count != 0 && outPorts.count == 0)
     {
         inRect = CGRectMake(8,
-                            NODE_TITLE_HEIGHT + 8,
+                            NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
                             self.backgroundBlurEffectView.contentView.frame.size.width - 16,
                             inPorts.count * NODE_PORT_HEIGHT);
     }
     else if (inPorts.count == 0 && outPorts.count != 0)
     {
         outRect = CGRectMake(8,
-                             NODE_TITLE_HEIGHT + 8,
+                             NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
                              self.backgroundBlurEffectView.contentView.frame.size.width - 16,
                              outPorts.count * NODE_PORT_HEIGHT);
     }
     else if (inPorts.count != 0 && outPorts.count != 0)
     {
         inRect = CGRectMake(8,
-                            NODE_TITLE_HEIGHT + 8,
+                            NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
                             self.backgroundBlurEffectView.contentView.frame.size.width / 2 - 12,
                             inPorts.count * NODE_PORT_HEIGHT);
         outRect = CGRectMake(self.backgroundBlurEffectView.contentView.frame.size.width / 2 + 4,
-                             NODE_TITLE_HEIGHT + 8,
+                             NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
                              self.backgroundBlurEffectView.contentView.frame.size.width / 2 - 12,
                              outPorts.count * NODE_PORT_HEIGHT);
     }
@@ -288,7 +288,11 @@
         
         for (int i = 0; i < inPorts.count; i ++ )
         {
-            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0, i * NODE_PORT_HEIGHT, self.inPortsView.frame.size.width, NODE_PORT_HEIGHT) portData:[inPorts objectAtIndex:i] isOutPort:NO nodeView:self];
+            NodePortView *nodePortView = [[NodePortView alloc] initWithFrame:CGRectMake(0,
+                                                                                        i * NODE_PORT_HEIGHT,
+                                                                                        self.inPortsView.frame.size.width,
+                                                                                        NODE_PORT_HEIGHT)
+                                                                    portData:[inPorts objectAtIndex:i] isOutPort:NO nodeView:self];
             nodePortView.nodeView = self;
             [self.panGestureRecognizer requireGestureRecognizerToFail:nodePortView.knotPanGesgtureRecognizer];
             [self.longPressGestureRecognizer requireGestureRecognizerToFail:nodePortView.knotPanGesgtureRecognizer];

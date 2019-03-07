@@ -28,6 +28,7 @@
     self.title = [[self class] templateTitle];
     self.size = [[self class] templateSize];
     self.isFocused = false;
+    self.customValueViewSize = [[self class] templateCustomValueViewSize];
 }
 - (void)setIsFocused:(BOOL)isFocused
 {
@@ -73,7 +74,17 @@
 }
 + (CGSize)templateSize
 {
-    return CGSizeMake(NODE_WIDTH, NODE_PADDING_HEIGHT * 2 + NODE_TITLE_HEIGHT + fmaxf([[self templateInPorts] count] * NODE_PORT_HEIGHT, [[self templateOutPorts] count] * NODE_PORT_HEIGHT));
+    return CGSizeMake(NODE_WIDTH,
+                      NODE_PADDING_HEIGHT * 2 + // padding
+                      NODE_TITLE_HEIGHT + // for title
+                      fmaxf([[self templateInPorts] count] * NODE_PORT_HEIGHT, [[self templateOutPorts] count] * NODE_PORT_HEIGHT) + // for ports
+                      [self templateCustomValueViewSize].height + // for custom view
+                      NODE_WIDTH // for preview
+                      );
+}
++ (CGSize)templateCustomValueViewSize
+{
+    return CGSizeMake(NODE_WIDTH, 0);
 }
 + (NSMutableArray<NodePortData *> *)templateInPorts
 {
@@ -114,5 +125,16 @@
 - (void)dealloc
 {
     [self prepareForDealloc];
+}
+
+- (NSString *)cachedExpressionRule
+{
+    
+    // declare each input
+    
+    // declare each output
+    
+    // make rules
+    return @"";
 }
 @end
