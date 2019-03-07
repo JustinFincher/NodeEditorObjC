@@ -9,6 +9,8 @@
 #import "NodeGraphEditorViewController.h"
 #import "NodeListTableViewController.h"
 #import "Hackpad.h"
+#import "NodePortView.h"
+#import "NodePortKnotView.h"
 
 @interface NodeGraphEditorViewController ()<NodeGraphViewDataSource,NodeGraphViewVisualDelegate>
 
@@ -105,6 +107,29 @@
 - (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict
 {
     return [[self nodeGraphData] getIndexNodeDict];
+}
+- (BOOL)canConnectOutPort:(NodePortData *)outPort withInPort:(NodePortData *)inPort
+{
+    return [self.nodeGraphData canConnectOutPort:outPort withInPort:inPort];
+}
+- (BOOL)canConnectOutPortPoint:(CGPoint)outPortPoint withInPortPoint:(CGPoint)inPortPoint
+{
+    NodePortView *outPortView = [self portViewFrom:outPortPoint];
+    NodePortView *inPortView = [self portViewFrom:inPortPoint];
+    return inPortView && outPortView && [self canConnectOutPort:outPortView.nodePortData withInPort:inPortView.nodePortData];
+}
+- (NodePortView *)portViewFrom:(CGPoint)point
+{
+    UIView *portViewHitTest = [self.nodeGraphScrollView.nodeGraphView.nodeContainerView hitTest:point withEvent:nil];
+    if ([portViewHitTest isKindOfClass:[NodePortKnotView class]])
+    {
+        return [NodePortView getNodePortFromKnotView:(NodePortKnotView *)portViewHitTest];
+    }
+    return nil;
+}
+- (void)connectOutPort:(NodePortData *)outPort withInPort:(NodePortData *)inPort
+{
+    return [self.nodeGraphData connectOutPort:outPort withInPort:inPort];
 }
 #pragma mark - NodeGraphViewVisualDelegate
 

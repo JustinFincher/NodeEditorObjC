@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "NodePortData.h"
+#import "NodePortKnotView.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class NodeView;
 @interface NodePortView : UIView
 
 @property (nonatomic,strong) UILabel *titleLabel;
-@property (nonatomic,strong) UIView *knotButton;
+@property (nonatomic,strong) NodePortKnotView *knotView;
 @property (nonatomic,strong) UIView *knotIndicator;
 @property (nonatomic,weak) NodePortData *nodePortData;
 @property (nonatomic,weak) NodeView *nodeView;
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
                     isOutPort:(BOOL)isOut
                      nodeView:(NodeView *)nodeView;
 
-+ (NodePortView *)getNodePortFromKnotView:(UIView *)knotView;
++ (NodePortView *)getNodePortFromKnotView:(NodePortKnotView *)knotView;
 
 @end
 

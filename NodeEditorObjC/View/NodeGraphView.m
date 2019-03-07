@@ -144,27 +144,47 @@
 }
 - (void)handleKnotPanGesture:(UIPanGestureRecognizer *)gesture
 {
-    NodePortView *portView = [NodePortView getNodePortFromKnotView:gesture.view];
-    NSLog(@"%@",portView);
-    switch (gesture.state) {
-        case UIGestureRecognizerStateBegan:
-        case UIGestureRecognizerStateChanged:
-        {
-            [self.connectionVisualDelegate currentPointAt:[gesture locationInView:self.nodeContainerView] dragging:YES from:portView];
-        }
-            break;
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateFailed:
-        {
-            [self.connectionVisualDelegate currentPointAt:[gesture locationInView:self.nodeContainerView] dragging:NO from:nil];
-        }
-            break;
-        default:
-            break;
-        case UIGestureRecognizerStatePossible:
+    NodePortView *portView = [NodePortView getNodePortFromKnotView:(NodePortKnotView *)gesture.view];
+    if (portView)
+    {
+        NSLog(@"%@",portView);
+        switch (gesture.state) {
+            case UIGestureRecognizerStateBegan:
+            case UIGestureRecognizerStateChanged:
+            {
+                [self.connectionVisualDelegate currentPointAt:[gesture locationInView:self.nodeContainerView] dragging:YES from:portView];
+            }
+                break;
+            case UIGestureRecognizerStateCancelled:
+            case UIGestureRecognizerStateFailed:
+            {
+                [self.connectionVisualDelegate currentPointAt:[gesture locationInView:self.nodeContainerView] dragging:NO from:nil];
+            }
+                break;
+            case UIGestureRecognizerStateEnded:
+            {
+                [self.connectionVisualDelegate currentPointAt:[gesture locationInView:self.nodeContainerView] dragging:NO from:nil];
+                NodePortView *anotherPortView = [self.dataSource portViewFrom:[gesture locationInView:self.nodeContainerView]];
+                if
+                    ([portView.nodePortData isInPortRelativeToConnection] &&
+                     [anotherPortView.nodePortData isOutPortRelativeToConnection] &&
+                     [self.dataSource canConnectOutPort:portView.nodePortData withInPort:anotherPortView.nodePortData])
+                {
+                    [self.dataSource connectOutPort:portView.nodePortData withInPort:anotherPortView.nodePortData];                    [self reloadData];
+                }else if
+                    ([portView.nodePortData isOutPortRelativeToConnection] &&
+                     [anotherPortView.nodePortData isInPortRelativeToConnection] &&
+                     [self.dataSource canConnectOutPort:anotherPortView.nodePortData withInPort:portView.nodePortData])
+                {
+                    [self.dataSource connectOutPort:anotherPortView.nodePortData withInPort:portView.nodePortData];
+                    [self reloadData];
+                }
+            }
+                break;
+            case UIGestureRecognizerStatePossible:
             {}
-            break;
+                break;
+        }
     }
 }
 @end

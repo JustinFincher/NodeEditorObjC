@@ -21,6 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)nodeCountInGraphView:(NodeGraphView *)graphView;
 - (NodeData *)nodeGraphView:(NodeGraphView *)graphView nodeDataForIndex:(NSString *)index;
 - (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict;
+- (BOOL)canConnectOutPort:(NodePortData *)outPort
+               withInPort:(NodePortData *)inPort;
+- (BOOL)canConnectOutPortPoint:(CGPoint)outPortPoint
+               withInPortPoint:(CGPoint)inPortPoint;
+- (void)connectOutPort:(NodePortData *)outPort
+            withInPort:(NodePortData *)inPort;
+- (NodePortView *)portViewFrom:(CGPoint)point;
 
 @optional
 
