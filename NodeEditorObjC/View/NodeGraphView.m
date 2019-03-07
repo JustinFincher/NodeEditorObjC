@@ -84,6 +84,7 @@
     self.longPressGestureRecoginzer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self.nodeContainerView addGestureRecognizer:self.longPressGestureRecoginzer];
     
+    
 }
 - (void)addDynamicBehavior:(UIDynamicBehavior *)behavior
 {

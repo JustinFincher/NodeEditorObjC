@@ -111,6 +111,9 @@
          weakSelf.transform = CGAffineTransformMakeScale(1.0, 1.0);
      } delayFactor:0.5];
     [self.scaleAnimator startAnimation];
+    
+    [self resignFirstResponder];
+    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer
@@ -128,6 +131,10 @@
                                       [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
                                   }];
             [self.scaleAnimator startAnimation];
+            
+            [self becomeFirstResponder];
+            [[UIMenuController sharedMenuController] setTargetRect:self.bounds inView:self];
+            [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
         }
             break;
         case UIGestureRecognizerStateEnded:
@@ -152,7 +159,8 @@
     __weak __typeof(self) weakSelf = self;
     CGPoint velocity = [recognizer velocityInView:self.nodeGraphView.nodeContainerView];
     CGPoint locationInSelf = [recognizer locationInView:self];
-    switch (recognizer.state) {
+    switch (recognizer.state)
+    {
         case UIGestureRecognizerStateBegan:
         {
             [self.nodeGraphView removeDynamicBehavior:self.pushBehavior];
@@ -178,6 +186,10 @@
                 weakSelf.transform = CGAffineTransformScale(currentTransform, 1.1, 1.1);
             };
             [self.nodeGraphView addDynamicBehavior:self.attachmentBehavior];
+            
+            
+            [self resignFirstResponder];
+            [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
         }
             break;
         case UIGestureRecognizerStateChanged:
@@ -312,5 +324,32 @@
     self.backgroundBlurEffectView.layer.borderWidth = self.nodeData.isFocused ? 4.0f : 0.0f;
     [self.nodeGraphView.dynamicAnimator updateItemUsingCurrentState:self];
     [self.nodeGraphView.nodeConnectionLineView setNeedsDisplay];
+}
+
+#pragma mark - Menu
+- (void) menuItemClicked:(id) sender
+{
+    
+}
+
+- (void) delete:(id)sender
+{
+    [self.nodeGraphView.dataSource deleteNode:self.nodeData];
+}
+
+- (BOOL) canPerformAction:(SEL)selector withSender:(id) sender
+{
+    if (selector == @selector(menuItemClicked:) ||
+        selector == @selector(delete:))
+    {
+        return YES;
+    }
+    return NO;
+}
+
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
 }
 @end

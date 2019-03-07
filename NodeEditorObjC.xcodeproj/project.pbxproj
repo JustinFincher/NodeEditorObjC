@@ -23,6 +23,7 @@
 		0D43AAC3222FD4A5002FBB9F /* NodeGraphConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC2222FD4A5002FBB9F /* NodeGraphConnectionView.m */; };
 		0D43AAC7222FD81E002FBB9F /* Hackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC6222FD81E002FBB9F /* Hackpad.m */; };
 		0D43AACA223119AB002FBB9F /* NodePortKnotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC9223119AB002FBB9F /* NodePortKnotView.m */; };
+		0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */; };
 		0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D53222E6A4D00DC62DD /* NodeGraphData.m */; };
 		0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D56222E6A5700DC62DD /* NodePortData.m */; };
 		0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D5A222E6B1600DC62DD /* NodeGraphView.m */; };
@@ -63,6 +64,8 @@
 		0D43AAC6222FD81E002FBB9F /* Hackpad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hackpad.m; sourceTree = "<group>"; };
 		0D43AAC8223119AB002FBB9F /* NodePortKnotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodePortKnotView.h; sourceTree = "<group>"; };
 		0D43AAC9223119AB002FBB9F /* NodePortKnotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodePortKnotView.m; sourceTree = "<group>"; };
+		0D43AACB2231458D002FBB9F /* NodeInstanceDebugTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeInstanceDebugTableViewController.h; sourceTree = "<group>"; };
+		0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeInstanceDebugTableViewController.m; sourceTree = "<group>"; };
 		0D835D52222E6A4D00DC62DD /* NodeGraphData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphData.h; sourceTree = "<group>"; };
 		0D835D53222E6A4D00DC62DD /* NodeGraphData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphData.m; sourceTree = "<group>"; };
 		0D835D55222E6A5700DC62DD /* NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodePortData.h; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 				0D835D5E222E6B9100DC62DD /* NodeGraphEditorViewController.m */,
 				0D285247222F88F100830E72 /* NodeListTableViewController.h */,
 				0D285248222F88F100830E72 /* NodeListTableViewController.m */,
+				0D43AACB2231458D002FBB9F /* NodeInstanceDebugTableViewController.h */,
+				0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 			files = (
 				0D0DBED4222E694E00A79415 /* NodeData.m in Sources */,
 				0D835D5F222E6B9100DC62DD /* NodeGraphEditorViewController.m in Sources */,
+				0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */,
 				0D0DBECC222E685800A79415 /* main.m in Sources */,
 				0D43AAC7222FD81E002FBB9F /* Hackpad.m in Sources */,
 				0D285242222F78D200830E72 /* NodeGraphScrollView.m in Sources */,

@@ -58,10 +58,10 @@
     }
     if ([self.presentationController isKindOfClass:[UIPopoverPresentationController class]] && [(UIPopoverPresentationController *)(self.presentationController) barButtonItem] == nil)
     {
-        [self.graphEditorViewController addNode:[self.nodeSubclasses objectAtIndex:indexPath.row] at:[(UIPopoverPresentationController *)(self.presentationController) sourceRect].origin];
+        [self.graphEditorViewController addNodebyClass:[self.nodeSubclasses objectAtIndex:indexPath.row] at:[(UIPopoverPresentationController *)(self.presentationController) sourceRect].origin];
     }else
     {
-        [self.graphEditorViewController addNode:[self.nodeSubclasses objectAtIndex:indexPath.row]];
+        [self.graphEditorViewController addNodebyClass:[self.nodeSubclasses objectAtIndex:indexPath.row]];
     }
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }

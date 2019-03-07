@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)getNodeTotalCount;
 - (NodeData *)getNodeWithIndex:(NSString *)index;
 - (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict;
+- (BOOL)isSingleNode:(NodeData *)node;
+@property(nonatomic, copy, nullable) void (^graphChangedBlack)(void);
 
 - (BOOL)addNode:(NodeData *)node;
 - (BOOL)removeNode:(NodeData *)node;

@@ -12,7 +12,6 @@
 @interface NodeGraphData()
 
 @property (nonatomic,strong) NSMutableDictionary<NSString *,NodeData *> *cachedDictionary;
-@property (nonatomic) BOOL useCache;
 
 @end
 @implementation NodeGraphData
@@ -24,7 +23,6 @@
     if (self)
     {
         self.singleNodes = [NSMutableOrderedSet orderedSet];
-        self.useCache = NO;
     }
     return self;
 }
@@ -41,7 +39,7 @@
 
 - (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict
 {
-    if (!self.useCache || !self.cachedDictionary)
+    if (!self.cachedDictionary)
     {
         self.cachedDictionary = [NSMutableDictionary dictionary];
         for (NodeData *finalNode in self.singleNodes)
@@ -54,9 +52,11 @@
 
 - (void)DFS:(NodeData *)node withDict:(NSMutableDictionary<NSString *,NodeData *> *)dict
 {
-//    NSLog(@"DFS NODE %@ INDEX %@",node,node.nodeIndex);
     if (node != nil && ![dict.allValues containsObject:node])
     {
+        // re-issue ID
+        node.nodeIndex = [[NSNumber numberWithInteger:[dict count]] stringValue];
+        
         [dict setObject:node forKey:node.nodeIndex];
         for (NodePortData *nodePort in node.inPorts)
         {
@@ -68,6 +68,11 @@
     }
 }
 
+- (BOOL)isSingleNode:(NodeData *)node
+{
+    return [self.singleNodes containsObject:node];
+}
+
 - (BOOL)addNode:(NodeData *)node
 {
     if ([self.singleNodes filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodeIndex == %@", node.nodeIndex]].count > 0)
@@ -75,10 +80,10 @@
         NSLog(@"NODE %@ ALREADY ADDED TO NODE GRAPH %@, NO, INDEX = %@",node,self,node.nodeIndex);
         return NO;
     }
-    node.nodeIndex = [[NSNumber numberWithInteger:self.singleNodes.count] stringValue];
+    node.nodeIndex = [[NSNumber numberWithInteger:[[self getIndexNodeDict] count]] stringValue];
     [self.singleNodes addObject:node];
-    NSLog(@"NODE %@ ADDED TO NODE GRAPH %@, YES, INDEX = %@",node,self,node.nodeIndex);
     self.cachedDictionary = nil;
+    self.graphChangedBlack();
     return YES;
 }
 
@@ -105,6 +110,7 @@
     }
     [node prepareForDealloc];
     self.cachedDictionary = nil;
+    self.graphChangedBlack();
     return YES;
 }
 - (void)connectOutPort:(NodePortData *)outPort
@@ -122,10 +128,8 @@
         [self.singleNodes removeObject:node];
         inPort.connections.lastObject.inPort.belongsToNode = node;
     }
-    
-    //NSLog(@"%@",[inPort.connections lastObject].inPort);
-    
     self.cachedDictionary = nil;
+    self.graphChangedBlack();
 }
 
 - (BOOL)canConnectOutPort:(NodePortData *)outPort withInPort:(NodePortData *)inPort
@@ -134,7 +138,8 @@
             [outPort isOutPortRelativeToNode] &&
             [inPort isInPortRelativeToNode] &&
             [[inPort connections] count] == 0 &&
-            outPort.belongsToNode.nodeIndex != inPort.belongsToNode.nodeIndex
+            outPort.belongsToNode.nodeIndex != inPort.belongsToNode.nodeIndex &&
+            [outPort requiredType] == [inPort requiredType]
             );
 }
 @end

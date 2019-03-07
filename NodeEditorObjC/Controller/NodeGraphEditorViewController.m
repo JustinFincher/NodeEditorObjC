@@ -8,6 +8,7 @@
 
 #import "NodeGraphEditorViewController.h"
 #import "NodeListTableViewController.h"
+#import "NodeInstanceDebugTableViewController.h"
 #import "Hackpad.h"
 #import "NodePortView.h"
 #import "NodePortKnotView.h"
@@ -21,15 +22,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    __weak typeof(self) weakSelf = self;
     // Do any additional setup after loading the view.
     
     self.title = @"Shader Node Editor";
     
     self.nodeGraphData = [[NodeGraphData alloc] init];
+    self.nodeGraphData.graphChangedBlack = ^()
+    {
+        [weakSelf.nodeGraphScrollView.nodeGraphView reloadData];
+    };
     self.nodeGraphScrollView.nodeGraphView.dataSource = self;
     self.nodeGraphScrollView.nodeGraphView.visualDelegate = self;
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(leftDebugButttonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAddButttonPressed:)];
+    
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_SHOW_NODE_LIST object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
         [self showNodeListControllerAt:[[[notification userInfo] valueForKey:@"point"] CGPointValue]];
     }];
@@ -40,6 +50,19 @@
 }
 
 #pragma mark - UI Event
+- (void)leftDebugButttonPressed:(UIBarButtonItem *)item
+{
+    NodeInstanceDebugTableViewController *tableViewController = [[NodeInstanceDebugTableViewController alloc] init];
+    tableViewController.modalPresentationStyle = UIModalPresentationPopover;
+    UIPopoverPresentationController *popover = tableViewController.popoverPresentationController;
+    if (popover)
+    {
+        popover.barButtonItem = item;
+        popover.delegate = tableViewController;
+    }
+    tableViewController.graphController = self;
+    [self presentViewController:tableViewController animated:YES completion:nil];
+}
 - (void)rightAddButttonPressed:(UIBarButtonItem *)item
 {
     NodeListTableViewController *tableViewController = [[NodeListTableViewController alloc] init];
@@ -70,12 +93,12 @@
 }
 
 #pragma mark - Data Event
-- (void) addNode:(Class)nodeClass
+- (void) addNodebyClass:(Class)nodeClass
 {
     [self.nodeGraphData addNode:[[nodeClass alloc] init]];
     [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
-- (void) addNode:(Class)nodeClass
+- (void) addNodebyClass:(Class)nodeClass
               at:(CGPoint)point
 {
     NodeData *node = [[nodeClass alloc] init];
@@ -131,6 +154,15 @@
 {
     return [self.nodeGraphData connectOutPort:outPort withInPort:inPort];
 }
+-(void)deleteNode:(NodeData *)node
+{
+    [self.nodeGraphData removeNode:node];
+}
+- (void)addNode:(NodeData *)node
+{
+    [self.nodeGraphData addNode:node];
+}
+
 #pragma mark - NodeGraphViewVisualDelegate
 
 - (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSString *)index
