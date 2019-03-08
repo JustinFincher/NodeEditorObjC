@@ -75,6 +75,11 @@
             detail = [detail stringByAppendingString:[NSString stringWithFormat:@"CONNECTION: %@ %@ %@",connection.outport.portIndex,connection.outport.title,connection.outport.belongsToNode.title]];
         }
     }
+    
+    detail = [detail stringByAppendingString:@"\n"];
+    detail = [detail stringByAppendingString:[NSString stringWithFormat:@"SHADER:\n%@", [data previewTotalOutExpression]]];
+    
+    
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.text = detail;
     return cell;

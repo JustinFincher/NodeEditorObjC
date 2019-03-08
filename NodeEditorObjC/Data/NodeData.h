@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)expressionRule;
 - (NSString *)templatePreviewOutDefaultExpression;
+- (NSString *)previewTotalOutExpression;
 @property (nonatomic,strong) NSString * shaderProgram;
 
 

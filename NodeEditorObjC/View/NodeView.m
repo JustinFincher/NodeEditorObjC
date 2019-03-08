@@ -355,15 +355,7 @@
         SKScene *scene = [SKScene sceneWithSize:self.shaderPreviewView.bounds.size];
         scene.anchorPoint = CGPointMake(0.5, 0.5);
         SKSpriteNode *spriteNode = [[SKSpriteNode alloc] initWithColor:[UIColor grayColor] size:scene.size];
-        NSString *shaderStr = [NSString stringWithFormat:
-                               @"void main() {\n"
-                               "%@ \n"
-                               "%@ \n"
-                               "} // From Node %@",
-                               self.nodeData.shaderProgram,
-                               [self.nodeData templatePreviewOutDefaultExpression],
-                               self.nodeData.nodeIndex
-                               ];
+        NSString *shaderStr = [self.nodeData previewTotalOutExpression];
         NSLog(@"%@",shaderStr);
         SKShader *shader = [SKShader shaderWithSource:shaderStr];
         spriteNode.shader = shader;

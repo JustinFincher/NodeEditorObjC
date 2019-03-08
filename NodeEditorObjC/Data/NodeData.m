@@ -145,6 +145,18 @@
             [@0 floatValue],
             [@0 floatValue]];
 }
+- (NSString *)previewTotalOutExpression
+{
+    return [NSString stringWithFormat:
+            @"void main() {\n"
+            "%@ \n"
+            "%@ \n"
+            "} // From Node %@",
+            self.shaderProgram,
+            [self templatePreviewOutDefaultExpression],
+            self.nodeIndex
+            ];
+}
 - (NSString *)expressionRule
 {
     return @"";
