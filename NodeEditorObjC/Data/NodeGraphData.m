@@ -46,11 +46,16 @@
     for (NodeData *finalNode in self.singleNodes)
     {
         NSMutableDictionary<NSString *,NSMutableArray<NSString *>*> *programDict = [[NSMutableDictionary alloc] init];
+        
         [self DFS:finalNode shaderDict:programDict];
+        
         [programDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop)
         {
             NodeData *nodeData = [self.cachedDictionary objectForKey:key];
-            nodeData.shaderProgram = [array componentsJoinedByString:@"\n"];
+            if ([[nodeData class] templateCanHavePreview])
+            {
+                nodeData.shaderProgram = [array componentsJoinedByString:@"\n"];
+            }
         }];
     }
 }
@@ -72,7 +77,7 @@
     }
     return self.cachedDictionary;
 }
-// NEED TO REPLACE WITH BFS
+
 - (void)DFS:(NodeData *)node
  shaderDict:(NSMutableDictionary<NSString *,NSMutableArray<NSString *>*>*)shaderDict
 {
@@ -81,10 +86,11 @@
         [shaderDict setObject:[NSMutableArray array] forKey:node.nodeIndex];
         [shaderDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop)
         {
-            if (![array containsObject:node.expressionRule])
+            if ([array containsObject:node.expressionRule])
             {
-                [array insertObject:node.expressionRule atIndex:0];
+                [array removeObject:node.expressionRule];
             }
+            [array insertObject:node.expressionRule atIndex:0];
         }];
         for (NodePortData *nodePort in node.inPorts)
         {
@@ -95,14 +101,18 @@
         }
     }
 }
+
 - (void)DFS:(NodeData *)node
 withIndexDict:(NSMutableDictionary<NSString *,NodeData *> *)dict;
 {
     if (node != nil)
     {
         // re-issue ID
-        node.nodeIndex = [[NSNumber numberWithInteger:[dict count]] stringValue];
-        [dict setObject:node forKey:node.nodeIndex];
+        if (![[dict allValues] containsObject:node])
+        {
+            node.nodeIndex = [[NSNumber numberWithInteger:[dict count]] stringValue];
+            [dict setObject:node forKey:node.nodeIndex];
+        }
         
         for (NodePortData *nodePort in node.inPorts)
         {
