@@ -36,8 +36,13 @@
     self.nodeGraphScrollView.nodeGraphView.dataSource = self;
     self.nodeGraphScrollView.nodeGraphView.visualDelegate = self;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(leftDebugButttonPressed:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAddButttonPressed:)];
+    self.navigationItem.leftBarButtonItems = @[
+                                               [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(debugButttonPressed:)],
+                                               [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButttonPressed:)]
+                                               ];
+    self.navigationItem.rightBarButtonItems = @[
+                                                [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshButttonPressed:)]
+                                                ];
     
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_SHOW_NODE_LIST object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
@@ -50,7 +55,11 @@
 }
 
 #pragma mark - UI Event
-- (void)leftDebugButttonPressed:(UIBarButtonItem *)item
+- (void)refreshButttonPressed:(UIBarButtonItem *)item
+{
+    [self.nodeGraphScrollView.nodeGraphView reloadData];
+}
+- (void)debugButttonPressed:(UIBarButtonItem *)item
 {
     NodeInstanceDebugTableViewController *tableViewController = [[NodeInstanceDebugTableViewController alloc] init];
     tableViewController.modalPresentationStyle = UIModalPresentationPopover;
@@ -63,7 +72,7 @@
     tableViewController.graphController = self;
     [self presentViewController:tableViewController animated:YES completion:nil];
 }
-- (void)rightAddButttonPressed:(UIBarButtonItem *)item
+- (void)addButttonPressed:(UIBarButtonItem *)item
 {
     NodeListTableViewController *tableViewController = [[NodeListTableViewController alloc] init];
     tableViewController.modalPresentationStyle = UIModalPresentationPopover;

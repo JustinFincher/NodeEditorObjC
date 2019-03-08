@@ -9,7 +9,7 @@
 #import "Hackpad.h"
 
 #import "AddNodeData.h"
-#import "NumberNodeData.h"
+#import "NumberFloatNodeData.h"
 
 #import "NodeGraphData.h"
 #import "NodeConnectionData.h"
@@ -29,7 +29,7 @@
 {
     AddNodeData *addNode = [[AddNodeData alloc] init];
     [viewController.nodeGraphData addNode:addNode];
-    NumberNodeData *numberANode = [[NumberNodeData alloc] init];
+    NumberFloatNodeData *numberANode = [[NumberFloatNodeData alloc] init];
     [viewController.nodeGraphData addNode:numberANode];
     
     [viewController.nodeGraphData connectOutPort:[numberANode.outPorts objectAtIndex:0] withInPort:[addNode.inPorts objectAtIndex:0]];

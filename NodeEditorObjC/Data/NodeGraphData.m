@@ -23,6 +23,11 @@
     if (self)
     {
         self.singleNodes = [NSMutableOrderedSet orderedSet];
+        [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_SHADER_MODIFIED object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notif)
+        {
+            [self updateNodeShaders];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHADER_VIEW_NEED_RELOAD object:nil];
+        }];
     }
     return self;
 }
@@ -36,33 +41,69 @@
 {
     return [[self getIndexNodeDict] objectForKey:index];
 }
+- (void)updateNodeShaders
+{
+    NSMutableDictionary<NSString *,NSMutableArray<NSString *>*> *programDict = [[NSMutableDictionary alloc] init];
+    for (NodeData *finalNode in self.singleNodes)
+    {
+        [self DFS:finalNode shaderDict:programDict];
+    }
+    
+    [programDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop){
+        NodeData *nodeData = [self.cachedDictionary objectForKey:key];
+        nodeData.shaderProgram = [array componentsJoinedByString:@"\n"];
+    }];
+}
+- (void)updateNodeRelations
+{
+    self.cachedDictionary = [NSMutableDictionary dictionary];
+    for (NodeData *finalNode in self.singleNodes)
+    {
+        [self DFS:finalNode withIndexDict:self.cachedDictionary];
+    }
+}
 
 - (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict
 {
     if (!self.cachedDictionary)
     {
-        self.cachedDictionary = [NSMutableDictionary dictionary];
-        for (NodeData *finalNode in self.singleNodes)
-        {
-            [self DFS:finalNode withDict:self.cachedDictionary];
-        }
+        [self updateNodeRelations];
+        [self updateNodeShaders];
     }
     return self.cachedDictionary;
 }
-
-- (void)DFS:(NodeData *)node withDict:(NSMutableDictionary<NSString *,NodeData *> *)dict
+- (void)DFS:(NodeData *)node
+ shaderDict:(NSMutableDictionary<NSString *,NSMutableArray<NSString *>*>*)shaderDict
 {
-    if (node != nil && ![dict.allValues containsObject:node])
+    if (node != nil)
     {
-        // re-issue ID
-        node.nodeIndex = [[NSNumber numberWithInteger:[dict count]] stringValue];
-        
-        [dict setObject:node forKey:node.nodeIndex];
+        [shaderDict setObject:[NSMutableArray array] forKey:node.nodeIndex];
+        [shaderDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop){
+            [array insertObject:node.expressionRule atIndex:0];
+        }];
         for (NodePortData *nodePort in node.inPorts)
         {
             for (NodeConnectionData *connection in nodePort.connections)
             {
-                [self DFS:connection.inPort.belongsToNode withDict:dict];
+                [self DFS:connection.inPort.belongsToNode shaderDict:shaderDict];
+            }
+        }
+    }
+}
+- (void)DFS:(NodeData *)node
+withIndexDict:(NSMutableDictionary<NSString *,NodeData *> *)dict;
+{
+    if (node != nil)
+    {
+        // re-issue ID
+        node.nodeIndex = [[NSNumber numberWithInteger:[dict count]] stringValue];
+        [dict setObject:node forKey:node.nodeIndex];
+        
+        for (NodePortData *nodePort in node.inPorts)
+        {
+            for (NodeConnectionData *connection in nodePort.connections)
+            {
+                [self DFS:connection.inPort.belongsToNode withIndexDict:dict];
             }
         }
     }

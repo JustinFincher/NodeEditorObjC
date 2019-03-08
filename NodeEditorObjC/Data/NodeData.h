@@ -19,6 +19,8 @@
 #define NOTIFICATION_NODE_CONNECTION_START @"NOTIFICATION_NODE_CONNECTION_START"
 #define NOTIFICATION_NODE_CONNECTION_END @"NOTIFICATION_NODE_CONNECTION_END"
 #define NOTIFICATION_SHOW_NODE_LIST @"NOTIFICATION_SHOW_NODE_LIST"
+#define NOTIFICATION_SHADER_MODIFIED @"NOTIFICATION_SHADER_MODIFIED"
+#define NOTIFICATION_SHADER_VIEW_NEED_RELOAD @"NOTIFICATION_SHADER_VIEW_NEED_RELOAD"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,15 +35,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) void (^isFocusedChangedBlock)(BOOL isFocused);
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *inPorts;
 @property(nonatomic,strong) NSMutableArray<NodePortData *> *outPorts;
-@property(nonatomic,strong) UIView *customValueView;
-@property(nonatomic,strong) UIView *previewView;
+@property(nonatomic) int previewForOutPortIndex;
 
 - (CGRect)getRecordedFrame;
 - (void)postInitWork;
 - (void)breakConnections;
 
-@property (nonatomic,strong) NSString *cachedExpressionRule;
+- (NSString *)expressionRule;
+@property (nonatomic,strong) NSString * shaderProgram;
 
+
++ (BOOL)templateCanHavePreview;
++ (int)templatePreviewForOutPortIndex;
 + (NSString *)templateTitle;
 + (CGSize)templateSize;
 + (CGSize)templateCustomValueViewSize;
@@ -49,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray<NodePortData *> *) templateOutPorts;
 
 - (void)prepareForDealloc;
+- (void)configureCustomValueView:(UIView *)customValueView;
+
+- (NSString *)nodeCommentHeader;
 
 @end
 

@@ -17,14 +17,18 @@
 		0D285245222F872300830E72 /* AddNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D285244222F872300830E72 /* AddNodeData.m */; };
 		0D285249222F88F100830E72 /* NodeListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D285248222F88F100830E72 /* NodeListTableViewController.m */; };
 		0D28524C222F8AFE00830E72 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D28524B222F8AFE00830E72 /* Helper.m */; };
-		0D28524F222F9C7000830E72 /* NumberNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D28524E222F9C7000830E72 /* NumberNodeData.m */; };
-		0D285252222F9FC500830E72 /* NumberNodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D285251222F9FC500830E72 /* NumberNodePortData.m */; };
+		0D28524F222F9C7000830E72 /* NumberFloatNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D28524E222F9C7000830E72 /* NumberFloatNodeData.m */; };
+		0D285252222F9FC500830E72 /* NumberFloatNodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D285251222F9FC500830E72 /* NumberFloatNodePortData.m */; };
 		0D43AAC0222FC7B0002FBB9F /* NodePortView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AABF222FC7B0002FBB9F /* NodePortView.m */; };
 		0D43AAC3222FD4A5002FBB9F /* NodeGraphConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC2222FD4A5002FBB9F /* NodeGraphConnectionView.m */; };
 		0D43AAC7222FD81E002FBB9F /* Hackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC6222FD81E002FBB9F /* Hackpad.m */; };
 		0D43AACA223119AB002FBB9F /* NodePortKnotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC9223119AB002FBB9F /* NodePortKnotView.m */; };
 		0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */; };
 		0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */; };
+		0D43AAD322319955002FBB9F /* TimeNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD222319955002FBB9F /* TimeNodeData.m */; };
+		0D43AAD922320F09002FBB9F /* FinalColorNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD822320F09002FBB9F /* FinalColorNodeData.m */; };
+		0D43AADC223218A7002FBB9F /* Vector4NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */; };
+		0D43AADF22322A38002FBB9F /* Vector4.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADE22322A38002FBB9F /* Vector4.m */; };
 		0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D53222E6A4D00DC62DD /* NodeGraphData.m */; };
 		0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D56222E6A5700DC62DD /* NodePortData.m */; };
 		0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D5A222E6B1600DC62DD /* NodeGraphView.m */; };
@@ -53,10 +57,10 @@
 		0D285248222F88F100830E72 /* NodeListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeListTableViewController.m; sourceTree = "<group>"; };
 		0D28524A222F8AFE00830E72 /* Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		0D28524B222F8AFE00830E72 /* Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
-		0D28524D222F9C7000830E72 /* NumberNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberNodeData.h; sourceTree = "<group>"; };
-		0D28524E222F9C7000830E72 /* NumberNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberNodeData.m; sourceTree = "<group>"; };
-		0D285250222F9FC500830E72 /* NumberNodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberNodePortData.h; sourceTree = "<group>"; };
-		0D285251222F9FC500830E72 /* NumberNodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberNodePortData.m; sourceTree = "<group>"; };
+		0D28524D222F9C7000830E72 /* NumberFloatNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberFloatNodeData.h; sourceTree = "<group>"; };
+		0D28524E222F9C7000830E72 /* NumberFloatNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberFloatNodeData.m; sourceTree = "<group>"; };
+		0D285250222F9FC500830E72 /* NumberFloatNodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberFloatNodePortData.h; sourceTree = "<group>"; };
+		0D285251222F9FC500830E72 /* NumberFloatNodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberFloatNodePortData.m; sourceTree = "<group>"; };
 		0D43AABE222FC7B0002FBB9F /* NodePortView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodePortView.h; sourceTree = "<group>"; };
 		0D43AABF222FC7B0002FBB9F /* NodePortView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodePortView.m; sourceTree = "<group>"; };
 		0D43AAC1222FD4A5002FBB9F /* NodeGraphConnectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphConnectionView.h; sourceTree = "<group>"; };
@@ -69,6 +73,14 @@
 		0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeInstanceDebugTableViewController.m; sourceTree = "<group>"; };
 		0D43AACE223175F6002FBB9F /* MicphoneLoudnessNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MicphoneLoudnessNodeData.h; sourceTree = "<group>"; };
 		0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MicphoneLoudnessNodeData.m; sourceTree = "<group>"; };
+		0D43AAD122319955002FBB9F /* TimeNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeNodeData.h; sourceTree = "<group>"; };
+		0D43AAD222319955002FBB9F /* TimeNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeNodeData.m; sourceTree = "<group>"; };
+		0D43AAD722320F09002FBB9F /* FinalColorNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinalColorNodeData.h; sourceTree = "<group>"; };
+		0D43AAD822320F09002FBB9F /* FinalColorNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinalColorNodeData.m; sourceTree = "<group>"; };
+		0D43AADA223218A7002FBB9F /* Vector4NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector4NodePortData.h; sourceTree = "<group>"; };
+		0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector4NodePortData.m; sourceTree = "<group>"; };
+		0D43AADD22322A38002FBB9F /* Vector4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector4.h; sourceTree = "<group>"; };
+		0D43AADE22322A38002FBB9F /* Vector4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector4.m; sourceTree = "<group>"; };
 		0D835D52222E6A4D00DC62DD /* NodeGraphData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphData.h; sourceTree = "<group>"; };
 		0D835D53222E6A4D00DC62DD /* NodeGraphData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphData.m; sourceTree = "<group>"; };
 		0D835D55222E6A5700DC62DD /* NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodePortData.h; sourceTree = "<group>"; };
@@ -135,10 +147,14 @@
 			children = (
 				0D285243222F872300830E72 /* AddNodeData.h */,
 				0D285244222F872300830E72 /* AddNodeData.m */,
-				0D28524D222F9C7000830E72 /* NumberNodeData.h */,
-				0D28524E222F9C7000830E72 /* NumberNodeData.m */,
+				0D28524D222F9C7000830E72 /* NumberFloatNodeData.h */,
+				0D28524E222F9C7000830E72 /* NumberFloatNodeData.m */,
+				0D43AAD122319955002FBB9F /* TimeNodeData.h */,
+				0D43AAD222319955002FBB9F /* TimeNodeData.m */,
 				0D43AACE223175F6002FBB9F /* MicphoneLoudnessNodeData.h */,
 				0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */,
+				0D43AAD722320F09002FBB9F /* FinalColorNodeData.h */,
+				0D43AAD822320F09002FBB9F /* FinalColorNodeData.m */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -146,8 +162,10 @@
 		0D285253222F9FC800830E72 /* NodePorts */ = {
 			isa = PBXGroup;
 			children = (
-				0D285250222F9FC500830E72 /* NumberNodePortData.h */,
-				0D285251222F9FC500830E72 /* NumberNodePortData.m */,
+				0D285250222F9FC500830E72 /* NumberFloatNodePortData.h */,
+				0D285251222F9FC500830E72 /* NumberFloatNodePortData.m */,
+				0D43AADA223218A7002FBB9F /* Vector4NodePortData.h */,
+				0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */,
 			);
 			path = NodePorts;
 			sourceTree = "<group>";
@@ -163,6 +181,15 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		0D43AAE022322A4D002FBB9F /* DataType */ = {
+			isa = PBXGroup;
+			children = (
+				0D43AADD22322A38002FBB9F /* Vector4.h */,
+				0D43AADE22322A38002FBB9F /* Vector4.m */,
+			);
+			path = DataType;
+			sourceTree = "<group>";
+		};
 		0D835D58222E6AF700DC62DD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +201,7 @@
 				0D835D56222E6A5700DC62DD /* NodePortData.m */,
 				0DC9F9ED222E7DA2001B55C8 /* NodeConnectionData.h */,
 				0DC9F9EE222E7DA2001B55C8 /* NodeConnectionData.m */,
+				0D43AAE022322A4D002FBB9F /* DataType */,
 				0D285253222F9FC800830E72 /* NodePorts */,
 				0D285246222F872600830E72 /* Nodes */,
 			);
@@ -284,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D43AAD922320F09002FBB9F /* FinalColorNodeData.m in Sources */,
 				0D0DBED4222E694E00A79415 /* NodeData.m in Sources */,
 				0D835D5F222E6B9100DC62DD /* NodeGraphEditorViewController.m in Sources */,
 				0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */,
@@ -293,6 +322,8 @@
 				0D43AAC0222FC7B0002FBB9F /* NodePortView.m in Sources */,
 				0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */,
 				0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */,
+				0D43AAD322319955002FBB9F /* TimeNodeData.m in Sources */,
+				0D43AADF22322A38002FBB9F /* Vector4.m in Sources */,
 				0DC9F9EF222E7DA2001B55C8 /* NodeConnectionData.m in Sources */,
 				0DC9F9E9222E73F4001B55C8 /* NodeGraphEditorNavigationController.m in Sources */,
 				0D43AAC3222FD4A5002FBB9F /* NodeGraphConnectionView.m in Sources */,
@@ -302,9 +333,10 @@
 				0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */,
 				0D28524C222F8AFE00830E72 /* Helper.m in Sources */,
 				0D285249222F88F100830E72 /* NodeListTableViewController.m in Sources */,
-				0D285252222F9FC500830E72 /* NumberNodePortData.m in Sources */,
+				0D43AADC223218A7002FBB9F /* Vector4NodePortData.m in Sources */,
+				0D285252222F9FC500830E72 /* NumberFloatNodePortData.m in Sources */,
 				0DC9F9EC222E74CC001B55C8 /* NodeView.m in Sources */,
-				0D28524F222F9C7000830E72 /* NumberNodeData.m in Sources */,
+				0D28524F222F9C7000830E72 /* NumberFloatNodeData.m in Sources */,
 				0D43AACA223119AB002FBB9F /* NodePortKnotView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

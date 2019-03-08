@@ -30,7 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isInPortRelativeToConnection;
 - (BOOL)isOutPortRelativeToConnection;
 
-@property (nonatomic,strong) NSObject *cachedValue;
+//@property (nonatomic,strong) NSObject *cachedValue;
+
+- (NSString *)indexToVariableName;
 
 @end
 

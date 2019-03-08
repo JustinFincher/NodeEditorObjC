@@ -67,8 +67,8 @@
     
     [self addSubview:self.backgroundBlurEffectView];
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, self.backgroundBlurEffectView.frame.size.width - 16, NODE_TITLE_HEIGHT)];
-    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Oblique" size:18];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(NODE_PADDING_HEIGHT, NODE_PADDING_HEIGHT, self.backgroundBlurEffectView.frame.size.width - 16, NODE_TITLE_HEIGHT)];
+    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Oblique" size:16];
     self.titleLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     self.titleLabel.textAlignment = NSTextAlignmentNatural;
     [self.backgroundBlurEffectView.contentView addSubview:self.titleLabel];
@@ -86,6 +86,11 @@
     [self addGestureRecognizer:self.longPressGestureRecognizer];
     
     self.ports = [NSMutableOrderedSet orderedSet];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NOTIFICATION_SHADER_VIEW_NEED_RELOAD object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notif)
+     {
+         [self updateSelfShader];
+     }];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -253,27 +258,27 @@
     
     if (inPorts.count != 0 && outPorts.count == 0)
     {
-        inRect = CGRectMake(8,
-                            NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
-                            self.backgroundBlurEffectView.contentView.frame.size.width - 16,
+        inRect = CGRectMake(NODE_PADDING_HEIGHT,
+                            NODE_TITLE_HEIGHT + NODE_PADDING_HEIGHT + [nodeData customValueViewSize].height,
+                            self.backgroundBlurEffectView.contentView.frame.size.width - NODE_PADDING_HEIGHT * 2,
                             inPorts.count * NODE_PORT_HEIGHT);
     }
     else if (inPorts.count == 0 && outPorts.count != 0)
     {
-        outRect = CGRectMake(8,
-                             NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
-                             self.backgroundBlurEffectView.contentView.frame.size.width - 16,
+        outRect = CGRectMake(NODE_PADDING_HEIGHT,
+                             NODE_TITLE_HEIGHT + NODE_PADDING_HEIGHT + [nodeData customValueViewSize].height,
+                             self.backgroundBlurEffectView.contentView.frame.size.width - NODE_PADDING_HEIGHT * 2,
                              outPorts.count * NODE_PORT_HEIGHT);
     }
     else if (inPorts.count != 0 && outPorts.count != 0)
     {
         inRect = CGRectMake(8,
-                            NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
-                            self.backgroundBlurEffectView.contentView.frame.size.width / 2 - 12,
+                            NODE_TITLE_HEIGHT + NODE_PADDING_HEIGHT + [nodeData customValueViewSize].height,
+                            self.backgroundBlurEffectView.contentView.frame.size.width / 2 - NODE_PADDING_HEIGHT * 3 / 2,
                             inPorts.count * NODE_PORT_HEIGHT);
-        outRect = CGRectMake(self.backgroundBlurEffectView.contentView.frame.size.width / 2 + 4,
-                             NODE_TITLE_HEIGHT + 8 + [nodeData customValueViewSize].height,
-                             self.backgroundBlurEffectView.contentView.frame.size.width / 2 - 12,
+        outRect = CGRectMake(self.backgroundBlurEffectView.contentView.frame.size.width / 2 + NODE_PADDING_HEIGHT / 2,
+                             NODE_TITLE_HEIGHT + NODE_PADDING_HEIGHT + [nodeData customValueViewSize].height,
+                             self.backgroundBlurEffectView.contentView.frame.size.width / 2 - NODE_PADDING_HEIGHT * 3 / 2,
                              outPorts.count * NODE_PORT_HEIGHT);
     }
     
@@ -318,8 +323,55 @@
             [self.ports addObject:nodePortView];
         }
     }
+    
+    [self updateSelfShader];
+    self.customValueView = [[UIView alloc] initWithFrame:CGRectMake(NODE_PADDING_HEIGHT,
+                                                                    NODE_PADDING_HEIGHT +
+                                                                    NODE_TITLE_HEIGHT,
+                                                                    NODE_WIDTH - NODE_PADDING_HEIGHT * 2,
+                                                                    nodeData.customValueViewSize.height
+                                                                    )];
+    self.customValueView.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.customValueView];
+    [self.nodeData configureCustomValueView:self.customValueView];
 }
 
+- (void)updateSelfShader
+{
+    [self.shaderPreviewView removeFromSuperview];
+    if ([[self.nodeData class] templateCanHavePreview] && self.nodeData.previewForOutPortIndex >= 0)
+    {
+        self.shaderPreviewView = [[SKView alloc] initWithFrame:CGRectMake(NODE_PADDING_HEIGHT,
+                                                                          NODE_PADDING_HEIGHT +
+                                                                          NODE_TITLE_HEIGHT + // for title
+                                                                          fmaxf([[self.nodeData inPorts] count] * NODE_PORT_HEIGHT, [[self.nodeData outPorts] count] * NODE_PORT_HEIGHT) + // for ports
+                                                                          [self.nodeData customValueViewSize].height +
+                                                                          NODE_PADDING_HEIGHT, // for custom view
+                                                                          NODE_WIDTH - NODE_PADDING_HEIGHT * 2,
+                                                                          NODE_WIDTH - NODE_PADDING_HEIGHT * 2
+                                                                          )];
+        self.shaderPreviewView.layer.cornerRadius = 8;
+        self.shaderPreviewView.layer.masksToBounds = YES;
+        SKScene *scene = [SKScene sceneWithSize:self.shaderPreviewView.bounds.size];
+        scene.anchorPoint = CGPointMake(0.5, 0.5);
+        SKSpriteNode *spriteNode = [[SKSpriteNode alloc] initWithColor:[UIColor grayColor] size:scene.size];
+        NSString *shaderStr = [NSString stringWithFormat:
+                               @"void main() {\n"
+                               "%@ \n"
+                               "gl_FragColor = vec4(%@); \n"
+                               "} // From Node %@",
+                               self.nodeData.shaderProgram,
+                               [[self.nodeData.outPorts objectAtIndex:self.nodeData.previewForOutPortIndex] indexToVariableName],
+                               self.nodeData.nodeIndex
+                               ];
+        NSLog(@"%@",shaderStr);
+        SKShader *shader = [SKShader shaderWithSource:shaderStr];
+        spriteNode.shader = shader;
+        [scene addChild:spriteNode];
+        [self.shaderPreviewView presentScene:scene];
+        [self addSubview:self.shaderPreviewView];
+    }
+}
 - (void)updateSelfInAnimator
 {
     self.nodeData.coordinate = self.frame.origin;

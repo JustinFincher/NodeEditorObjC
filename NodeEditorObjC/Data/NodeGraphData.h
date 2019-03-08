@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isSingleNode:(NodeData *)node;
 @property(nonatomic, copy, nullable) void (^graphChangedBlack)(void);
 
+- (void)updateNodeRelations;
+- (void)updateNodeShaders;
 - (BOOL)addNode:(NodeData *)node;
 - (BOOL)removeNode:(NodeData *)node;
 - (void)connectOutPort:(NodePortData *)outPort

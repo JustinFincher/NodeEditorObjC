@@ -7,18 +7,18 @@
 //
 
 #import "AddNodeData.h"
-#import "NumberNodePortData.h"
+#import "NumberFloatNodePortData.h"
 
 @implementation AddNodeData
 
 + (NSString *)templateTitle
 {
-    return @"Add";
+    return @"Add (+)";
 }
 + (NSMutableArray<NodePortData *> *)templateOutPorts
 {
     NSMutableArray<NodePortData *> * array = [NSMutableArray array];
-    NumberNodePortData *numberExportPort = [[NumberNodePortData alloc] init];
+    NumberFloatNodePortData *numberExportPort = [[NumberFloatNodePortData alloc] init];
     numberExportPort.title = @"Result";
     [array addObject:numberExportPort];
     return array;
@@ -26,10 +26,10 @@
 + (NSMutableArray<NodePortData *> *)templateInPorts
 {
     NSMutableArray<NodePortData *> * array = [NSMutableArray array];
-    NumberNodePortData *numberAPort = [[NumberNodePortData alloc] init];
+    NumberFloatNodePortData *numberAPort = [[NumberFloatNodePortData alloc] init];
     numberAPort.title = @"A";
     [array addObject:numberAPort];
-    NumberNodePortData *numberBPort = [[NumberNodePortData alloc] init];
+    NumberFloatNodePortData *numberBPort = [[NumberFloatNodePortData alloc] init];
     numberBPort.title = @"B";
     [array addObject:numberBPort];
     return array;

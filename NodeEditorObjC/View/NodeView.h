@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UIVisualEffectView *backgroundBlurEffectView;
 @property (nonatomic,strong) NSMutableOrderedSet<NodePortView *> *ports;
 @property (nonatomic,strong) SKView *shaderPreviewView;
+@property (nonatomic,strong) UIView *customValueView;
 
 #pragma mark - Gestures
 @property (nonatomic,strong) UITapGestureRecognizer *tapGestureRecognizer;
@@ -33,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)updateSelfInAnimator;
+- (void)updateSelfShader;
 
 
 @end

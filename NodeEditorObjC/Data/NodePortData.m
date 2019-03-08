@@ -37,7 +37,7 @@
 - (void)setBelongsToNode:(NodeData *)belongsToNode
 {
     _belongsToNode = belongsToNode;
-    NSLog(@"SET %@.belongsToNode = %@",self,belongsToNode);
+    //NSLog(@"SET %@.belongsToNode = %@",self,belongsToNode);
 }
 
 - (void)breakConnections
@@ -73,4 +73,8 @@
     return [self isInPortRelativeToNode];
 }
 
+- (NSString *)indexToVariableName
+{
+    return [NSString stringWithFormat:@"var_%@",[self.portIndex stringByReplacingOccurrencesOfString:@"-" withString:@"_"]];
+}
 @end

@@ -14,6 +14,8 @@
 @interface NodeGraphView()
 
 @property (nonatomic,strong) UILongPressGestureRecognizer *longPressGestureRecoginzer;
+@property (nonatomic,strong) NSMutableDictionary<NSString *,NodeView *> *onCanvasNodeViewDict;
+
 @end
 
 @implementation NodeGraphView
@@ -49,6 +51,7 @@
 - (void)postInitWork
 {
     __weak __typeof(self)weakSelf= self;
+    self.onCanvasNodeViewDict = [NSMutableDictionary dictionary];
     
     self.nodeContainerView = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:self.nodeContainerView];
@@ -105,6 +108,8 @@
 
 - (void)reloadData
 {
+    [self.onCanvasNodeViewDict removeAllObjects];
+    
     //currently do nothing
     for (NodeView *nodeView in self.nodeContainerView.subviews)
     {
@@ -133,6 +138,8 @@
         
         [self.dynamicItemBehavior addItem:nodeView];
         [self.collisionBehavior addItem:nodeView];
+        
+        [self.onCanvasNodeViewDict setObject:nodeView forKey:nodeView.nodeData.nodeIndex];
     }
     [self.nodeConnectionLineView setNeedsDisplay];
 }
@@ -148,7 +155,7 @@
     NodePortView *portView = [NodePortView getNodePortFromKnotView:(NodePortKnotView *)gesture.view];
     if (portView)
     {
-        NSLog(@"%@",portView);
+        //NSLog(@"%@",portView);
         switch (gesture.state) {
             case UIGestureRecognizerStateBegan:
             case UIGestureRecognizerStateChanged:
@@ -187,5 +194,9 @@
                 break;
         }
     }
+}
+- (NodeView *)getOnCanvasNodeViewWithIndex:(NSString *)index
+{
+    return [self.onCanvasNodeViewDict objectForKey:index];
 }
 @end

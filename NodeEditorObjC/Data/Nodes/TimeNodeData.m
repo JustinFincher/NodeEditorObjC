@@ -1,19 +1,19 @@
 //
-//  MicphoneLoudnessNodeData.m
+//  TimeNodeData.m
 //  NodeEditorObjC
 //
-//  Created by Justin Fincher on 7/3/2019.
+//  Created by Justin Fincher on 8/3/2019.
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
-#import "MicphoneLoudnessNodeData.h"
+#import "TimeNodeData.h"
 #import "NumberFloatNodePortData.h"
 
-@implementation MicphoneLoudnessNodeData
+@implementation TimeNodeData
 
 + (NSString *)templateTitle
 {
-    return @"Micphone Loudness";
+    return @"Time (u_time)";
 }
 
 + (NSMutableArray<NodePortData *> *)templateOutPorts
@@ -25,4 +25,9 @@
     return array;
 }
 
+- (NSString *)expressionRule
+{
+    NodePortData *timePortData = [self.outPorts firstObject];
+    return [NSString stringWithFormat:@"float %@ = u_time;",[timePortData indexToVariableName]];
+}
 @end

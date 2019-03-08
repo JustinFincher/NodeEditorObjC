@@ -74,6 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeDynamicBehavior:(UIDynamicBehavior *)behavior;
 - (void)handleKnotPanGesture:(UIPanGestureRecognizer *)gesture;
 
+- (NodeView *)getOnCanvasNodeViewWithIndex:(NSString *)index;
+
 @end
 
 NS_ASSUME_NONNULL_END

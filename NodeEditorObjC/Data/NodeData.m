@@ -29,6 +29,7 @@
     self.size = [[self class] templateSize];
     self.isFocused = false;
     self.customValueViewSize = [[self class] templateCustomValueViewSize];
+    self.previewForOutPortIndex = [[self class] templatePreviewForOutPortIndex];
 }
 - (void)setIsFocused:(BOOL)isFocused
 {
@@ -49,20 +50,20 @@
 - (void)setNodeIndex:(NSString *)index
 {
     _nodeIndex = index;
-    NSLog(@"SET %@ INDEX = %@",self,index);
+    //NSLog(@"SET %@ INDEX = %@",self,index);
     int i = 0;
     for (NodePortData *port in self.inPorts)
     {
         port.belongsToNode = self;
         port.portIndex = [NSString stringWithFormat:@"%@-%@",index,[[NSNumber numberWithInteger:i] stringValue]];
-        NSLog(@"SET %@ INDEX = %@",port,port.portIndex);
+        //NSLog(@"SET %@ INDEX = %@",port,port.portIndex);
         i ++;
     }
     for (NodePortData *port in self.outPorts)
     {
         port.belongsToNode = self;
         port.portIndex = [NSString stringWithFormat:@"%@-%@",index,[[NSNumber numberWithInteger:i] stringValue]];
-        NSLog(@"SET %@ INDEX = %@",port,port.portIndex);
+        //NSLog(@"SET %@ INDEX = %@",port,port.portIndex);
         i ++;
     }
     
@@ -75,11 +76,12 @@
 + (CGSize)templateSize
 {
     return CGSizeMake(NODE_WIDTH,
-                      NODE_PADDING_HEIGHT * 2 + // padding
+                      NODE_PADDING_HEIGHT + // padding
                       NODE_TITLE_HEIGHT + // for title
                       fmaxf([[self templateInPorts] count] * NODE_PORT_HEIGHT, [[self templateOutPorts] count] * NODE_PORT_HEIGHT) + // for ports
                       [self templateCustomValueViewSize].height + // for custom view
-                      NODE_WIDTH // for preview
+                      ([self templateCanHavePreview] ? NODE_WIDTH : 0) + // for preview
+                      ([self templateCanHavePreview] ? 0 : NODE_PADDING_HEIGHT)
                       );
 }
 + (CGSize)templateCustomValueViewSize
@@ -127,14 +129,32 @@
     [self prepareForDealloc];
 }
 
-- (NSString *)cachedExpressionRule
++ (BOOL)templateCanHavePreview
+{
+    return NO;
+}
++ (int)templatePreviewForOutPortIndex
+{
+    return -1;
+}
+- (NSString *)expressionRule
+{
+    return @"";
+}
+- (void)configureCustomValueView:(UIView *)customValueView
 {
     
-    // declare each input
-    
-    // declare each output
-    
-    // make rules
-    return @"";
+}
+- (NSString *)nodeCommentHeader
+{
+    NSString *comment = [NSString stringWithFormat:
+                         @"\n// %@ %@\n",
+                         NSStringFromClass([self class]),
+                         [self nodeIndex]];
+    return comment;
+}
+- (void)setShaderProgram:(NSString *)shaderProgram
+{
+    _shaderProgram = shaderProgram;
 }
 @end

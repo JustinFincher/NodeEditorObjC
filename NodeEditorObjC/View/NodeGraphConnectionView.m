@@ -86,13 +86,13 @@
         for (int i = 0; i < count; i ++)
         {
             NodeData *inNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:[[NSNumber numberWithInteger:i]stringValue]];
-            NodeView *inNodeView = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeForIndex:[[NSNumber numberWithInteger:i]stringValue]];
+            NodeView *inNodeView = [self.nodeGraphView getOnCanvasNodeViewWithIndex:[[NSNumber numberWithInteger:i]stringValue]];
             
             for (NodePortData *port in inNodeData.inPorts)
             {
                 for (NodeConnectionData *connection in port.connections)
                 {
-                    NodeView *outNodeView = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeForIndex:connection.inPort.belongsToNode.nodeIndex];
+                    NodeView *outNodeView = [self.nodeGraphView getOnCanvasNodeViewWithIndex:connection.inPort.belongsToNode.nodeIndex];
                     NodeData *outNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:connection.inPort.belongsToNode.nodeIndex];
 
                     NodePortView *outNodePortView = [[outNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.inPort.portIndex]] firstObject];

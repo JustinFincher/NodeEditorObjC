@@ -6,13 +6,13 @@
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
-#import "NumberNodePortData.h"
+#import "NumberFloatNodePortData.h"
 
-@implementation NumberNodePortData
+@implementation NumberFloatNodePortData
 
 + (NSString *)templateTitle
 {
-    return @"Number";
+    return @"Number (float)";
 }
 
 + (Class)templateRequiredType
