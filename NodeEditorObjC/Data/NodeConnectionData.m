@@ -7,11 +7,16 @@
 //
 
 #import "NodeConnectionData.h"
+#import "NodePortData.h"
 
 @implementation NodeConnectionData
 
-- (NSObject *)getConnectionValue
+- (NSString *)expressionRule
 {
-    return nil;
+    return  [NSString stringWithFormat:@"%@ %@ = %@;",
+            [self.outport requiredCgType],
+            [self.outport indexToVariableName],
+            [self.inPort indexToVariableName]];
 }
+
 @end

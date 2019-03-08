@@ -20,6 +20,7 @@
         self.title = [[self class] templateTitle];
         self.connections = [NSMutableOrderedSet orderedSet];
         self.requiredType = [[self class] templateRequiredType];
+        self.requiredCgType = [[self class] templateRequiredCgType];
     }
     return self;
 }
@@ -27,6 +28,16 @@
 + (NSString *)templateTitle
 {
     return @"Port Title";
+}
+
++ (NSString *) templateRequiredCgType
+{
+    return @"EXPECTED_CG_TYPE";
+}
+
+- (NSString *)templateVariableDefaultValueExpressionRule
+{
+    return [NSString stringWithFormat:@"%@ %@ = EXPECTED_DEFAULT_VALUE;",[self requiredCgType], [self indexToVariableName]];
 }
 
 + (Class) templateRequiredType

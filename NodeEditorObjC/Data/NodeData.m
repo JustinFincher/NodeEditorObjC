@@ -137,6 +137,14 @@
 {
     return -1;
 }
+- (NSString *)templatePreviewOutDefaultExpression
+{
+    return [NSString stringWithFormat:@"gl_FragColor = vec4(%.8f,%.8f,%.8f,%.8f); \n",
+            [@0 floatValue],
+            [@0 floatValue],
+            [@0 floatValue],
+            [@0 floatValue]];
+}
 - (NSString *)expressionRule
 {
     return @"";
@@ -157,4 +165,6 @@
 {
     _shaderProgram = shaderProgram;
 }
+
+
 @end

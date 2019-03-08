@@ -43,16 +43,16 @@
 }
 - (void)updateNodeShaders
 {
-    NSMutableDictionary<NSString *,NSMutableArray<NSString *>*> *programDict = [[NSMutableDictionary alloc] init];
     for (NodeData *finalNode in self.singleNodes)
     {
+        NSMutableDictionary<NSString *,NSMutableArray<NSString *>*> *programDict = [[NSMutableDictionary alloc] init];
         [self DFS:finalNode shaderDict:programDict];
+        [programDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop)
+        {
+            NodeData *nodeData = [self.cachedDictionary objectForKey:key];
+            nodeData.shaderProgram = [array componentsJoinedByString:@"\n"];
+        }];
     }
-    
-    [programDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop){
-        NodeData *nodeData = [self.cachedDictionary objectForKey:key];
-        nodeData.shaderProgram = [array componentsJoinedByString:@"\n"];
-    }];
 }
 - (void)updateNodeRelations
 {
@@ -72,14 +72,19 @@
     }
     return self.cachedDictionary;
 }
+// NEED TO REPLACE WITH BFS
 - (void)DFS:(NodeData *)node
  shaderDict:(NSMutableDictionary<NSString *,NSMutableArray<NSString *>*>*)shaderDict
 {
     if (node != nil)
     {
         [shaderDict setObject:[NSMutableArray array] forKey:node.nodeIndex];
-        [shaderDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop){
-            [array insertObject:node.expressionRule atIndex:0];
+        [shaderDict enumerateKeysAndObjectsUsingBlock:^(NSString *key,NSMutableArray<NSString *> *array, BOOL *stop)
+        {
+            if (![array containsObject:node.expressionRule])
+            {
+                [array insertObject:node.expressionRule atIndex:0];
+            }
         }];
         for (NodePortData *nodePort in node.inPorts)
         {

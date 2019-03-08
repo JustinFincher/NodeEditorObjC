@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) Class requiredType;
 + (Class) templateRequiredType;
 
+@property (nonatomic,strong) NSString * requiredCgType;
++ (NSString *) templateRequiredCgType;
+- (NSString *) templateVariableDefaultValueExpressionRule;
+
 @property (nonatomic,strong,nullable) NodeData *belongsToNode;
 
 - (void)breakConnections;
@@ -29,8 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isOutPortRelativeToNode;
 - (BOOL)isInPortRelativeToConnection;
 - (BOOL)isOutPortRelativeToConnection;
-
-//@property (nonatomic,strong) NSObject *cachedValue;
 
 - (NSString *)indexToVariableName;
 

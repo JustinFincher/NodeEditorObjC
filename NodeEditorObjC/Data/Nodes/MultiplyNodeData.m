@@ -1,19 +1,19 @@
 //
-//  AddNodeData.m
+//  MultiplyNodeData.m
 //  NodeEditorObjC
 //
-//  Created by Justin Fincher on 6/3/2019.
+//  Created by Justin Fincher on 8/3/2019.
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
-#import "AddNodeData.h"
+#import "MultiplyNodeData.h"
 #import "NumberFloatNodePortData.h"
 
-@implementation AddNodeData
+@implementation MultiplyNodeData
 
 + (NSString *)templateTitle
 {
-    return @"Add (+)";
+    return @"Multiply (*)";
 }
 + (NSMutableArray<NodePortData *> *)templateOutPorts
 {
@@ -51,14 +51,13 @@
             [[self.outPorts objectAtIndex:[[self class] templatePreviewForOutPortIndex]] indexToVariableName],
             [[self.outPorts objectAtIndex:[[self class] templatePreviewForOutPortIndex]] indexToVariableName]];
 }
-
 - (NSString *)expressionRule
 {
     NSString *string =  [NSString stringWithFormat:
                          @"%@"
                          "%@ \n"
                          "%@ \n"
-                         "float %@ = %@ + %@;",
+                         "float %@ = %@ * %@;",
                          [self nodeCommentHeader],
                          (
                           [[self.inPorts objectAtIndex:0] connections].count > 0 ?
@@ -75,5 +74,4 @@
                          [[self.inPorts objectAtIndex:1] indexToVariableName]];
     return string;
 }
-
 @end

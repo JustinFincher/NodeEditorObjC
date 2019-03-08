@@ -15,6 +15,16 @@
     return @"Number (float)";
 }
 
++ (NSString *) templateRequiredCgType
+{
+    return @"float";
+}
+
+- (NSString *)templateVariableDefaultValueExpressionRule
+{
+    return [NSString stringWithFormat:@"%@ %@ = %.8f;",[self requiredCgType], [self indexToVariableName],[@0 floatValue]];
+}
+
 + (Class)templateRequiredType
 {
     return [NSNumber class];

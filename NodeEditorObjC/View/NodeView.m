@@ -358,10 +358,10 @@
         NSString *shaderStr = [NSString stringWithFormat:
                                @"void main() {\n"
                                "%@ \n"
-                               "gl_FragColor = vec4(%@); \n"
+                               "%@ \n"
                                "} // From Node %@",
                                self.nodeData.shaderProgram,
-                               [[self.nodeData.outPorts objectAtIndex:self.nodeData.previewForOutPortIndex] indexToVariableName],
+                               [self.nodeData templatePreviewOutDefaultExpression],
                                self.nodeData.nodeIndex
                                ];
         NSLog(@"%@",shaderStr);

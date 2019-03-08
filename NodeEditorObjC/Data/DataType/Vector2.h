@@ -1,5 +1,5 @@
 //
-//  Vector4.h
+//  Vector2.h
 //  NodeEditorObjC
 //
 //  Created by Justin Fincher on 8/3/2019.
@@ -10,17 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Vector4 : NSObject
+@interface Vector2 : NSObject
 
 @property (nonatomic,strong) NSNumber *x;
 @property (nonatomic,strong) NSNumber *y;
-@property (nonatomic,strong) NSNumber *z;
-@property (nonatomic,strong) NSNumber *w;
 
 - (instancetype)initWithX:(float)x
-                        Y:(float)y
-                        Z:(float)z
-                        W:(float)w;
+                        Y:(float)y;
 
 @end
 

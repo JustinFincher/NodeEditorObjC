@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)breakConnections;
 
 - (NSString *)expressionRule;
+- (NSString *)templatePreviewOutDefaultExpression;
 @property (nonatomic,strong) NSString * shaderProgram;
 
 

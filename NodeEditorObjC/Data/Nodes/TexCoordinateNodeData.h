@@ -1,5 +1,5 @@
 //
-//  FinalColorNodeData.h
+//  TexCoordinateNodeData.h
 //  NodeEditorObjC
 //
 //  Created by Justin Fincher on 8/3/2019.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FinalColorNodeData : NodeData
+@interface TexCoordinateNodeData : NodeData
 
 @end
 

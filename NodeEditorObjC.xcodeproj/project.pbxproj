@@ -26,9 +26,18 @@
 		0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */; };
 		0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */; };
 		0D43AAD322319955002FBB9F /* TimeNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD222319955002FBB9F /* TimeNodeData.m */; };
-		0D43AAD922320F09002FBB9F /* FinalColorNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD822320F09002FBB9F /* FinalColorNodeData.m */; };
+		0D43AAD922320F09002FBB9F /* ColorRGBANodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */; };
 		0D43AADC223218A7002FBB9F /* Vector4NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */; };
 		0D43AADF22322A38002FBB9F /* Vector4.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADE22322A38002FBB9F /* Vector4.m */; };
+		0D43AAEA22324A96002FBB9F /* UIControl+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAE722324A96002FBB9F /* UIControl+BlocksKit.m */; };
+		0D43AAED223253FC002FBB9F /* SinNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAEC223253FC002FBB9F /* SinNodeData.m */; };
+		0D43AAF0223271D0002FBB9F /* CosNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAEF223271D0002FBB9F /* CosNodeData.m */; };
+		0D43AAF322327A4C002FBB9F /* MultiplyNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAF222327A4C002FBB9F /* MultiplyNodeData.m */; };
+		0D43AAF622327AF7002FBB9F /* Vector2NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAF522327AF7002FBB9F /* Vector2NodePortData.m */; };
+		0D43AAF922327B12002FBB9F /* Vector2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAF822327B12002FBB9F /* Vector2.m */; };
+		0D43AAFC22327B7B002FBB9F /* TexCoordinateNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAFB22327B7B002FBB9F /* TexCoordinateNodeData.m */; };
+		0D43AAFF223283D8002FBB9F /* Vector2ChannelSplitNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAFE223283D8002FBB9F /* Vector2ChannelSplitNodeData.m */; };
+		0D43AB02223283E5002FBB9F /* Vector2ChannelCombineNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AB01223283E5002FBB9F /* Vector2ChannelCombineNodeData.m */; };
 		0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D53222E6A4D00DC62DD /* NodeGraphData.m */; };
 		0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D56222E6A5700DC62DD /* NodePortData.m */; };
 		0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D5A222E6B1600DC62DD /* NodeGraphView.m */; };
@@ -75,12 +84,31 @@
 		0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MicphoneLoudnessNodeData.m; sourceTree = "<group>"; };
 		0D43AAD122319955002FBB9F /* TimeNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeNodeData.h; sourceTree = "<group>"; };
 		0D43AAD222319955002FBB9F /* TimeNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeNodeData.m; sourceTree = "<group>"; };
-		0D43AAD722320F09002FBB9F /* FinalColorNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinalColorNodeData.h; sourceTree = "<group>"; };
-		0D43AAD822320F09002FBB9F /* FinalColorNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinalColorNodeData.m; sourceTree = "<group>"; };
+		0D43AAD722320F09002FBB9F /* ColorRGBANodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorRGBANodeData.h; sourceTree = "<group>"; };
+		0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorRGBANodeData.m; sourceTree = "<group>"; };
 		0D43AADA223218A7002FBB9F /* Vector4NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector4NodePortData.h; sourceTree = "<group>"; };
 		0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector4NodePortData.m; sourceTree = "<group>"; };
 		0D43AADD22322A38002FBB9F /* Vector4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector4.h; sourceTree = "<group>"; };
 		0D43AADE22322A38002FBB9F /* Vector4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector4.m; sourceTree = "<group>"; };
+		0D43AAE722324A96002FBB9F /* UIControl+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+BlocksKit.m"; sourceTree = "<group>"; };
+		0D43AAE822324A96002FBB9F /* BKDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDefines.h; sourceTree = "<group>"; };
+		0D43AAE922324A96002FBB9F /* UIControl+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+BlocksKit.h"; sourceTree = "<group>"; };
+		0D43AAEB223253FC002FBB9F /* SinNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SinNodeData.h; sourceTree = "<group>"; };
+		0D43AAEC223253FC002FBB9F /* SinNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinNodeData.m; sourceTree = "<group>"; };
+		0D43AAEE223271D0002FBB9F /* CosNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CosNodeData.h; sourceTree = "<group>"; };
+		0D43AAEF223271D0002FBB9F /* CosNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CosNodeData.m; sourceTree = "<group>"; };
+		0D43AAF122327A4C002FBB9F /* MultiplyNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiplyNodeData.h; sourceTree = "<group>"; };
+		0D43AAF222327A4C002FBB9F /* MultiplyNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultiplyNodeData.m; sourceTree = "<group>"; };
+		0D43AAF422327AF7002FBB9F /* Vector2NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2NodePortData.h; sourceTree = "<group>"; };
+		0D43AAF522327AF7002FBB9F /* Vector2NodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector2NodePortData.m; sourceTree = "<group>"; };
+		0D43AAF722327B12002FBB9F /* Vector2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
+		0D43AAF822327B12002FBB9F /* Vector2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector2.m; sourceTree = "<group>"; };
+		0D43AAFA22327B7B002FBB9F /* TexCoordinateNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TexCoordinateNodeData.h; sourceTree = "<group>"; };
+		0D43AAFB22327B7B002FBB9F /* TexCoordinateNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TexCoordinateNodeData.m; sourceTree = "<group>"; };
+		0D43AAFD223283D8002FBB9F /* Vector2ChannelSplitNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChannelSplitNodeData.h; sourceTree = "<group>"; };
+		0D43AAFE223283D8002FBB9F /* Vector2ChannelSplitNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector2ChannelSplitNodeData.m; sourceTree = "<group>"; };
+		0D43AB00223283E5002FBB9F /* Vector2ChannelCombineNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChannelCombineNodeData.h; sourceTree = "<group>"; };
+		0D43AB01223283E5002FBB9F /* Vector2ChannelCombineNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector2ChannelCombineNodeData.m; sourceTree = "<group>"; };
 		0D835D52222E6A4D00DC62DD /* NodeGraphData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphData.h; sourceTree = "<group>"; };
 		0D835D53222E6A4D00DC62DD /* NodeGraphData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphData.m; sourceTree = "<group>"; };
 		0D835D55222E6A5700DC62DD /* NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodePortData.h; sourceTree = "<group>"; };
@@ -147,14 +175,26 @@
 			children = (
 				0D285243222F872300830E72 /* AddNodeData.h */,
 				0D285244222F872300830E72 /* AddNodeData.m */,
+				0D43AAF122327A4C002FBB9F /* MultiplyNodeData.h */,
+				0D43AAF222327A4C002FBB9F /* MultiplyNodeData.m */,
 				0D28524D222F9C7000830E72 /* NumberFloatNodeData.h */,
 				0D28524E222F9C7000830E72 /* NumberFloatNodeData.m */,
+				0D43AAFD223283D8002FBB9F /* Vector2ChannelSplitNodeData.h */,
+				0D43AAFE223283D8002FBB9F /* Vector2ChannelSplitNodeData.m */,
+				0D43AB00223283E5002FBB9F /* Vector2ChannelCombineNodeData.h */,
+				0D43AB01223283E5002FBB9F /* Vector2ChannelCombineNodeData.m */,
 				0D43AAD122319955002FBB9F /* TimeNodeData.h */,
 				0D43AAD222319955002FBB9F /* TimeNodeData.m */,
+				0D43AAFA22327B7B002FBB9F /* TexCoordinateNodeData.h */,
+				0D43AAFB22327B7B002FBB9F /* TexCoordinateNodeData.m */,
+				0D43AAEB223253FC002FBB9F /* SinNodeData.h */,
+				0D43AAEC223253FC002FBB9F /* SinNodeData.m */,
+				0D43AAEE223271D0002FBB9F /* CosNodeData.h */,
+				0D43AAEF223271D0002FBB9F /* CosNodeData.m */,
 				0D43AACE223175F6002FBB9F /* MicphoneLoudnessNodeData.h */,
 				0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */,
-				0D43AAD722320F09002FBB9F /* FinalColorNodeData.h */,
-				0D43AAD822320F09002FBB9F /* FinalColorNodeData.m */,
+				0D43AAD722320F09002FBB9F /* ColorRGBANodeData.h */,
+				0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -166,6 +206,8 @@
 				0D285251222F9FC500830E72 /* NumberFloatNodePortData.m */,
 				0D43AADA223218A7002FBB9F /* Vector4NodePortData.h */,
 				0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */,
+				0D43AAF422327AF7002FBB9F /* Vector2NodePortData.h */,
+				0D43AAF522327AF7002FBB9F /* Vector2NodePortData.m */,
 			);
 			path = NodePorts;
 			sourceTree = "<group>";
@@ -173,6 +215,9 @@
 		0D43AAC4222FD809002FBB9F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				0D43AAE822324A96002FBB9F /* BKDefines.h */,
+				0D43AAE922324A96002FBB9F /* UIControl+BlocksKit.h */,
+				0D43AAE722324A96002FBB9F /* UIControl+BlocksKit.m */,
 				0D28524A222F8AFE00830E72 /* Helper.h */,
 				0D28524B222F8AFE00830E72 /* Helper.m */,
 				0D43AAC5222FD81E002FBB9F /* Hackpad.h */,
@@ -186,6 +231,8 @@
 			children = (
 				0D43AADD22322A38002FBB9F /* Vector4.h */,
 				0D43AADE22322A38002FBB9F /* Vector4.m */,
+				0D43AAF722327B12002FBB9F /* Vector2.h */,
+				0D43AAF822327B12002FBB9F /* Vector2.m */,
 			);
 			path = DataType;
 			sourceTree = "<group>";
@@ -312,30 +359,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D43AAD922320F09002FBB9F /* FinalColorNodeData.m in Sources */,
+				0D43AAF622327AF7002FBB9F /* Vector2NodePortData.m in Sources */,
+				0D43AAD922320F09002FBB9F /* ColorRGBANodeData.m in Sources */,
 				0D0DBED4222E694E00A79415 /* NodeData.m in Sources */,
 				0D835D5F222E6B9100DC62DD /* NodeGraphEditorViewController.m in Sources */,
 				0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */,
 				0D0DBECC222E685800A79415 /* main.m in Sources */,
+				0D43AAF0223271D0002FBB9F /* CosNodeData.m in Sources */,
 				0D43AAC7222FD81E002FBB9F /* Hackpad.m in Sources */,
 				0D285242222F78D200830E72 /* NodeGraphScrollView.m in Sources */,
+				0D43AAF922327B12002FBB9F /* Vector2.m in Sources */,
 				0D43AAC0222FC7B0002FBB9F /* NodePortView.m in Sources */,
 				0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */,
 				0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */,
+				0D43AAED223253FC002FBB9F /* SinNodeData.m in Sources */,
 				0D43AAD322319955002FBB9F /* TimeNodeData.m in Sources */,
+				0D43AAFC22327B7B002FBB9F /* TexCoordinateNodeData.m in Sources */,
 				0D43AADF22322A38002FBB9F /* Vector4.m in Sources */,
 				0DC9F9EF222E7DA2001B55C8 /* NodeConnectionData.m in Sources */,
+				0D43AB02223283E5002FBB9F /* Vector2ChannelCombineNodeData.m in Sources */,
 				0DC9F9E9222E73F4001B55C8 /* NodeGraphEditorNavigationController.m in Sources */,
 				0D43AAC3222FD4A5002FBB9F /* NodeGraphConnectionView.m in Sources */,
+				0D43AAFF223283D8002FBB9F /* Vector2ChannelSplitNodeData.m in Sources */,
 				0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */,
 				0D285245222F872300830E72 /* AddNodeData.m in Sources */,
 				0D0DBEBE222E685500A79415 /* AppDelegate.m in Sources */,
 				0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */,
+				0D43AAF322327A4C002FBB9F /* MultiplyNodeData.m in Sources */,
 				0D28524C222F8AFE00830E72 /* Helper.m in Sources */,
 				0D285249222F88F100830E72 /* NodeListTableViewController.m in Sources */,
 				0D43AADC223218A7002FBB9F /* Vector4NodePortData.m in Sources */,
 				0D285252222F9FC500830E72 /* NumberFloatNodePortData.m in Sources */,
 				0DC9F9EC222E74CC001B55C8 /* NodeView.m in Sources */,
+				0D43AAEA22324A96002FBB9F /* UIControl+BlocksKit.m in Sources */,
 				0D28524F222F9C7000830E72 /* NumberFloatNodeData.m in Sources */,
 				0D43AACA223119AB002FBB9F /* NodePortKnotView.m in Sources */,
 			);

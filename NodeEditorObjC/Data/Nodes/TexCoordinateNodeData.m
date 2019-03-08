@@ -1,36 +1,43 @@
 //
-//  TimeNodeData.m
+//  TexCoordinateNodeData.m
 //  NodeEditorObjC
 //
 //  Created by Justin Fincher on 8/3/2019.
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
-#import "TimeNodeData.h"
+#import "TexCoordinateNodeData.h"
 #import "NumberFloatNodePortData.h"
+#import "Vector2NodePortData.h"
 
-@implementation TimeNodeData
+@implementation TexCoordinateNodeData
 
 + (NSString *)templateTitle
 {
-    return @"Time (u_time)";
+    return @"UV (v_tex_coord)";
 }
 
 + (BOOL)templateCanHavePreview
 {
-    return NO;
+    return YES;
 }
 + (int)templatePreviewForOutPortIndex
 {
-    return -1;
+    return 0;
 }
-
+- (NSString *)templatePreviewOutDefaultExpression
+{
+    return [NSString stringWithFormat:@"gl_FragColor = vec4(%@,%.8f,%.8f); \n",
+            [[self.outPorts objectAtIndex:[[self class] templatePreviewForOutPortIndex]] indexToVariableName],
+            [@0 floatValue],
+            [@0 floatValue]];
+}
 + (NSMutableArray<NodePortData *> *)templateOutPorts
 {
     NSMutableArray<NodePortData *> * array = [NSMutableArray array];
-    NumberFloatNodePortData *numberExportPort = [[NumberFloatNodePortData alloc] init];
-    numberExportPort.title = @"Value";
-    [array addObject:numberExportPort];
+    Vector2NodePortData *uvExportPort = [[Vector2NodePortData alloc] init];
+    uvExportPort.title = @"Value";
+    [array addObject:uvExportPort];
     return array;
 }
 
@@ -39,7 +46,7 @@
     NodePortData *timePortData = [self.outPorts objectAtIndex:0];
     NSString *string =  [NSString stringWithFormat:
                          @"%@"
-                         @"float %@ = u_time;",
+                         @"vec2 %@ = v_tex_coord;",
                          [self nodeCommentHeader],
                          [timePortData indexToVariableName]];
     return string;

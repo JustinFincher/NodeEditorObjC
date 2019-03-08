@@ -1,38 +1,38 @@
 //
-//  Vector4NodePortData.m
+//  Vector2NodePortData.m
 //  NodeEditorObjC
 //
 //  Created by Justin Fincher on 8/3/2019.
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
-#import "Vector4NodePortData.h"
-#import "Vector4.h"
+#import "Vector2NodePortData.h"
+#import "Vector2.h"
 
-@implementation Vector4NodePortData
+@implementation Vector2NodePortData
+
 + (NSString *)templateTitle
 {
-    return @"Vector4";
+    return @"Vector2";
 }
 
 + (NSString *) templateRequiredCgType
 {
-    return @"vec4";
+    return @"vec2";
 }
 
 - (NSString *)templateVariableDefaultValueExpressionRule
 {
-    return [NSString stringWithFormat:@"%@ %@ = vec4(%.8f,%.8f,%.8f,%.8f);",
+    return [NSString stringWithFormat:@"%@ %@ = vec2(%.8f,%.8f);",
             [self requiredCgType],
             [self indexToVariableName],
-            [@0 floatValue],
-            [@0 floatValue],
             [@0 floatValue],
             [@0 floatValue]];
 }
 
 + (Class)templateRequiredType
 {
-    return [Vector4 class];
+    return [Vector2 class];
 }
+
 @end

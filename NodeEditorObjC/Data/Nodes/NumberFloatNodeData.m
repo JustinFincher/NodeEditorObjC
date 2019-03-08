@@ -9,14 +9,14 @@
 #import "NumberFloatNodeData.h"
 #import "NumberFloatNodePortData.h"
 
-@interface NumberFloatNodeData()<UITextFieldDelegate>
+@interface NumberFloatNodeData()
 
 @end
 @implementation NumberFloatNodeData
 
 + (NSString *)templateTitle
 {
-    return @"Number (float)";
+    return @"Float (TextField)";
 }
 
 + (NSMutableArray<NodePortData *> *)templateOutPorts
@@ -35,22 +35,49 @@
 
 + (BOOL)templateCanHavePreview
 {
-    return YES;
+    return NO;
 }
 
 + (int)templatePreviewForOutPortIndex
 {
-    return 0;
+    return -1;
 }
+
+//- (NSString *)templatePreviewOutDefaultExpression
+//{
+//    return [NSString stringWithFormat:@"gl_FragColor = vec4(%@,%@,%@,%@); \n",
+//            [[self.outPorts objectAtIndex:[[self class] templatePreviewForOutPortIndex]] indexToVariableName],
+//            [[self.outPorts objectAtIndex:[[self class] templatePreviewForOutPortIndex]] indexToVariableName],
+//            [[self.outPorts objectAtIndex:[[self class] templatePreviewForOutPortIndex]] indexToVariableName],
+//            [[self.outPorts objectAtIndex:[[self class] templatePreviewForOutPortIndex]] indexToVariableName]];
+//}
 
 - (void)configureCustomValueView:(UIView *)customValueView
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:customValueView.bounds];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, customValueView.bounds.size.width / 2, customValueView.bounds.size.height)];
     textField.placeholder = @"Float Value";
     textField.text = [self.number stringValue];
-    textField.delegate = self;
+    textField.textAlignment = NSTextAlignmentCenter;
+    textField.font = [UIFont fontWithName:@"Avenir-Black" size:10];
     [customValueView addSubview:textField];
     textField.keyboardType = UIKeyboardTypeDecimalPad;
+    
+    UIButton *confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(customValueView.bounds.size.width / 2, 0, customValueView.bounds.size.width / 2, customValueView.bounds.size.height)];
+    confirmButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:10];
+    confirmButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [confirmButton setTitleColor:[[UIColor blueColor] colorWithAlphaComponent:0.7] forState:UIControlStateNormal];
+    [confirmButton setTitle:@"SET" forState:UIControlStateNormal];
+    
+    [confirmButton bk_addEventHandler:^(id sender)
+    {
+        [textField resignFirstResponder];
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        self.number = [f numberFromString:textField.text];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHADER_MODIFIED object:nil];
+    } forControlEvents:UIControlEventTouchUpInside];
+    [customValueView addSubview:confirmButton];
+
 }
 
 - (NSString *)expressionRule
@@ -64,15 +91,4 @@
                         [self.number floatValue]];
     return string;
 }
-
-#pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-    f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.number = [f numberFromString:textField.text];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHADER_MODIFIED object:nil];
-    return YES;
-}
-
 @end
