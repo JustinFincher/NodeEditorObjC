@@ -24,7 +24,6 @@
 		0D43AAC7222FD81E002FBB9F /* Hackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC6222FD81E002FBB9F /* Hackpad.m */; };
 		0D43AACA223119AB002FBB9F /* NodePortKnotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAC9223119AB002FBB9F /* NodePortKnotView.m */; };
 		0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */; };
-		0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */; };
 		0D43AAD322319955002FBB9F /* TimeNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD222319955002FBB9F /* TimeNodeData.m */; };
 		0D43AAD922320F09002FBB9F /* ColorRGBANodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */; };
 		0D43AADC223218A7002FBB9F /* Vector4NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */; };
@@ -45,6 +44,7 @@
 		0DC9F9E9222E73F4001B55C8 /* NodeGraphEditorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC9F9E8222E73F4001B55C8 /* NodeGraphEditorNavigationController.m */; };
 		0DC9F9EC222E74CC001B55C8 /* NodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC9F9EB222E74CC001B55C8 /* NodeView.m */; };
 		0DC9F9EF222E7DA2001B55C8 /* NodeConnectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC9F9EE222E7DA2001B55C8 /* NodeConnectionData.m */; };
+		0DDB0BAB2234062000550812 /* RandomVector2NodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DDB0BAA2234062000550812 /* RandomVector2NodeData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,8 +80,6 @@
 		0D43AAC9223119AB002FBB9F /* NodePortKnotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodePortKnotView.m; sourceTree = "<group>"; };
 		0D43AACB2231458D002FBB9F /* NodeInstanceDebugTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeInstanceDebugTableViewController.h; sourceTree = "<group>"; };
 		0D43AACC2231458D002FBB9F /* NodeInstanceDebugTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeInstanceDebugTableViewController.m; sourceTree = "<group>"; };
-		0D43AACE223175F6002FBB9F /* MicphoneLoudnessNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MicphoneLoudnessNodeData.h; sourceTree = "<group>"; };
-		0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MicphoneLoudnessNodeData.m; sourceTree = "<group>"; };
 		0D43AAD122319955002FBB9F /* TimeNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeNodeData.h; sourceTree = "<group>"; };
 		0D43AAD222319955002FBB9F /* TimeNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeNodeData.m; sourceTree = "<group>"; };
 		0D43AAD722320F09002FBB9F /* ColorRGBANodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorRGBANodeData.h; sourceTree = "<group>"; };
@@ -123,6 +121,9 @@
 		0DC9F9EB222E74CC001B55C8 /* NodeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeView.m; sourceTree = "<group>"; };
 		0DC9F9ED222E7DA2001B55C8 /* NodeConnectionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeConnectionData.h; sourceTree = "<group>"; };
 		0DC9F9EE222E7DA2001B55C8 /* NodeConnectionData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeConnectionData.m; sourceTree = "<group>"; };
+		0DDB0BA92234062000550812 /* RandomVector2NodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RandomVector2NodeData.h; sourceTree = "<group>"; };
+		0DDB0BAA2234062000550812 /* RandomVector2NodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RandomVector2NodeData.m; sourceTree = "<group>"; };
+		0DDB0BAC2234096F00550812 /* NodeEditorObjC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NodeEditorObjC.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +156,7 @@
 		0D0DBEBB222E685500A79415 /* NodeEditorObjC */ = {
 			isa = PBXGroup;
 			children = (
+				0DDB0BAC2234096F00550812 /* NodeEditorObjC.entitlements */,
 				0D0DBEBC222E685500A79415 /* AppDelegate.h */,
 				0D0DBEBD222E685500A79415 /* AppDelegate.m */,
 				0D43AAC4222FD809002FBB9F /* Helper */,
@@ -175,6 +177,8 @@
 			children = (
 				0D285243222F872300830E72 /* AddNodeData.h */,
 				0D285244222F872300830E72 /* AddNodeData.m */,
+				0DDB0BA92234062000550812 /* RandomVector2NodeData.h */,
+				0DDB0BAA2234062000550812 /* RandomVector2NodeData.m */,
 				0D43AAF122327A4C002FBB9F /* MultiplyNodeData.h */,
 				0D43AAF222327A4C002FBB9F /* MultiplyNodeData.m */,
 				0D28524D222F9C7000830E72 /* NumberFloatNodeData.h */,
@@ -191,8 +195,6 @@
 				0D43AAEC223253FC002FBB9F /* SinNodeData.m */,
 				0D43AAEE223271D0002FBB9F /* CosNodeData.h */,
 				0D43AAEF223271D0002FBB9F /* CosNodeData.m */,
-				0D43AACE223175F6002FBB9F /* MicphoneLoudnessNodeData.h */,
-				0D43AACF223175F6002FBB9F /* MicphoneLoudnessNodeData.m */,
 				0D43AAD722320F09002FBB9F /* ColorRGBANodeData.h */,
 				0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */,
 			);
@@ -320,6 +322,14 @@
 				TargetAttributes = {
 					0D0DBEB8222E685500A79415 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -382,9 +392,9 @@
 				0D43AAC3222FD4A5002FBB9F /* NodeGraphConnectionView.m in Sources */,
 				0D43AAFF223283D8002FBB9F /* Vector2ChannelSplitNodeData.m in Sources */,
 				0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */,
+				0DDB0BAB2234062000550812 /* RandomVector2NodeData.m in Sources */,
 				0D285245222F872300830E72 /* AddNodeData.m in Sources */,
 				0D0DBEBE222E685500A79415 /* AppDelegate.m in Sources */,
-				0D43AAD0223175F6002FBB9F /* MicphoneLoudnessNodeData.m in Sources */,
 				0D43AAF322327A4C002FBB9F /* MultiplyNodeData.m in Sources */,
 				0D28524C222F8AFE00830E72 /* Helper.m in Sources */,
 				0D285249222F88F100830E72 /* NodeListTableViewController.m in Sources */,
@@ -535,14 +545,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NodeEditorObjC/NodeEditorObjC.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9QJ8M25J77;
 				INFOPLIST_FILE = NodeEditorObjC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JustZht.NodeEditorObjC;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JustZht.ShaderNodeEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -552,14 +564,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NodeEditorObjC/NodeEditorObjC.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9QJ8M25J77;
 				INFOPLIST_FILE = NodeEditorObjC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JustZht.NodeEditorObjC;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JustZht.ShaderNodeEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

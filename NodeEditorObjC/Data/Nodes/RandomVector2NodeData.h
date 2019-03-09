@@ -1,8 +1,8 @@
 //
-//  MicphoneLoudnessNodeData.h
+//  RandomVector2NodeData.h
 //  NodeEditorObjC
 //
-//  Created by Justin Fincher on 7/3/2019.
+//  Created by Justin Fincher on 9/3/2019.
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MicphoneLoudnessNodeData : NodeData
+@interface RandomVector2NodeData : NodeData
 
 @end
 

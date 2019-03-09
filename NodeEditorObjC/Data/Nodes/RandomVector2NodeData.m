@@ -1,20 +1,20 @@
 //
-//  Vector2ChannelCombineNodeData.m
+//  RandomVector2NodeData.m
 //  NodeEditorObjC
 //
-//  Created by Justin Fincher on 8/3/2019.
+//  Created by Justin Fincher on 9/3/2019.
 //  Copyright © 2019 ZHENG HAOTIAN. All rights reserved.
 //
 
-#import "Vector2ChannelCombineNodeData.h"
+#import "RandomVector2NodeData.h"
 #import "Vector2NodePortData.h"
 #import "NumberFloatNodePortData.h"
 
-@implementation Vector2ChannelCombineNodeData
+@implementation RandomVector2NodeData
 
 + (NSString *)templateTitle
 {
-    return @"Combine (Floatt to Vector2)";
+    return @"Random (Vector2 to Vector2)";
 }
 + (NSMutableArray<NodePortData *> *)templateOutPorts
 {
@@ -27,12 +27,9 @@
 + (NSMutableArray<NodePortData *> *)templateInPorts
 {
     NSMutableArray<NodePortData *> * array = [NSMutableArray array];
-    NumberFloatNodePortData *numberAPort = [[NumberFloatNodePortData alloc] init];
-    numberAPort.title = @"X";
-    [array addObject:numberAPort];
-    NumberFloatNodePortData *numberBPort = [[NumberFloatNodePortData alloc] init];
-    numberBPort.title = @"Y";
-    [array addObject:numberBPort];
+    Vector2NodePortData *vector2Port = [[Vector2NodePortData alloc] init];
+    vector2Port.title = @"Vector";
+    [array addObject:vector2Port];
     return array;
 }
 
@@ -56,24 +53,16 @@
     NSString *string =  [NSString stringWithFormat:
                          @"%@"
                          "%@ \n"
-                         "%@ \n"
-                         "vec2 %@ = vec2(%@,%@);",
+                         "vec2 %@ = -1.0 + 2.0*fract(sin(vec2( dot(%@,vec2(127.1,311.7)), dot(%@,vec2(269.5,183.3)) ))*43758.5453123);",
                          [self nodeCommentHeader],
                          (
                           [[self.inPorts objectAtIndex:0] connections].count > 0 ?
                           [[[[self.inPorts objectAtIndex:0] connections] objectAtIndex:0] expressionRule] :
                           [[self.inPorts objectAtIndex:0] templateVariableDefaultValueExpressionRule]
                           ),
-                         (
-                          [[self.inPorts objectAtIndex:1] connections].count > 0 ?
-                          [[[[self.inPorts objectAtIndex:1] connections] objectAtIndex:0] expressionRule] :
-                          [[self.inPorts objectAtIndex:1] templateVariableDefaultValueExpressionRule]
-                          ),
                          [[self.outPorts objectAtIndex:0] indexToVariableName],
                          [[self.inPorts objectAtIndex:0] indexToVariableName],
-                         [[self.inPorts objectAtIndex:1] indexToVariableName]];
+                         [[self.inPorts objectAtIndex:0] indexToVariableName]];
     return string;
 }
-
-
 @end
