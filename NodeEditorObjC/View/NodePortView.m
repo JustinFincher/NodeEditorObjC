@@ -29,6 +29,7 @@
     
     _nodePortData = data;
     _nodeView = nodeView;
+    _isOutPort = isOut;
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(isOut ? 0 : NODE_KNOT_WIDTH,
                                                                 0,

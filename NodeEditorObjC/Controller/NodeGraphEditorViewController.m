@@ -31,7 +31,7 @@
     self.nodeGraphData = [[NodeGraphData alloc] init];
     self.nodeGraphData.graphChangedBlock = ^()
     {
-        [weakSelf.nodeGraphScrollView.nodeGraphView reloadData];
+        [weakSelf.nodeGraphScrollView.nodeGraphView softReloadData];
     };
     self.nodeGraphScrollView.nodeGraphView.dataSource = self;
     self.nodeGraphScrollView.nodeGraphView.visualDelegate = self;
@@ -51,7 +51,7 @@
     
 //    [[Hackpad sharedManager] testNodeOn:self];
     // Reload
-    [self.nodeGraphScrollView.nodeGraphView reloadData];
+    [self.nodeGraphScrollView.nodeGraphView softReloadData];
 }
 
 #pragma mark - UI Event
@@ -105,7 +105,7 @@
 - (void) addNodebyClass:(Class)nodeClass
 {
     [self.nodeGraphData addNode:[[nodeClass alloc] init]];
-    [self.nodeGraphScrollView.nodeGraphView reloadData];
+    //[self.nodeGraphScrollView.nodeGraphView softReloadData];
 }
 - (void) addNodebyClass:(Class)nodeClass
               at:(CGPoint)point
@@ -113,20 +113,21 @@
     NodeData *node = [[nodeClass alloc] init];
     node.coordinate = CGPointMake(point.x - node.size.width / 2, point.y - node.size.height / 2);
     [self.nodeGraphData addNode:node];
-    [self.nodeGraphScrollView.nodeGraphView reloadData];
+    //[self.nodeGraphScrollView.nodeGraphView softReloadData];
 }
 
 #pragma mark - NodeGraphViewDataSource
 
 - (NodeView *)nodeGraphView:(NodeGraphView *)graphView nodeForIndex:(NSString *)index
 {
-    CGPoint coordinate = [[self.nodeGraphData getNodeWithIndex:index] coordinate];
-    CGSize size = [[self.nodeGraphData getNodeWithIndex:index] size];
-    NodeView *node = [[NodeView alloc] initWithFrame:CGRectMake(coordinate.x, coordinate.y, size.width, size.height)];
-    node.nodeGraphView = self.nodeGraphScrollView.nodeGraphView;
-    node.nodeData = [self.nodeGraphData getNodeWithIndex:index];
-    
-    return node;
+    NodeData *data = [self.nodeGraphData getNodeWithIndex:index];
+    CGPoint coordinate = [data coordinate];
+    CGSize size = [data size];
+    NodeView *nodeView = [[NodeView alloc] initWithFrame:CGRectMake(coordinate.x, coordinate.y, size.width, size.height)];
+    data.nodeView = nodeView;
+    nodeView.nodeGraphView = self.nodeGraphScrollView.nodeGraphView;
+    nodeView.nodeData = [self.nodeGraphData getNodeWithIndex:index];
+    return nodeView;
 }
 - (NSUInteger)nodeCountInGraphView:(NodeGraphView *)graphView
 {

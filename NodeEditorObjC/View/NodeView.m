@@ -247,7 +247,7 @@
     
     self.nodeData.isFocusedChangedBlock = ^(BOOL isFocused)
     {
-
+        [self updateSelfInAnimator];
     };
     
     self.titleLabel.text = self.nodeData.title;

@@ -23,9 +23,9 @@
 #define NOTIFICATION_SHADER_VIEW_NEED_RELOAD @"NOTIFICATION_SHADER_VIEW_NEED_RELOAD"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class NodeView;
 @interface NodeData : NSObject
-
+@property (nonatomic,weak) NodeView *nodeView;
 @property(nonatomic,strong) NSString *title;
 @property(nonatomic,copy) NSString *nodeIndex;
 @property(nonatomic) CGPoint coordinate;

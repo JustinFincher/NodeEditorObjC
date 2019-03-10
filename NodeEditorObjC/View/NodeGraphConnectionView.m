@@ -49,7 +49,6 @@
     {
         UIColor *color;
         
-        
         if (self.isDragging)
         {
             BOOL canConnect = NO;
@@ -67,7 +66,6 @@
             }else if ([self.dragFromNodePortView.nodePortData isOutPortRelativeToConnection])
             {
                 canConnect = [self.nodeGraphView.dataSource canConnectOutPortPoint:draggingEndPos withInPortPoint:draggingStartPos];
-                
                 [path moveToPoint:self.currentPosition];
                 [path addCurveToPoint:draggingStartPos controlPoint1:CGPointMake(self.currentPosition.x + NODE_CONNECTION_CURVE_CONTROL_OFFSET, self.currentPosition.y) controlPoint2:CGPointMake(draggingStartPos.x - NODE_CONNECTION_CURVE_CONTROL_OFFSET, draggingStartPos.y)];
             }
@@ -85,30 +83,31 @@
         NSUInteger count = [self.nodeGraphView.dataSource nodeCountInGraphView:self.nodeGraphView];
         for (int i = 0; i < count; i ++)
         {
-            NodeData *inNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:[[NSNumber numberWithInteger:i]stringValue]];
-            NodeView *inNodeView = [self.nodeGraphView getOnCanvasNodeViewWithIndex:[[NSNumber numberWithInteger:i]stringValue]];
+            NodeData *outNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:[[NSNumber numberWithInteger:i]stringValue]];
+            NodeView *outNodeView = outNodeData.nodeView;
             
-            for (NodePortData *port in inNodeData.inPorts)
+            for (NodePortData *port in outNodeData.inPorts)
             {
                 for (NodeConnectionData *connection in port.connections)
                 {
-                    NodeView *outNodeView = [self.nodeGraphView getOnCanvasNodeViewWithIndex:connection.inPort.belongsToNode.nodeIndex];
-                    NodeData *outNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:connection.inPort.belongsToNode.nodeIndex];
+                    NodeData *inNodeData = [self.nodeGraphView.dataSource nodeGraphView:self.nodeGraphView nodeDataForIndex:connection.inPort.belongsToNode.nodeIndex];
+                    NodeView *inNodeView = inNodeData.nodeView;
 
-                    NodePortView *outNodePortView = [[outNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.inPort.portIndex]] firstObject];
-                    NodePortView *inNodePortView = [[inNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.outport.portIndex]] firstObject];
+                    NodePortView *inNodePortView = [[inNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.inPort.portIndex]] firstObject];
+                    NodePortView *outNodePortView = [[outNodeView.ports filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"nodePortData.portIndex == %@",connection.outport.portIndex]] firstObject];
                     
-                    CGPoint outNodePoint = CGPointMake(
-                                                       [outNodeView convertRect:outNodePortView.knotIndicator.bounds fromView:outNodePortView.knotIndicator].origin.x + outNodePortView.knotIndicator.bounds.size.width / 2 + outNodeData.coordinate.x,
-                                                       [outNodeView convertRect:outNodePortView.knotIndicator.bounds fromView:outNodePortView.knotIndicator].origin.y + outNodePortView.knotIndicator.bounds.size.height / 2 + outNodeData.coordinate.y);
                     
                     CGPoint inNodePoint = CGPointMake(
                                                       [inNodeView convertRect:inNodePortView.knotIndicator.bounds fromView:inNodePortView.knotIndicator].origin.x + inNodePortView.knotIndicator.bounds.size.width / 2 + inNodeData.coordinate.x,
                                                       [inNodeView convertRect:inNodePortView.knotIndicator.bounds fromView:inNodePortView.knotIndicator].origin.y + inNodePortView.knotIndicator.bounds.size.height / 2 + inNodeData.coordinate.y);
                     
+                    CGPoint outNodePoint = CGPointMake(
+                                                       [outNodeView convertRect:outNodePortView.knotIndicator.bounds fromView:outNodePortView.knotIndicator].origin.x + outNodePortView.knotIndicator.bounds.size.width / 2 + outNodeData.coordinate.x,
+                                                       [outNodeView convertRect:outNodePortView.knotIndicator.bounds fromView:outNodePortView.knotIndicator].origin.y + outNodePortView.knotIndicator.bounds.size.height / 2 + outNodeData.coordinate.y);
+                    
                     UIBezierPath *path = [UIBezierPath bezierPath];
                     [path moveToPoint:outNodePoint];
-                    [path addCurveToPoint:inNodePoint controlPoint1:CGPointMake(outNodePoint.x + NODE_CONNECTION_CURVE_CONTROL_OFFSET, outNodePoint.y) controlPoint2:CGPointMake(inNodePoint.x - NODE_CONNECTION_CURVE_CONTROL_OFFSET, inNodePoint.y)];
+                    [path addCurveToPoint:inNodePoint controlPoint1:CGPointMake(outNodePoint.x - NODE_CONNECTION_CURVE_CONTROL_OFFSET, outNodePoint.y) controlPoint2:CGPointMake(inNodePoint.x + NODE_CONNECTION_CURVE_CONTROL_OFFSET, inNodePoint.y)];
                     path.lineWidth = 5.0;
                     path.lineCapStyle = kCGLineCapRound; //线条拐角
                     path.lineJoinStyle = kCGLineJoinRound; //终点处理

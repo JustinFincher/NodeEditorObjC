@@ -50,9 +50,6 @@
 }
 + (int)templatePreviewForOutPortIndex
 {
-    int a = 0;
-    int b = 1;
-    int f = true ? a : b;
     return 0;
 }
 
