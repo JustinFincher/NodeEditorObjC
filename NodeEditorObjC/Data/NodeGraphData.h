@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NodeData *)getNodeWithIndex:(NSString *)index;
 - (NSDictionary<NSString *,NodeData *> *)getIndexNodeDict;
 - (BOOL)isSingleNode:(NodeData *)node;
-@property(nonatomic, copy, nullable) void (^graphChangedBlack)(void);
+@property(nonatomic, copy, nullable) void (^graphChangedBlock)(void);
 
 - (void)updateNodeRelations;
 - (void)updateNodeShaders;
@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
             withInPort:(NodePortData *)inPort;
 - (BOOL)canConnectOutPort:(NodePortData *)outPort
                withInPort:(NodePortData *)inPort;
+- (void)disconnectConnection:(NodeConnectionData *)connection;
 
 @end
 

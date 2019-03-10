@@ -7,7 +7,7 @@
 //
 
 #import "Vector4NodePortData.h"
-#import "Vector4.h"
+#import "NodeVector4.h"
 
 @implementation Vector4NodePortData
 + (NSString *)templateTitle
@@ -33,6 +33,6 @@
 
 + (Class)templateRequiredType
 {
-    return [Vector4 class];
+    return [NodeVector4 class];
 }
 @end

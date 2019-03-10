@@ -7,7 +7,7 @@
 //
 
 #import "Vector2NodePortData.h"
-#import "Vector2.h"
+#import "NodeVector2.h"
 
 @implementation Vector2NodePortData
 
@@ -32,7 +32,7 @@
 
 + (Class)templateRequiredType
 {
-    return [Vector2 class];
+    return [NodeVector2 class];
 }
 
 @end

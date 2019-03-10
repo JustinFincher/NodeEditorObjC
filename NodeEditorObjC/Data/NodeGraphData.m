@@ -139,7 +139,7 @@ withIndexDict:(NSMutableDictionary<NSString *,NodeData *> *)dict;
     node.nodeIndex = [[NSNumber numberWithInteger:[[self getIndexNodeDict] count]] stringValue];
     [self.singleNodes addObject:node];
     self.cachedDictionary = nil;
-    self.graphChangedBlack();
+    self.graphChangedBlock();
     return YES;
 }
 
@@ -164,7 +164,7 @@ withIndexDict:(NSMutableDictionary<NSString *,NodeData *> *)dict;
     }
     [node prepareForDealloc];
     self.cachedDictionary = nil;
-    self.graphChangedBlack();
+    self.graphChangedBlock();
     return YES;
 }
 - (void)connectOutPort:(NodePortData *)outPort
@@ -183,7 +183,7 @@ withIndexDict:(NSMutableDictionary<NSString *,NodeData *> *)dict;
         inPort.connections.lastObject.inPort.belongsToNode = node;
     }
     self.cachedDictionary = nil;
-    self.graphChangedBlack();
+    self.graphChangedBlock();
 }
 
 - (BOOL)canConnectOutPort:(NodePortData *)outPort withInPort:(NodePortData *)inPort
@@ -195,5 +195,15 @@ withIndexDict:(NSMutableDictionary<NSString *,NodeData *> *)dict;
             outPort.belongsToNode.nodeIndex != inPort.belongsToNode.nodeIndex &&
             [outPort requiredType] == [inPort requiredType]
             );
+}
+- (void)disconnectConnection:(NodeConnectionData *)connection
+{
+    NodePortData *inPort = connection.inPort;
+    NodePortData *outPort = connection.outport;
+    [inPort.connections removeObject:connection];
+    [outPort.connections removeObject:connection];
+    [self.singleNodes addObject:inPort.belongsToNode];
+    self.cachedDictionary = nil;
+    self.graphChangedBlock();
 }
 @end

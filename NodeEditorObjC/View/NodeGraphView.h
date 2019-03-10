@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
                withInPortPoint:(CGPoint)inPortPoint;
 - (void)connectOutPort:(NodePortData *)outPort
             withInPort:(NodePortData *)inPort;
+- (void)disconnectConnection:(NodeConnectionData *)connection;
 - (NodePortView *)portViewFrom:(CGPoint)point;
 - (void)deleteNode:(NodeData *)node;
 - (void)addNode:(NodeData *)node;

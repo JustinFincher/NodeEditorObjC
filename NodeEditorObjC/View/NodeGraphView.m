@@ -105,7 +105,49 @@
         value.isFocused = (nodeData.nodeIndex == value.nodeIndex);
     }];
 }
+- (void)softReloadData
+{
+    NSMutableSet *currentViewKeysSet = [NSMutableSet setWithArray: self.onCanvasNodeViewDict.allKeys];
+    NSMutableSet *dataViewKeysSet = [NSMutableSet setWithArray: [self.dataSource getIndexNodeDict].allKeys];
 
+    NSMutableSet *newNodeKeysSet = [dataViewKeysSet mutableCopy];
+    [newNodeKeysSet minusSet:currentViewKeysSet];
+    NSMutableSet *removedNodeKeysSet = [currentViewKeysSet mutableCopy];
+    [removedNodeKeysSet minusSet:dataViewKeysSet];
+    
+    for (NSString *removeNodeKey in removedNodeKeysSet)
+    {
+        NodeView *nodeView = self.onCanvasNodeViewDict[removeNodeKey];
+        [self.collisionBehavior removeItem:nodeView];
+        [self.dynamicItemBehavior removeItem:nodeView];
+        nodeView.nodeData.coordinate = nodeView.frame.origin;
+        nodeView.nodeData.size = nodeView.frame.size;
+        [nodeView removeFromSuperview];
+    }
+    for (NSString *newNodeKey in newNodeKeysSet)
+    {
+        NodeView *nodeView = [self.dataSource nodeGraphView:self nodeForIndex:newNodeKey];
+        [self.nodeContainerView addSubview:nodeView];
+        nodeView.frame = [self.visualDelegate nodeGraphView:self frameForIndex:newNodeKey];
+        nodeView.makeFocusBlock = ^(NodeData *newFocusedData)
+        {
+            [self updateFocusState:newFocusedData];
+        };
+        [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
+        [self.parentScrollView.panGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
+        [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
+        [self.parentScrollView.pinchGestureRecognizer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
+        [self.longPressGestureRecoginzer requireGestureRecognizerToFail:nodeView.panGestureRecognizer];
+        [self.longPressGestureRecoginzer requireGestureRecognizerToFail:nodeView.longPressGestureRecognizer];
+        
+        [self.dynamicItemBehavior addItem:nodeView];
+        [self.collisionBehavior addItem:nodeView];
+        
+        [self.onCanvasNodeViewDict setObject:nodeView forKey:nodeView.nodeData.nodeIndex];
+    }
+    self.onCanvasNodeViewDict = [[self.dataSource getIndexNodeDict] mutableCopy];
+    [self.nodeConnectionLineView setNeedsDisplay];
+}
 - (void)reloadData
 {
     [self.onCanvasNodeViewDict removeAllObjects];
@@ -153,9 +195,25 @@
 - (void)handleKnotPanGesture:(UIPanGestureRecognizer *)gesture
 {
     NodePortView *portView = [NodePortView getNodePortFromKnotView:(NodePortKnotView *)gesture.view];
+    if ([[portView.nodePortData connections] count] == 1 && ![portView isOutPort])
+    {
+        NodeView *inPortBelongsToView = [self getOnCanvasNodeViewWithIndex:[[[[[portView.nodePortData connections] firstObject] inPort] belongsToNode] nodeIndex]];
+        for (NodePortView *inNodeAllPortView in inPortBelongsToView.ports)
+        {
+            if (inNodeAllPortView.nodePortData.portIndex == [[[[portView.nodePortData connections] firstObject] inPort] portIndex])
+            {
+                for (NodeConnectionData * connection in [portView.nodePortData connections])
+                {
+                    [self.dataSource disconnectConnection:connection];
+                }
+                portView = inNodeAllPortView;
+                break;
+            }
+        }
+    }
+    
     if (portView)
     {
-        //NSLog(@"%@",portView);
         switch (gesture.state) {
             case UIGestureRecognizerStateBegan:
             case UIGestureRecognizerStateChanged:

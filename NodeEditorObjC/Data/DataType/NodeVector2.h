@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Vector2 : NSObject
+@interface NodeVector2 : NSObject
 
 @property (nonatomic,strong) NSNumber *x;
 @property (nonatomic,strong) NSNumber *y;

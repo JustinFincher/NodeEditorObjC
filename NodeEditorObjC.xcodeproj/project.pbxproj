@@ -27,13 +27,13 @@
 		0D43AAD322319955002FBB9F /* TimeNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD222319955002FBB9F /* TimeNodeData.m */; };
 		0D43AAD922320F09002FBB9F /* ColorRGBANodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */; };
 		0D43AADC223218A7002FBB9F /* Vector4NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */; };
-		0D43AADF22322A38002FBB9F /* Vector4.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADE22322A38002FBB9F /* Vector4.m */; };
+		0D43AADF22322A38002FBB9F /* NodeVector4.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AADE22322A38002FBB9F /* NodeVector4.m */; };
 		0D43AAEA22324A96002FBB9F /* UIControl+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAE722324A96002FBB9F /* UIControl+BlocksKit.m */; };
 		0D43AAED223253FC002FBB9F /* SinNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAEC223253FC002FBB9F /* SinNodeData.m */; };
 		0D43AAF0223271D0002FBB9F /* CosNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAEF223271D0002FBB9F /* CosNodeData.m */; };
 		0D43AAF322327A4C002FBB9F /* MultiplyNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAF222327A4C002FBB9F /* MultiplyNodeData.m */; };
 		0D43AAF622327AF7002FBB9F /* Vector2NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAF522327AF7002FBB9F /* Vector2NodePortData.m */; };
-		0D43AAF922327B12002FBB9F /* Vector2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAF822327B12002FBB9F /* Vector2.m */; };
+		0D43AAF922327B12002FBB9F /* NodeVector2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAF822327B12002FBB9F /* NodeVector2.m */; };
 		0D43AAFC22327B7B002FBB9F /* TexCoordinateNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAFB22327B7B002FBB9F /* TexCoordinateNodeData.m */; };
 		0D43AAFF223283D8002FBB9F /* Vector2ChannelSplitNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AAFE223283D8002FBB9F /* Vector2ChannelSplitNodeData.m */; };
 		0D43AB02223283E5002FBB9F /* Vector2ChannelCombineNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D43AB01223283E5002FBB9F /* Vector2ChannelCombineNodeData.m */; };
@@ -41,6 +41,11 @@
 		0D835D57222E6A5700DC62DD /* NodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D56222E6A5700DC62DD /* NodePortData.m */; };
 		0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D5A222E6B1600DC62DD /* NodeGraphView.m */; };
 		0D835D5F222E6B9100DC62DD /* NodeGraphEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D835D5E222E6B9100DC62DD /* NodeGraphEditorViewController.m */; };
+		0D94BE0D223555F2002E3BF9 /* BoolNodePortData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94BE0C223555F2002E3BF9 /* BoolNodePortData.m */; };
+		0D94BE1322355704002E3BF9 /* NodeBoolean.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94BE1222355704002E3BF9 /* NodeBoolean.m */; };
+		0D94BE1622355844002E3BF9 /* CompareNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94BE1522355844002E3BF9 /* CompareNodeData.m */; };
+		0D94BE1922355A9B002E3BF9 /* AndNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94BE1822355A9B002E3BF9 /* AndNodeData.m */; };
+		0D94BE2222355BF3002E3BF9 /* BranchNumberFloatNodeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94BE2122355BF3002E3BF9 /* BranchNumberFloatNodeData.m */; };
 		0DC9F9E9222E73F4001B55C8 /* NodeGraphEditorNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC9F9E8222E73F4001B55C8 /* NodeGraphEditorNavigationController.m */; };
 		0DC9F9EC222E74CC001B55C8 /* NodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC9F9EB222E74CC001B55C8 /* NodeView.m */; };
 		0DC9F9EF222E7DA2001B55C8 /* NodeConnectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC9F9EE222E7DA2001B55C8 /* NodeConnectionData.m */; };
@@ -86,8 +91,8 @@
 		0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorRGBANodeData.m; sourceTree = "<group>"; };
 		0D43AADA223218A7002FBB9F /* Vector4NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector4NodePortData.h; sourceTree = "<group>"; };
 		0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector4NodePortData.m; sourceTree = "<group>"; };
-		0D43AADD22322A38002FBB9F /* Vector4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector4.h; sourceTree = "<group>"; };
-		0D43AADE22322A38002FBB9F /* Vector4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector4.m; sourceTree = "<group>"; };
+		0D43AADD22322A38002FBB9F /* NodeVector4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeVector4.h; sourceTree = "<group>"; };
+		0D43AADE22322A38002FBB9F /* NodeVector4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeVector4.m; sourceTree = "<group>"; };
 		0D43AAE722324A96002FBB9F /* UIControl+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+BlocksKit.m"; sourceTree = "<group>"; };
 		0D43AAE822324A96002FBB9F /* BKDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDefines.h; sourceTree = "<group>"; };
 		0D43AAE922324A96002FBB9F /* UIControl+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+BlocksKit.h"; sourceTree = "<group>"; };
@@ -99,8 +104,8 @@
 		0D43AAF222327A4C002FBB9F /* MultiplyNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultiplyNodeData.m; sourceTree = "<group>"; };
 		0D43AAF422327AF7002FBB9F /* Vector2NodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2NodePortData.h; sourceTree = "<group>"; };
 		0D43AAF522327AF7002FBB9F /* Vector2NodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector2NodePortData.m; sourceTree = "<group>"; };
-		0D43AAF722327B12002FBB9F /* Vector2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
-		0D43AAF822327B12002FBB9F /* Vector2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector2.m; sourceTree = "<group>"; };
+		0D43AAF722327B12002FBB9F /* NodeVector2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeVector2.h; sourceTree = "<group>"; };
+		0D43AAF822327B12002FBB9F /* NodeVector2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeVector2.m; sourceTree = "<group>"; };
 		0D43AAFA22327B7B002FBB9F /* TexCoordinateNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TexCoordinateNodeData.h; sourceTree = "<group>"; };
 		0D43AAFB22327B7B002FBB9F /* TexCoordinateNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TexCoordinateNodeData.m; sourceTree = "<group>"; };
 		0D43AAFD223283D8002FBB9F /* Vector2ChannelSplitNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2ChannelSplitNodeData.h; sourceTree = "<group>"; };
@@ -115,6 +120,16 @@
 		0D835D5A222E6B1600DC62DD /* NodeGraphView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphView.m; sourceTree = "<group>"; };
 		0D835D5D222E6B9100DC62DD /* NodeGraphEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphEditorViewController.h; sourceTree = "<group>"; };
 		0D835D5E222E6B9100DC62DD /* NodeGraphEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphEditorViewController.m; sourceTree = "<group>"; };
+		0D94BE0B223555F2002E3BF9 /* BoolNodePortData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoolNodePortData.h; sourceTree = "<group>"; };
+		0D94BE0C223555F2002E3BF9 /* BoolNodePortData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoolNodePortData.m; sourceTree = "<group>"; };
+		0D94BE1122355704002E3BF9 /* NodeBoolean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeBoolean.h; sourceTree = "<group>"; };
+		0D94BE1222355704002E3BF9 /* NodeBoolean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeBoolean.m; sourceTree = "<group>"; };
+		0D94BE1422355844002E3BF9 /* CompareNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompareNodeData.h; sourceTree = "<group>"; };
+		0D94BE1522355844002E3BF9 /* CompareNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompareNodeData.m; sourceTree = "<group>"; };
+		0D94BE1722355A9B002E3BF9 /* AndNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndNodeData.h; sourceTree = "<group>"; };
+		0D94BE1822355A9B002E3BF9 /* AndNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AndNodeData.m; sourceTree = "<group>"; };
+		0D94BE2022355BF3002E3BF9 /* BranchNumberFloatNodeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BranchNumberFloatNodeData.h; sourceTree = "<group>"; };
+		0D94BE2122355BF3002E3BF9 /* BranchNumberFloatNodeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BranchNumberFloatNodeData.m; sourceTree = "<group>"; };
 		0DC9F9E7222E73F4001B55C8 /* NodeGraphEditorNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeGraphEditorNavigationController.h; sourceTree = "<group>"; };
 		0DC9F9E8222E73F4001B55C8 /* NodeGraphEditorNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeGraphEditorNavigationController.m; sourceTree = "<group>"; };
 		0DC9F9EA222E74CC001B55C8 /* NodeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeView.h; sourceTree = "<group>"; };
@@ -197,6 +212,12 @@
 				0D43AAEF223271D0002FBB9F /* CosNodeData.m */,
 				0D43AAD722320F09002FBB9F /* ColorRGBANodeData.h */,
 				0D43AAD822320F09002FBB9F /* ColorRGBANodeData.m */,
+				0D94BE1422355844002E3BF9 /* CompareNodeData.h */,
+				0D94BE1522355844002E3BF9 /* CompareNodeData.m */,
+				0D94BE1722355A9B002E3BF9 /* AndNodeData.h */,
+				0D94BE1822355A9B002E3BF9 /* AndNodeData.m */,
+				0D94BE2022355BF3002E3BF9 /* BranchNumberFloatNodeData.h */,
+				0D94BE2122355BF3002E3BF9 /* BranchNumberFloatNodeData.m */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -210,6 +231,8 @@
 				0D43AADB223218A7002FBB9F /* Vector4NodePortData.m */,
 				0D43AAF422327AF7002FBB9F /* Vector2NodePortData.h */,
 				0D43AAF522327AF7002FBB9F /* Vector2NodePortData.m */,
+				0D94BE0B223555F2002E3BF9 /* BoolNodePortData.h */,
+				0D94BE0C223555F2002E3BF9 /* BoolNodePortData.m */,
 			);
 			path = NodePorts;
 			sourceTree = "<group>";
@@ -231,10 +254,12 @@
 		0D43AAE022322A4D002FBB9F /* DataType */ = {
 			isa = PBXGroup;
 			children = (
-				0D43AADD22322A38002FBB9F /* Vector4.h */,
-				0D43AADE22322A38002FBB9F /* Vector4.m */,
-				0D43AAF722327B12002FBB9F /* Vector2.h */,
-				0D43AAF822327B12002FBB9F /* Vector2.m */,
+				0D43AADD22322A38002FBB9F /* NodeVector4.h */,
+				0D43AADE22322A38002FBB9F /* NodeVector4.m */,
+				0D43AAF722327B12002FBB9F /* NodeVector2.h */,
+				0D43AAF822327B12002FBB9F /* NodeVector2.m */,
+				0D94BE1122355704002E3BF9 /* NodeBoolean.h */,
+				0D94BE1222355704002E3BF9 /* NodeBoolean.m */,
 			);
 			path = DataType;
 			sourceTree = "<group>";
@@ -370,24 +395,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D43AAF622327AF7002FBB9F /* Vector2NodePortData.m in Sources */,
+				0D94BE1622355844002E3BF9 /* CompareNodeData.m in Sources */,
 				0D43AAD922320F09002FBB9F /* ColorRGBANodeData.m in Sources */,
 				0D0DBED4222E694E00A79415 /* NodeData.m in Sources */,
 				0D835D5F222E6B9100DC62DD /* NodeGraphEditorViewController.m in Sources */,
 				0D43AACD2231458D002FBB9F /* NodeInstanceDebugTableViewController.m in Sources */,
 				0D0DBECC222E685800A79415 /* main.m in Sources */,
+				0D94BE0D223555F2002E3BF9 /* BoolNodePortData.m in Sources */,
 				0D43AAF0223271D0002FBB9F /* CosNodeData.m in Sources */,
 				0D43AAC7222FD81E002FBB9F /* Hackpad.m in Sources */,
 				0D285242222F78D200830E72 /* NodeGraphScrollView.m in Sources */,
-				0D43AAF922327B12002FBB9F /* Vector2.m in Sources */,
+				0D43AAF922327B12002FBB9F /* NodeVector2.m in Sources */,
 				0D43AAC0222FC7B0002FBB9F /* NodePortView.m in Sources */,
 				0D835D5B222E6B1600DC62DD /* NodeGraphView.m in Sources */,
+				0D94BE1922355A9B002E3BF9 /* AndNodeData.m in Sources */,
 				0D835D54222E6A4D00DC62DD /* NodeGraphData.m in Sources */,
 				0D43AAED223253FC002FBB9F /* SinNodeData.m in Sources */,
 				0D43AAD322319955002FBB9F /* TimeNodeData.m in Sources */,
 				0D43AAFC22327B7B002FBB9F /* TexCoordinateNodeData.m in Sources */,
-				0D43AADF22322A38002FBB9F /* Vector4.m in Sources */,
+				0D43AADF22322A38002FBB9F /* NodeVector4.m in Sources */,
 				0DC9F9EF222E7DA2001B55C8 /* NodeConnectionData.m in Sources */,
 				0D43AB02223283E5002FBB9F /* Vector2ChannelCombineNodeData.m in Sources */,
+				0D94BE2222355BF3002E3BF9 /* BranchNumberFloatNodeData.m in Sources */,
 				0DC9F9E9222E73F4001B55C8 /* NodeGraphEditorNavigationController.m in Sources */,
 				0D43AAC3222FD4A5002FBB9F /* NodeGraphConnectionView.m in Sources */,
 				0D43AAFF223283D8002FBB9F /* Vector2ChannelSplitNodeData.m in Sources */,
@@ -403,6 +432,7 @@
 				0DC9F9EC222E74CC001B55C8 /* NodeView.m in Sources */,
 				0D43AAEA22324A96002FBB9F /* UIControl+BlocksKit.m in Sources */,
 				0D28524F222F9C7000830E72 /* NumberFloatNodeData.m in Sources */,
+				0D94BE1322355704002E3BF9 /* NodeBoolean.m in Sources */,
 				0D43AACA223119AB002FBB9F /* NodePortKnotView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -29,7 +29,7 @@
     self.title = @"Shader Node Editor";
     
     self.nodeGraphData = [[NodeGraphData alloc] init];
-    self.nodeGraphData.graphChangedBlack = ^()
+    self.nodeGraphData.graphChangedBlock = ^()
     {
         [weakSelf.nodeGraphScrollView.nodeGraphView reloadData];
     };
@@ -171,7 +171,10 @@
 {
     [self.nodeGraphData addNode:node];
 }
-
+- (void)disconnectConnection:(NodeConnectionData *)connection
+{
+    [self.nodeGraphData disconnectConnection:connection];
+}
 #pragma mark - NodeGraphViewVisualDelegate
 
 - (CGRect)nodeGraphView:(NodeGraphView *)graphView frameForIndex:(NSString *)index
