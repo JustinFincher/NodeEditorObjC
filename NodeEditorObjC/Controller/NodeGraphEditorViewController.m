@@ -31,7 +31,7 @@
     self.nodeGraphData = [[NodeGraphData alloc] init];
     self.nodeGraphData.graphChangedBlock = ^()
     {
-        [weakSelf.nodeGraphScrollView.nodeGraphView softReloadData];
+        [weakSelf.nodeGraphScrollView.nodeGraphView reloadData];
     };
     self.nodeGraphScrollView.nodeGraphView.dataSource = self;
     self.nodeGraphScrollView.nodeGraphView.visualDelegate = self;
@@ -51,7 +51,7 @@
     
 //    [[Hackpad sharedManager] testNodeOn:self];
     // Reload
-    [self.nodeGraphScrollView.nodeGraphView softReloadData];
+    [self.nodeGraphScrollView.nodeGraphView reloadData];
 }
 
 #pragma mark - UI Event
@@ -126,7 +126,7 @@
     NodeView *nodeView = [[NodeView alloc] initWithFrame:CGRectMake(coordinate.x, coordinate.y, size.width, size.height)];
     data.nodeView = nodeView;
     nodeView.nodeGraphView = self.nodeGraphScrollView.nodeGraphView;
-    nodeView.nodeData = [self.nodeGraphData getNodeWithIndex:index];
+    nodeView.nodeData = data;
     return nodeView;
 }
 - (NSUInteger)nodeCountInGraphView:(NodeGraphView *)graphView

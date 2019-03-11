@@ -325,6 +325,7 @@
     }
     
     [self updateSelfShader];
+    [self.customValueView removeFromSuperview];
     self.customValueView = [[UIView alloc] initWithFrame:CGRectMake(NODE_PADDING_HEIGHT,
                                                                     NODE_PADDING_HEIGHT +
                                                                     NODE_TITLE_HEIGHT,

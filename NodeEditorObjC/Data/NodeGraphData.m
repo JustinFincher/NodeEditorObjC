@@ -184,6 +184,7 @@ withIndexDict:(NSMutableDictionary<NSString *,NodeData *> *)dict;
     }
     self.cachedDictionary = nil;
     self.graphChangedBlock();
+    
 }
 
 - (BOOL)canConnectOutPort:(NodePortData *)outPort withInPort:(NodePortData *)inPort
